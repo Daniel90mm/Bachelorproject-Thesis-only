@@ -1,0 +1,84 @@
+\chapter{Eksperimentel opstilling}
+
+\section{Sammenligningsramme og succeskriterier}
+
+\section{Analogt system}
+\subsection{Optisk frontend}
+\subsection{Elektronisk signalkæde}
+\subsection{Tidsmultipleksing og dataopsamling}
+\subsection{Fra perfboard til PCB}
+
+\section{Hyperspektralt system}
+\subsection{Optisk opstilling}
+\subsection{Spektrometer og dataopsamling}
+\subsection{SpO2-estimering fra spektrum}
+
+\section{Reference (kommercielt pulsoximeter)}
+
+
+
+
+Hvad er det for en opstilling man arbejder med, hvilke processeringsmetoder er brugt? Hvordan har man analyseret data? Hvad ligger forud for eksperimenterne?
+
+Den eksperimentelle opstilling er opdelt i to, af årsagen at påvise forskellen mellem en af de billigere hjemmelavede setups mod et kalibreret, professionelt setup.
+
+\subsection{Frekvensvalg}
+
+Hvor hurtigt skal man så måle for at få de bedste resultater og undgå aliasering? Frekvensvalget er vigtigt af præcist den årsag. Frekvensvalget afhænger kun af puls-variablen, man skal kunne understøtte den højeste puls (målt i bpm, eller slag i minuttet), og derved er lavere puls dækket indover den understøttede frekvens.
+
+En eksempel puls på $\text{Puls} = 150$, betyder at hjertets frekvens er $\frac{150 \ \text{BPM}}{60 \ \text{sek}} = 2.5 \ \text{Hz}$. $\text{2.5} \ \text{Hz}$ er grundfrekvensen, også vist som $f_1 = 2.5$, så for at også dække de harmoniske $f_n$, som er hele multipler af grundfrekvensen, vælges der at tage 2 harmoniske med: 
+
+$$f_1 \times 2 = 2.5 \times 2 = 5 \ \text{Hz}$$
+$$f_2 \times 3 = 2.5 \times 3 = 7.5 \ \text{Hz}$$
+$$f_3 \times 4 = 2.5 \times 4 = 10 \ \text{Hz}$$
+
+Begrundelsen er bestemt eksperimentelt, jo flere harmoniske der inkluderes, jo bedre kan man rekonstruere det endelige signal korrekt.
+
+Hvis nyquist betingelsen skal overholdes, skal vores sampling frekvens
+
+\section{Halogen + spektrometer setup}
+Ved at opsætte en halogen pære til at gennemlyse en finger, og opfange lyset ind i et spektrometer, vil man kunne opfange de bølgelængder som varierer i intensitet.
+
+Setuppet var også brugbart til at karakterisere LED'erne senere brugt til det analoge pulsoximeter. Dette blev undersøgt for at bekræfte forhandlerenes datasheets.
+
+
+\section{Analog pulsoximeter}
+Det analoge pulsoximeter som kan ses i figur XX, var designet ud fra ideen om at 
+
+  \subsection{Lyskilde og detektor} % LED specs, photodiode, placement
+De valgte lyskilder var:
+https://dk.rs-online.com/web/p/lysdioder/2285073
+https://dk.rs-online.com/web/p/ir-lysdioder/6997626
+
+Disse opfyldte de simple krav om de ønskede bølgelængder, sekundært, var prioriteten at have fokuseret lys, altså, jeg vil have stærk intensitet, ved at snævre LED'ens emmisionsvinkel så præcis som mulig.
+
+Den valgte fotodiode var en S1223 fra Hamamatsu Photonics:
+https://dk.rs-online.com/web/p/fotodioder/1247161
+Denne var godt egnet til pulsoximetri, med dens lave mørkestrøm på \SI{0.5}{nA}, vil eventuelt støj ikke stamme fra fotodioden.
+
+
+  \subsection{Transimpedansforstærker} % TIA design
+Designet af transimpedansforstærkeren kan ses i figur XX, og vil senere kaldes for TIA. TIA'en var bygget ud fra en simpel operationsfortærker, 1 modstand og 2 kondensatorer. TIA'ens opgave er at konvertere strømstyrken fra fotodioden til en spænding som er til at arbejde med. 
+  
+  \subsection{Filtrering} % AC-kobling, bandpass 0.5-5 Hz, komponentvalg
+Da man arebjder med relativt små signaler, altså cirka et 1 Hz signal fra hjertet, skal man huske at filtrere, hvis man naivt ekstraherer signalet fra TIA til et oscilloskop, vil det faktiske signal være druknet i \SI{50}{Hz} støj, bevægelse, og andre støjkilder der er tilstede i et optik laboratorie, eller på en patients finger imens de sover.
+
+Det valgte system blev designet ud fra en ide om modularitet, to filtre, lavpas og højpas, var designet på små 20x20 perfboards, med potentiometre til at flytte de individuelle filtres cutoff frekvens (figur XX), da under refleksion, der opstod ideen om at hver persons fingertykkelse, melanin niveau og andre kompositioner af væv kunne have stor indvirkning på signalkvalitet.
+
+Udover individuelle faktorer, var det også en stor fordel at kunne korrigere for uforudsete regnefejl, on-the-fly, uden at skulle lodde modstande af og på, eller at kunne finde den perfekte modstandsværdi der ville flytte cutoff der hvor man ønskede.
+  
+  \subsection{Forstærkning} 
+For både TIA, filtre og den sidste gain stage, blev der brugt OP27, som er en billig, men solid through-hole op-amp til prisen. Operationsforstærkeren var nøje udvalgt ud fra dens
+
+Behovet for såkaldte gain stages, opstår efter filter stages, hvor signalet er rent, men skal forstærkes til et spændingsinterval som kan læses og drages konklusioner fra.
+
+
+  \subsection{Dataopsamling} % AD3, WaveForms SDK
+Al data blev samlet efter det sidste gain stage, via et Analog Discovery 3, som er et håndholdt oscilloskop bygget på FPGA infrastruktur. LED'erne blev også multiplexet via oscilloskopet, som har en programmerbar wavegenerator i python. Multiplexing i denne opstilling handlede om at tænde for en LED, holde de andre LEDer slukkede, derefter måle fra fotodioden, og gøre det samme for alle 3 LEDer, således får man en måling af hver LED uafhængigt af de andre LED'er, under samme blodgennemstrømningsforhold, altså, man antager at processen af at tænde og slukke for LED'er, går så hurtig at forholdene i fingeren er ens, og derfor at ens resultater i det tidspunkt også er ens.
+
+
+\section{Hyperspektralt setup}
+Det hyperspektrale setup var lavet for at præcst vise ved hvilke bølgelængder 
+  \subsection{Lyskilde og optik} % Halogen, fiber
+  \subsection{Spektrometer} % QE65000, seabreeze
+  \subsection{Automatisering} % LabVIEW, linear stage if used

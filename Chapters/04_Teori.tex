@@ -1,0 +1,516 @@
+\chapter{Baggrund}
+
+\section{Pulsoximetri}
+Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, repræsenterer resultatet ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt.
+
+\subsection{Kliniske ilt-parametre}
+Herunder er en oversigt over de vigtigste kliniske ilt parametre:
+
+\begin{description}
+    \item[$\text{PaO}_2$ - Partialtryk af ilt i arterielt blod] \hfill
+    \\
+    Måles direkte med blodgasanalyse. \\
+    Enhed: mmHg/kPa. \\
+    Normal: \SI{80}{mmHg} til \SI{100}{mmHg} (\SI{11}{kPa} til \SI{13}{kPa}).
+
+    \item[$\text{SaO}_2$ - Arteriel iltmætning] \hfill
+    \\
+    Beskriver andelen af hæmoglobin bundet til ilt i arterielt blod. \\
+    Måles med blodgasanalyse.  \\
+    Enhed: \%.  \\
+    Normal: $>$\,\SI{95}{\percent}.
+
+    \item[$\text{CaO}_2$ - Arterielt iltindhold] \hfill
+    \\
+    Det totale iltindhold i arterielt blod. \\
+    Enhed: $\frac{\text{mL\,O}_2}{\text{L\,blod}}$. \\
+    Normal: ca.\ \SI{20}{mL\,O_2/dL}. \\
+    Beregnes ud fra:
+    \begin{equation}
+        \text{CaO}_2 = 1{,}36 \cdot [\text{Hb}] \cdot \text{SaO}_2 + 0{,}0031 \cdot \text{PaO}_2
+        \label{eq:cao2}
+    \end{equation}
+    Hvor: \\
+    $[\text{Hb}]$ er hæmoglobinkoncentrationen i $\si{g/L}$ \\
+    Konstanten \SI{1,36}{mL\,O_2/g\,Hb} er iltbindingskapaciteten per gram hæmoglobin \\
+    Leddet $0{,}0031 \cdot \text{PaO}_2$ repræsenterer opløst ilt i plasma (negligibelt bidrag).
+
+    \item[$\text{SpO}_2$ - Perifer iltmætning] \hfill
+    \\
+    Estimat af $\text{SaO}_2$ målt ikke-invasivt med pulsoximeter via lysabsorption 
+    ved to bølgelængder (ca.\ \SI{660}{nm} og \SI{940}{nm}). \\
+    Enhed: \%. \\   
+    Normal: $>$\,\SI{95}{\percent}. \\
+    Denne parameter er fokus for bachelorprojektet.
+
+    \item[$\text{SvO}_2$ - Venøs iltmætning] \hfill
+    \\
+    Iltmætning i blandet venøst blod. \\ 
+    En forøgelse i vævsmetabolisme eller reduceret blodtilførsel medfører større iltekstrahering, hvilket sænker $\text{SvO}_2$. \\
+    Enhed: \%. Normal: ca.\ \SI{75}{\percent}.
+
+    \item[$\text{StO}_2$ - Vævs-iltmætning] \hfill
+    \\
+    Forholdet mellem iltet og total hæmoglobin i både arterielt og venøst blod i vævet. \\
+    Måles med NIRS (near-infrared spectroscopy). \\
+    Anvendes til vurdering af regional perfusion(forsyning af ilt til væv). \\
+    Enhed: \%.
+\end{description}
+
+Blandt disse parametre betragtes $\text{SaO}_2$ som guldstandarden, idet den bestemmes præcist via blodgasanalyse. Blodgasanalyser kræver imidlertid en arteriel blodprøve og er derfor invasive. \\ 
+$\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader kontinuerlig måling og er tilgængeligt til en lav pris i flere forbruger og kliniske produkter. Den reducerede præcision opvejes af de praktiske fordele ved metoden.
+
+
+
+\subsection{Det fotoplethysmografiske signal}
+Ved måling af lystransmission gennem en finger observeres et periodisk signal der følger hjertets cyklus. Under systole (hjertets kontraktion) udvides arterierne og blodvolumen i fingeren forøges, hvilket øger absorptionen og reducerer den transmitterede intensitet. Under diastole (hjertets afslapning) falder blodvolumen og intensiteten stiger. Dette signal betegnes et fotoplethysmogram (PPG på engelsk).
+
+PPG signalet kan opdeles i en DC komponent og en AC komponent. DC komponenten repræsenterer den konstante absorption fra venøst blod, væv, knogle og ikke pulsatilt arterielt blod. AC komponenten repræsenterer den pulsatile ændring i arterielt blodvolumen og udgør typisk kun 1 til 5\,\% af det samlede signal. Det pulsatile(AC) signal, er signalet som PPG måler på.
+
+
+\begin{figure}[htbp]
+     \centering
+     \includegraphics[width=1\textwidth]{Pictures/Graphs/PPG_pulse.png}
+     \caption{Skematisk illustration af et PPG signal med AC og DC   komponent.}
+     \label{fig:ppg_signal}
+\end{figure}
+
+\section{Beer-Bouguer-Lamberts lov}
+Pulsoximetriske målinger bygger på Beer-Bouguer-Lamberts lov (herefter BBL), som beskriver attenuering af lys gennem et absorberende medium. Loven kan formuleres på to ækvivalente måder.
+
+\subsection{Fysik udgave}
+Den fysiske formulering udtrykker den transmitterede intensitet som funktion af den indkommende intensitet, absorptionskoefficienten og materialets tykkelse:
+\begin{equation}
+    I = I_0 \cdot e^{-\mu_a \cdot d}
+    \label{eq:bbl_fysik}
+\end{equation}
+Hvor: \\ 
+$I$ er den transmitterede lysintensitet  \\
+$I_0$ er den indkommende lysintensitet \\
+$\mu_a$ er den lineære absorptionskoefficient i $\si{cm^{-1}}$ \\
+$d$ er tykkelsen af materialet i $\si{cm}$.
+
+\subsection{Kemisk udgave}
+Den kemiske formulering udtrykker absorbansen $A$ som:
+\begin{equation}
+    A = \varepsilon \cdot C \cdot l
+    \label{eq:bbl_kemi}
+\end{equation}
+Hvor: \\
+$\varepsilon$ er den molare absorptionskoefficient (også kaldet extinktionskoefficient) i $\si{cm^{-1}.M^{-1}}$ \\
+$C$ er molarkoncentrationen i $\si{M}$ \\
+$l$ er den optiske vejlængde i $\si{cm}$, denne er ikke den samme som afstanden $d$ i \cref{eq:bbl_fysik}, $l$ er vejen som fotonerne rejser i vævet.
+
+Absorbansen defineres som $A = -\log_{10}(\frac{I}{I_0})$, hvilket giver $A = \mu_a \cdot \frac{d}{\ln(10)}$. Sammenhængen mellem de to absorptionskoefficienter er:
+\begin{equation}
+    \mu_a = \varepsilon \cdot C \cdot \ln(10)
+    \label{eq:mu_epsilon}
+\end{equation}
+Hvor: \\ 
+$\ln(10) \approx 2{,}303$ 
+
+De to formuleringer er således ækvivalente. I denne rapport anvendes primært den fysiske formulering (\cref{eq:bbl_fysik}).
+
+\subsection{Flere absorberende materialer}
+I biologisk væv er der flere samtidige absorbere, herunder $\text{HbO}_2$, $\text{Hb}$, vand og melanin. BBL generaliseres til:
+\begin{equation}
+    A(\lambda) = \sum_i \varepsilon_i(\lambda) \cdot C_i \cdot l
+    \label{eq:bbl_multi}
+\end{equation}
+Det er vigtigt at kunne dele bidragene op, da pulsoximetri kræver separation af bidragene fra $\text{HbO}_2$ og $\text{Hb}$.
+
+\subsection{Begrænsninger i spredende medier}
+BBL antager at al attenuation skyldes absorption, og at lys propagerer helt lige gennem vævet uden at sprede sig. I biologisk væv er denne antagelse ikke opfyldt, da spredning bidrager væsentligt til attenuationen. Konsekvenserne af spredning behandles i \cref{sec:spredning}, og en modificeret formulering af BBL præsenteres i \cref{sec:mbbl}.
+
+
+\section{Optiske egenskaber af biologisk væv}
+\label{sec:optik_vaev}
+
+\subsection{Attenuation}
+Den optiske parameter der beskriver det samlede tab af lysintensitet gennem væv, betegnes attenuation. Attenuationen kan forklares af to mekanismer: absorption, hvor fotoner destrueres ved energioverdragelse til molekyler, og spredning, hvor fotoner omdirigeres fra deres oprindelige udbredelsesretning. Den totale attenuationskoefficient er:
+\begin{equation}
+    \mu_{\text{total}} = \mu_a + \mu_s
+    \label{eq:mu_total}
+\end{equation}
+Hvor: \\
+$\mu_a$ er absorptionskoefficienten \\
+$\mu_s$ er spredningskoefficienten, begge i $\si{cm^{-1}}$.
+
+Problemet for pulsoximetri er, at det ud fra den målte intensitet alene ikke kan afgøres, om tabet skyldes absorption (det ønskede signal) eller spredning (støj). Absorptionskoefficienten afhænger af koncentrationen af de molekyler/væv der absorberer ($\text{HbO}_2$, $\text{Hb}$, vand, melanin), mens spredningskoefficienten afhænger af bølgelængden via relationen:
+\begin{equation}
+    \mu_s(\lambda) \propto \lambda^{-b}
+    \label{eq:mu_scatter_wavelength}
+\end{equation}
+Hvor: \\
+$b \approx 0{,}2$ til $1{,}5$ afhængigt af vævstypen.
+
+I intervallet ca.\ \SI{600}{nm} til \SI{1000}{nm} er absorptionen fra vand, melanin og øvrige vævskomponenter relativt lav, samtidig med at absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ er tilstrækkeligt forskellige til at muliggøre diskrimination.
+
+Ved kortere bølgelængder (under \SI{600}{nm}) dominerer absorption fra hæmoglobin og melanin, hvilket begrænser penetrationsdybden. Ved længere bølgelængder (over \SI{1000}{nm}) dominerer absorption fra vand.
+
+\subsection{Absorptionsspektre}
+Den kemiske formulering tillader at plotte den molare absorptionskoefficient $\varepsilon$ som funktion af bølgelængden. Som det fremgår af \cref{fig:coeff_vs_wavelength}, adskiller absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ sig markant i intervallet \SI{600}{nm} til \SI{1000}{nm}. Det er denne forskel som pulsoximetri udnytter til at skelne mellem de to typer af hæmoglobin.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/Extinction_coeff_vs_wavelength.png}
+    \caption{Molare absorptionskoefficienter for $\text{HbO}_2$ og $\text{Hb}$ som funktion af bølgelængden. Det isobestiske punkt ved ca.\ \SI{800}{nm}, hvor de to kurver krydser, er markeret.}
+    \label{fig:coeff_vs_wavelength}
+\end{figure}
+
+Ved det isobestiske punkt (ca.\ \SI{800}{nm}) er absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ identiske. Altså, $\lambda = 800$ medfører at $A(\lambda = 800)_{\text{HbO}_2} = A(\lambda = 800)_\text{Hb}$. \\
+\\
+Dette punkt er klinisk relevant, da en måling ved denne bølgelængde er uafhængig af iltmætningen og dermed kan bruges til kalibrering af blodvolumen. Selvom den ikke kan bruges til at skelne mellem $\text{HbO}_2 \enspace  \text{og} \enspace \text{Hb}$.
+
+\subsection{Rayleigh-spredning}
+Rayleigh-spredning beskriver spredning af lys på partikler med dimensioner væsentligt mindre end bølgelængden. Hæmoglobinmolekylet har en diameter på ca.\ \SI{5}{nm} \parencite{Erickson2009}, hvilket er ca.\ 100 gange mindre end de anvendte bølgelængder (\SI{660}{nm} og \SI{940}{nm}). Spredningen på molekylær skala kan derfor beskrives ved Rayleigh-tilnærmelsen.
+
+Rayleigh-spredningens intensitet er proportional med $1/\lambda^4$. Effekten (eng: \textit{radiated power}) for en oscillerende dipol udtrykkes som:
+\begin{equation}
+    P = \frac{e^2 \omega^4 r_0^2}{12\pi \varepsilon_0 c^3}
+    \label{eq:rayleigh_full}
+\end{equation}
+Da vinkelhastigheden kan omskrives som $\omega = \frac{2\pi c}{\lambda}$, og de resterende størrelser er konstanter, reducerer bølgelængdeafhængigheden til:
+\begin{equation}
+    P \propto \frac{1}{\lambda^4}
+    \label{eq:rayleigh_prop}
+\end{equation}
+Forholdet mellem spredningsintensiteterne ved de to anvendte bølgelængder er:
+\begin{equation}
+    \frac{I_{660}}{I_{940}} = \left(\frac{\lambda_{940}}{\lambda_{660}}\right)^4 
+    = \left(\frac{940}{660}\right)^4 \approx 3{,}94
+    \label{eq:rayleigh_ratio}
+\end{equation}
+Rødt lys ved \SI{660}{nm} spredes altså ca. fire gange mere end NIR lys ved \SI{940}{nm}. 
+
+\subsection{Mie spredning og vævsspredning}
+Rayleigh spredning beskriver spredning på molekylær skala, men biologisk væv indeholder også strukturer med størrelser sammenlignelige med eller større end bølgelængden (celleorganeller, røde blodlegemer, kollagenfibre). 
+
+\subsection{Anisotropi og den reducerede spredningskoefficient}
+Anisotropien kvantificeres ved anisotropifaktoren:
+\begin{equation}
+    g = \langle \cos \theta \rangle
+    \label{eq:anisotropy}
+\end{equation}
+Hvor: \\
+$\theta$ er spredningsvinklen. \\ 
+
+Værdierne:   \\
+$g = 0$ svarer til isotropisk spredning \\ 
+$g = 1$ til fuld fremadspredning \\
+$g = -1$ til fuld tilbagespredning \\ 
+For biologisk væv er $g \approx 0{,}7$ til $0{,}95$ hvilket indikerer overvejende fremadrettet spredning.
+
+Den simple attenuationsmodel i \cref{eq:mu_total} antager isotropisk spredning. For at korrigere for anisotropien defineres den reducerede spredningskoefficient:
+\begin{equation}
+    \mu_{\text{spredning}}' = \mu_{\text{spredning}} (1 - g)
+    \label{eq:mu_s_red}
+\end{equation}
+Den effektive attenuationskoefficient bliver:
+\begin{equation}
+    \mu_{\text{eff}} = \mu_a + \mu_{\text{spredning}}'
+    \label{eq:mu_eff}
+\end{equation}
+
+\subsection{Karakteristiske afstande}
+De gennemsnitlige afstande mellem foton-hændelser kan udtrykkes ved de reciprokke koefficienter:
+\begin{equation}
+    l_s = \frac{1}{\mu_s} \qquad \qquad l_a = \frac{1}{\mu_a} \qquad \qquad l_t = \frac{1}{\mu_s'}
+    \label{eq:mean_free_paths}
+\end{equation}
+Hvor: \\ 
+$l_s$ er den gennemsnitlige afstand mellem spredningshændelser (typisk $\sim$\,\SI{0,1}{mm}) \\
+$l_a$ er den gennemsnitlige afstand før absorption (varierer stærkt med bølgelængde) \\
+$l_t$ er transportmiddelvejen (typisk $\sim$\,\SI{1}{mm}), dvs.\ den afstand hvorefter fotonens retning er fuldstændigt tilfældig.
+
+\section{Modificeret Beer-Lamberts lov}
+\label{sec:mbbl}
+
+Da BBL ikke tager højde for spredning, er den utilstrækkelig til beskrivelse af lystransmission gennem biologisk væv. Den modificerede Beer Lamberts lov inkluderer et spredningsled:
+\begin{equation}
+    I_t = I_0 \exp\!\left(-G - \varepsilon C l\right)
+    \label{eq:mbbl}
+\end{equation}
+eller ækvivalent:
+\begin{equation}
+    \ln\!\left(\frac{I_0}{I_t}\right) = G + \varepsilon C l
+    \label{eq:mbbl_ln}
+\end{equation}
+Hvor: \\ 
+$l$ er den gennemsnitlige længde som et foton rejser (ikke den fysiske afstand $d$)\\ 
+$G$ er lystabet pga.\ spredning samt lyskilde- og detektorgeometri \\
+$\varepsilon C l$ er bidraget fra absorption.
+
+Parameteren $G$ afhænger af målegeometrien. Ved transmissionsmåling repræsenterer $G$ primært tabet af fotoner som deflekteres ud af den direkte optiske vej. Ved refleksionsmåling inkluderer $G$ desuden bidrag fra tilbagespredning mod detektoren, hvilket gør modellen mere kompleks.
+
+\subsection{Differentiel vejlængdefaktor}
+
+Da fotoner spredes i vævet, er den effektive optiske vejlængde længere end den geometriske afstand. Forholdet beskrives af den differentielle vejlængdefaktor (DPF):
+\begin{equation}
+    \text{DPF} = \frac{l}{d} \approx 3 \text{ til } 7 \quad \text{(for typisk væv)}
+    \label{eq:dpf}
+\end{equation}
+
+\subsection{Gennemsnitlig absorptionskoefficient}
+Den gennemsnitlige absorptionskoefficient i blodet afhænger af iltmætningen:
+\begin{equation}
+    \varepsilon(\lambda) = \varepsilon_O(\lambda) \cdot \text{SO}_2 + \varepsilon_D(\lambda) \cdot (1 - \text{SO}_2)
+    \label{eq:epsilon_mix}
+\end{equation}
+Hvor: \\ 
+$\varepsilon_O$ er absorptionskoefficienten for $\text{HbO}_2$ \\
+$\varepsilon_D$ er absorptionskoefficienten for $\text{Hb}$
+
+Indsættes \cref{eq:epsilon_mix} i \cref{eq:mbbl_ln}, fås:
+\begin{equation}
+    \ln\!\left(\frac{I_0}{I_t}\right) = G + \varepsilon_D C l + C l (\varepsilon_O - \varepsilon_D) \cdot \text{SO}_2
+    \label{eq:mbbl_so2}
+\end{equation}
+For at isolere $\text{SO}_2$ fra \cref{eq:mbbl_so2} skal parametrene $G$, $C$ og $l$ kendes. Disse parametre varierer imidlertid betydeligt fra person til person, hvilket gør direkte beregning upraktisk. Pulsoximetri løser dette problem ved at udnytte det pulserende signal, som behandles i det følgende afsnit.
+
+\section{Målekonfigurationer}
+\label{sec:målekonfigurationer}
+Pulsoximetri kan både foregå ved gennemlysning af fingeren (transmission) eller ved en reflektionsmåling af fingeren (reflektion). I figur XX kan forskellen mellem de to metoder tydeligt ses.
+
+Fig. 12.1 Obtaining the photoplethysmogram and saturation signal with a pulse oximeter. A transmissive mode, on the
+left-hand side, and a reflective mode, on the right-hand side, are presented. A: a light source (emitting, for example, red
+and infrared light) and B: a detector
+
+\subsection{Transmission}
+\label{sec:transmission}
+Medikoteknologi bruger hyppigst transmissionsmålinger. Transmissionsmålinger kan både foregå på fingeren, øret eller tæerne som f.eks. babyer bruger, altså, på periferierne.
+
+Transmissionsmålinger bruger oftest rødt lys ved, \SI{660}{nm} da brugen af rødt lys øger nøjagtigheden af 
+
+\subsection{Reflektion}
+\label{sec:refleksion}
+Reflektionsmålingen er mere fleksibel end transmissionsmålinger, da denne kan placeres på mange forskellige steder på kroppen.
+
+\section{Pulsoximetrisk måleprincip}
+\label{sec:pulseox_princip}
+
+\subsection{Eliminering af ukendte parametre}
+Ved at betragte forholdet mellem intensiteterne ved systole og diastole kan de ukendte parametre elimineres. Intensiteterne udtrykkes via \cref{eq:mbbl}:
+\begin{equation}
+    I_D = I_0 \exp(-G_D - \varepsilon C_D l_D)
+    \label{eq:i_diastole}
+\end{equation}
+\begin{equation}
+    I_S = I_0 \exp(-G_S - \varepsilon C_S l_S)
+    \label{eq:i_systole}
+\end{equation}
+Forholdet mellem de to giver:
+\begin{equation}
+    \frac{I_S}{I_D} = \exp\!\Big[(G_D - G_S) + \varepsilon(C_D l_D - C_S l_S)\Big]
+    \label{eq:is_id_ratio}
+\end{equation}
+Under antagelse af at spredningsgeometrien ikke ændrer sig væsentligt mellem systole og diastole ($G_D \approx G_S$), reducerer dette til:
+\begin{equation}
+    \ln\!\left(\frac{I_S}{I_D}\right) \approx \varepsilon(C_D l_D - C_S l_S)
+    \label{eq:ln_ratio_simplified}
+\end{equation}
+Hermed er den ukendte parameter $G$ elimineret, og udtrykket afhænger kun af absorption.
+
+\subsection{Ratio of ratios}
+\label{sec:ratio_of_ratios}
+\Cref{eq:ln_ratio_simplified} skrives for begge bølgelængder (\SI{660}{nm} og \SI{940}{nm}), og forholdet mellem dem defineres som:
+\begin{equation}
+    R = \frac{\ln(I_S / I_D)_{\SI{660}{nm}}}{\ln(I_S / I_D)_{\SI{940}{nm}}} 
+    \approx \frac{(AC/DC)_{\SI{660}{nm}}}{(AC/DC)_{\SI{940}{nm}}}
+    \label{eq:ratio_of_ratios}
+\end{equation}
+Tilnærmelsen $\ln(I_S/I_D) \approx AC/DC$ gælder da AC komponentens amplitude er lille i forhold til DC niveauet. $R$ er dimensionsløs og uafhængig af $I_0$, $G$, og den absolutte mængde væv. $R$ afhænger dermed kun af de relative absorptionsforskelle mellem de to bølgelængder, som er bestemt af iltmætningen.
+
+\subsection{Empirisk kalibrering}
+Teoretisk kan $\text{SpO}_2$ udledes analytisk fra $R$ ved hjælp af kendte absorptionskoefficienter. I praksis er de forenklende antagelser (bl.a.\ $G_D \approx G_S$, samt neglekt af spredningens bølgelængdeafhængighed) ikke fuldstændigt opfyldt. Derfor kalibreres forholdet mellem $R$ og $\text{SpO}_2$ empirisk ved at sammenligne pulsoximetriske målinger med samtidige blodgasanalyser ($\text{SaO}_2$) på frivillige forsøgspersoner. Den resulterende kalibreringskurve tilnærmes typisk med et lineært udtryk:
+\begin{equation}
+    \text{SpO}_2 = a - b \cdot R
+    \label{eq:spo2_calibration}
+\end{equation}
+hvor $a$ og $b$ er empirisk bestemte konstanter. For $R = 1$ (ved det isobestiske punkt) er $\text{SpO}_2 \approx 85\,\%$, og for $R = 0{,}4$ er $\text{SpO}_2 \approx 100\,\%$.
+
+% TODO: Overvej at inkludere en figur med kalibreringskurven her.
+
+\subsection{Tidsmultipleksing}
+        % NY — skriv kort (1/2 side)
+        % Hvorfor LEDs ikke tændes samtidig, demodulering, 
+        % hvordan AC/DC uddrages per bølgelængde
+
+
+Tidsmultipleksing (eng. Time Multiplexing) er en teknik til at dele en enkelt målekanal mellem flere signalkilder ved at tildele hver kilde et bestemt tidsinterval, hvor kun den pågældende kilde er aktiv. Opsætningen af det analoge pulsoximeter bygger på princippet om tidsmultipleksing, og tillader brug af de to LEDer med det præcist samme kredsløb, uden at blande signalerne sammen.
+
+Hvis både \SI{940}{nm} og \SI{660}{nm} LED'erne var tændt på samme tid, ville det ikke være muligt for fotodioden at adskille det røde eller infrarøde signal, da fluxbidraget ville være en sum af de to. Derfor, kender man ikke forskellen mellem de to signaler, kan man ikke beregne $R$ i ratio of ratios, og dermed ikke finde en tilnærmelse af $\text{SpO2}$.
+
+Ud over LED-målingerne inkluderes en tredje måling, hvor begge LED'er er slukkede. Denne "mørkemåling" registrerer bidrag, der altså ikke stammer fra de to LED'er, eksempelvis omgivelseslys, 50 Hz støj fra elnettet og fotodiodens mørkestrøm. Ved at trække mørkemålingen fra de to LED-målinger isoleres den lysafhængige komponent fra hver bølgelængde.
+
+Skemaet af målinger vil derfor se sådan ud:
+
+\begin{table}[h]
+\centering
+\caption{Oversigt over en komplet målecyklus}
+\label{tab:maalinger}
+\begin{tabular}{lll}
+\toprule
+Måling & 660 nm LED & 940 nm LED \\
+\midrule
+Måling 1 & Tændt & Slukket \\
+Måling 2 & Slukket & Tændt \\
+Måling 3 & Slukket & Slukket \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Målingerne køres i cyklus i rækkefølgen: \SI{660}{nm}, \SI{940}{nm}, mørkemåling. Tabel \ref{tab:maalinger} ovenover viser en komplet målecyklus.
+
+\section{Halvleder fysik}
+
+\subsection{Båndteori og direkte/indirekte båndgab}
+
+\subsection{Dopning og pn-overgangen}
+
+\subsection{Rekombination og fotonemission}
+
+\subsection{Foton-absorption og ladningsbærergeneration}
+
+
+
+\section{Optoelektroniske komponenter}
+    % NY sektion — principniveau, ikke komponent-specifik
+    \subsection{LED som lyskilde}   
+        % Spektral bredde, drift med temperatur, fremad-strøm
+
+En LED (eng. light emitting diode) er et komponent der udsender inkoherent lys. Inkoherens er en egenskab hvor forholdene mellem faserne af bølgelængderne udsendt er tilfældige for alle bølgelængder, dette fører til interferens som udtrykkes som sænket amplitude for en LED, kaldet destruktiv interferens, eller f.eks. konstruktiv interferens for en laser, som er en koherent kilde.
+
+En LED er opbygget af halvledermaterialer. Halvledere har en elektrisk ledningsevne, der kan kontrolleres via "doping" med urenheder, som ændrer antallet af tilgængelige ladningsbærere som udfører specielle operationer, i dette tilfælde, er en LED udstyret til at normalt have en n-p overgang, hvor n-type og p-type er de to halvledere der udgør LEDen. N-typen er dopet for at have kapacitet for flere elektroner end normalt, modsat, er p-type halvlederen dopet til at have mindre elektroner end normalt, og har derfor små huller, hvorpå elektroner kan sætte sig.
+
+Når de to halvledere har oprettet ligevægt mellem hinanden, hvor ladningen mellem to ledere foregår ved stuetemperatur, og n-typens overskud af elektroner ikke rejser til p-typens underskud af elektroner (hullerne), er stadiet hvor en såkaldt forward bias, giver et potentiale, der tillader elektronerne i n-type til at rejse til p-typen, imod det eksisterende, modvirkende elektriske felt, denne proces kræver en specifik spænding, som diskuteres senere.
+
+Modsat, kan man også "reverse bias" LED'en, altså påføre positiv spænding til p-typen, og negativ til n-type, dette vil forstørre det eksisterende og modvirkende elektriske felt, og gøre det endnu sværere at producere en spænding der vil få LED'en til at tænde, og udsende lys.
+
+Ved at læse et datasheet for en LED, kan man få nyttig information som spektral bredde, fremadspænding(Eng. "forward voltage"), radiant intensitet, rise time og fall time og en række andre parametre der relaterer sig til støjniveau, præcision og optiske parametre. Der gennemgås de vigtigeste parametre relevant til dette projekt:
+
+
+\begin{itemize}
+    \item Fremadspænding \\ \\
+    Som beskrevet før, er forward voltage den spænding, der eksakt modvirker det elektriske felts eksisterende potentielle forskel mellem n-typen og p-typen. Det er altså nødvendigt for brugeren af LED'en at drive den ved en spænding lig med, eller større end fremadspændingen.
+
+    Fremadspændingen varier mellem bølgelængder, og fremadspændingen er vidt forskellig om man vil drive en IR-LED som har en fremadspænding på omkring \SI{1.3}{V}, mens at en blå LED kan have en fremadspænding på $\approx$ \SI{3.3}{V}. Den store forskel i fremadspænding kan forklares af opbygningen af halvlederene inde i LED'en. Hvor forskellige halvledere skal dopes til at få de elektriske egenskaber, som giver den bølgelængde der udsendes.
+
+    En LED drives typisk ved at tvinge en bestemt strøm gennem komponenten ved hjælp af en strømbegrænsning, f.eks. en seriemodstand. Når strømmen flyder, udvikles der en fremadspænding ($V_f$) over LED'en, som er en egenskab af halvledermaterialet.
+
+    \item Radiant intensitet \\ \\
+    Radiant intensitet er en central egenskab der fortæller hvor meget flux der udgår fra LED'en per rumvinkel. Det vil sige parameteren er et signal om hvor mange fotoner der udsendes per rumvinkel i en given retning med enheden $\frac{W}{str}$, og er et vigtigt tal, hvis man vil vide, f.eks. inden for pulsoximetri, hvor man kan stille spørgsmålet: "Hvad er effekten af LED'en på denne overflade, når overfladen har areal X og er Y langt væk fra LED'en?", og man kan få et præcist svar.
+
+    Denne parameter vises på grafer og som en del af de nøgletal i næsten ethvert datasheet for LEDer.
+
+    \item Rise time / Fall time \\
+
+    En LED er opbygget af de to halvledere, som begge har modsat ladning, sat i elektrisk ligevægt af rejsende elektroner fra n-type til p-type, med en afstand mellem de to halvledere kaldet "depletion layer" eller "depletion region". Dette motiverer overvejelsen for at en LED fungerer, approksimativt, som en kondensator. Dette udgår direkte fra datasheetet for LED'er, her står det ofte som "junction capacitance", denne junction, er pn-junction eller depletion regionen, denne værdi er ofte i ~10-100 pF skalaen.
+    
+    Ergo, ved at overveje kondensatorens egenskab om opladning og afladning af dens plader, kan man drage en parallel til LED'en, og da denne egenskab er fysisk umulig at være øjeblikkelig, er det også umuligt for en LED at tænde og slukke øjeblikkeligt. Dette udtrykkes i et datasheet som "Rise-" og "Fall time". Egenskaben er oftest symmetrisk, så:
+
+    $$
+    \text{Rise time} \approx \text{Fall time}    
+    $$
+    Så en typisk datasheet værdi for en rise time vil være omkring de 10 til \SI{100}{ns}. Denne værdi bidrager til en øvre grænse for hvor hurtigt man derfor kan multiplekse sine signaler, f.eks. for et pulsoximeter.
+\end{itemize}
+
+Højere kvalitets LED'er har også et eller flere lag mellem n-type og p-type, kaldet for "quantum wells" eller "multiple quantum wells"/MQWs, disse forbedrer effektiviteten af en LED, og tillader for højere strømstyrke end gængse LEDer.
+
+        
+    \subsection{Fotodetektion}
+        % Erstatter din tomme \section{Fotodiode}
+        % Responsivitet, quantum efficiency, shot noise, dark current
+        % GENERISK — datasheet-tal hører i Eksperimentel opstilling
+
+Fotodetektion handler om at måle den optiske effekt af den indfaldende lys der rammer en målende overflade. Det kan være en fotodiode, som skal opfange lys, og konverterer til en lille strømstyrke.
+
+En fotodiode minder meget om en LED da de begge er dioder, men de fungerer omvendt. Som tidligere forklaret, vil en LED, under forward bias, lade spænding igennem dets anode(+) og ud af dets katode(-), en fotodiode er omvendt, her vil dets anode(+) fungere som en udgang og man vil placere en jordforbindelse ved den anode(-), hvis det er at man vil køre fotodioden i en tilstand kaldet for "Fotovoltaisk tilstand", denne tilstand og en anden forklares senere i afsnittet. Årsagen til den omvendte operationsmetode, sammenlignet med en LED, er at en fotodiode drives uden en ekstern spændingskilde, den fungerer som sin egen strømkilde, hvor strømmen er kun genereret af den indfaldende lys på dets detektorareal. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/PD photovoltaic mode.png}
+    \caption{Orientering af fotodiode ved ingen bias, der producerer positivt output fra TIA stadiet.}
+    \label{fig:PD_ingen_bias_TIA}
+\end{figure}
+
+Når lys rammer depletion region i fotodioden, dannes elektron-hul-par. Elektronerne drives mod n-siden (katoden), mens hullerne drives mod p-siden (anoden), hvilket giver anledning til en fotostrøm. I den anvendte TIA-konfiguration er fotodiodens anode forbundet til jord, mens katoden er forbundet til operationsforstærkerens inverterende indgang. Den lysgenererede strøm trækker derfor konventionel strøm fra summeknuden ved $−in$, gennem fotodioden og videre til GND.
+
+Operationsforstærkeren regulerer sin udgangsspænding således, at spændingsforskellen mellem de to indgange bliver approksimativt nul, dvs. $V− \approx V+$. Da den ikke-inverterende indgang er jordet, holdes den inverterende indgang derfor også tæt på 0 V (virtuel jord). Når fotodioden trækker strøm ud af summeknuden, øger operationsforstærkeren $V_{out}$, så der sendes en tilsvarende kompenserende strøm gennem feedback-modstanden $R_f$ ind i summeknuden. Herved opretholdes $V_− \approx0$, samtidig med at fotostrømmen omsættes til en udgangsspænding. For denne kobling gælder approksimativt:
+\begin{equation}
+    V_{out} = I_{PD} \cdot R_f
+\end{equation}
+Denne proces er illustreret i figur \ref{fig:PD_ingen_bias_TIA}.
+
+Før man vælger en fotodiode til ens formål, skal man kigge igennem datasheetet og vælge de parametre der er relevante til det man vil, og for den støj-skala man forventer at bruge.
+
+Herunder er en række relevante parametre:
+
+\begin{itemize}
+    \item Effektive fotosensitive areal
+
+Det effektive fotosensitive areal, er det totale brugbare areal som en fotodiode kan opfange fotoner på. Arealet er brugbart, da når man har afstanden fra en kilde eller kilder, til arealet, kan man få rumvinklen. Når man samtidigt har en lyskildes radiant intensitet $\left ( \frac{\text{Watt}}{\text{rumvinkel}} \right )$, er det trivielt at udregne hvor meget en fotodiode opfanger af radiant exitansen fra en lyskilde.
+
+    \item Spektral response og fotosensitivitet
+
+Spektral responsen eller angivet som spektral range, er det udsnit af det elektromagnetiske spektrum hvor fotodioden er designet til at konvertere bølgelængder til en brugbar strømstyrke. Materialerne som fotodioderne er opbygget af, har direkte effekt på spektral responsen af fotodioderne. I tabel \ref{tab:spektralrespons} ses nogle eksempler på grundstoffer og sammensatte grundstoffer som udgør størstedelen af konstruktion i fotodioder og deres indvirkning på spektral respons. Tabellen reflekterer faktum at silikone-baserede fotodioder generer mindre støj end germanium-baserede fotodioder.
+
+
+\begin{table}[h]
+\centering
+\caption{Oversigt over spektralrespons per materiale.}
+\label{tab:spektralrespons}
+\begin{tabular}{lll}
+\toprule
+Materiale & Spektral respons i nm \\
+\midrule
+Silikone & 190 - 1100  \\
+Germanium & 400 - 1700 \\
+Indium gallium arsenide & 800 - 2600  \\
+Bly(II) sulfid & <1000 - 3500  \\
+Mercury cadmium telluride & 400 - 14000  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Fotosensitivitet er en parameter, der beskriver hvordan en fotodiode responderer til en specifik bølgelængde. Det vises ofte på en graf hvor x-aksen repræsenterer spektralresponsen eller spændet af fotodioden i nm, og hvor y-aksen repræsenterer fotosensitiviteten fra fotodioden, som måles i enheden $\frac{\text{Ampere}}{\text{Watt}}$.
+
+Almindeligt, vælges en fotodiode blandt andet ud fra den højeste $\text{Fotosensitivitet} = \frac{\text{Ampere}}{\text{Watt}}$, ved dette punkt produceres der mest strømstyrke per radiant exitans. 
+
+    \item Dark Current
+
+Dark current eller mørkestrøm er en strømmen der genereres fra en fotodiode når ingen lys indfalder på det fotosensitive areal. Den genereres af termisk støj eller strukturelle fejl under produktion. Processen hvorpå mørkestrøm genereres starter med at 
+    
+    \item Terminal capacitance
+
+ggg
+    
+\end{itemize}
+
+
+
+\section{Hyperspektral måling}
+    % NY — kort, motiverer anden halvdel af projektet
+    \subsection{Princip}
+        % Bredspektret lyskilde + spektrometer, 
+        % ingen tidsmultipleksing nødvendig
+    \subsection{Sammenhæng med pulsoximetri}
+        % Hvordan R beregnes fra kontinuerligt spektrum i stedet for
+        % to diskrete bølgelængder
+
+\section{Signalbehandling}
+\label{sec:signalbehandling}
+
+\subsection{Sampling}
+\label{sec:sampling}
+
+\subsection{Filtrering}
+\label{sec:filtrering}
+
+\subsection{Støjkilder}
+\label{sec:støjkilder}
+
+
+
+\section{Fejlkilder}
+\label{sec:fejlkilder}
