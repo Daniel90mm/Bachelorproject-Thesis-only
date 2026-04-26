@@ -363,9 +363,139 @@ Målingerne køres i cyklus i rækkefølgen: \SI{660}{nm}, \SI{940}{nm}, mørkem
 
 \section{Halvleder fysik}
 
-\subsection{Båndteori og direkte/indirekte båndgab}
+Konduktivitet er en egenskab der beskriver et materiales evne at lede elektricitet.
+En halvleder er et materiale med en elektrisk konduktivitet, mellem en leder og isolator. Konduktiviteten kan ændres ved at dope strukturen af halvlederens struktur, hvor at dopingen øger antallet af ladningsbærere i halvlederen.
 
-\subsection{Dopning og pn-overgangen}
+\subsection{Båndteori}
+
+Halvledere, isolatorer og metaller kan beskrives beskrives figurativt i figur \ref{fig:de tre bånd}. Hver af de tre klasser, som kaldes for "solid-state materials", repræsenteres med to bånd, et ledningsbånd(eng. conduction band) og et valensbånd (eng. valence band). I virkeligheden, kan materialerne både være rene grundstoffer eller legeringer af andre metaller. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/band_gaps_ins_semcond_metal.png}
+    \caption{De blå bokse repræsenterer ledningsbånd, de gule valensbånd. Søjlerne er henholdsvist: Isolator, halvleder og metal.}
+    \label{fig:de tre bånd}
+\end{figure}
+
+Valensbåndet er et interval af energiniveauer der er proppede med elektroner, der godt kan bevæge sig frit indbyrdes, men må ikke rejse ud af dem samlede nærliggende, lokale konstruktion.
+
+Et solid-state materiales mellemrum mellem lednings- og valensbånd, illustreret i figur \ref{fig:de tre bånd} beskriver den energi det tager for at få en elektron til at øge sit energi niveau, til det niveau, hvor elektronen kan bevæge sig frit. Dette mellemrum kaldes på engelsk for "the forbidden gap".
+
+Så snart elektronen får en energitilførsel der tillader at skifte energiniveau/bånd, kan den hoppe komplet over det midterste bånd, og bevæge sig frit i det ledende bånd. Når elektronen er hoppet fra valensbåndet, efterlader den et "hul", i praksis er det ikke et hul, men en manglende elektron i gitteret, det hul, eller manglende elektron, som også er frit til at rejse, men nu i valensbåndet. Dette elektron-hul par bevæger sig begge nu rundt i hver deres bånd, efter nano- til mikrosekunder, falder elektronen tilbage til valensbåndet i et vilkårligt hul, og dens ekstra energi som den fik fra excitationen, frigives enten som varme eller lys.
+
+Energien der påkræves for at flytte en elektron for et specifikt materiale, kaldes for elektronvolt, ofte skrevet som $\text{eV}$. En elektronvolt er en energienhed for sig selv, og sammenlignes med SI-enheden Joules herunder:
+$$
+1 \ \text{eV} = 1.6 \times 10^{-19} \ \text{J}
+$$
+
+Specifikt for en foton med en bølgelængde lambda, kan en elektronvolt beskrives som:
+
+\begin{equation}
+    E = \frac{hc}{\lambda} = \frac{1240}{\lambda} \ [\text{eV}]
+\end{equation}
+Hvor:
+$hc = 1240$ er Plancks konstant ganget med lysets hastighed.  
+$\lambda$ er bølgelængden i nanometer.
+
+F.eks., vil en \SI{660}{nm} rød foton, have $\frac{1240}{660} \approx 1.88 \ \text{eV}$, hvilket passer med AlGaInP's båndgab energi vist i \ref{tab:solid_state_materialer}, kol. 2, kaldet for Eg.
+
+
+\begin{table}[h]
+\centering
+\caption{Oversigt over eV energier for udvalgte solid state materialer, hvilken type og typisk anvendelse for materiale.}
+\label{tab:solid_state_materialer}
+\begin{tabular}{llll}
+\toprule
+Materiale & Eg [eV] & Type & Typisk anvendelse \\
+\midrule
+Silicium & 1.12 & Indirekte & Fotodiode, elektronik \\
+Germanium & 0.67 & Indirekte & NIR-fotodiode\\
+GaAs & 1.42 & Direkte & NIR LED, laser  \\
+AlGaInP  & ~1.9 & Direkte & Rød LED (660 nm) \\
+GaN & 3.4 & Direkte & Blå/UV LED  \\
+SiO2 (isolator) & ~9 & - & Isolering \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Metaller}
+Karakteristisk for metaller er at deres atomiske struktur tillader nem og hurtigt bevægelse af elektroner på tværs af det gitter af atomer som metallet udgøres af. Dette betyder at energien påkrævet for at en elektron kan få lov til at bevæge sig på tværs af et metal, er nær nul. Dette kan ses i figur \ref{fig:de tre bånd}, hvor søjlen længst til højre, har overlappende bånd. Derfor vil der spontant oprettes elektron-hul par, uden nogen ekstern excitation. Det er altså en standard konfiguration for metaller, dog har hvert metal, unik opførsel hvor nogle er nemmere og sværere at få elektroner til at hoppe over båndgabet.
+
+\subsubsection{Isolatorer}  
+Modsat, for isolatorer kræver det meget mere energi for en elektron kan slås løs, og når den først er løs, falder den hurtigt tilbage til et tomt hul. Igen i figur \ref{fig:de tre bånd}, kan man se yderst til venstre, at dem afstand mellem de to bånd, er længere end metal og halvledere, det kræver altså megen mere energi at flytte elektronerne, og er derfor også årsagen til at ledninger oftest er dækket af gummi belægning, denne isolator dækker for metallet inde i.
+
+\subsubsection{Halvledere}
+Som det sidste, har man halvledere. Halvledere har et båndgab der er mindre end isolatorer og større end metaller, denne klasse af materialer har en attraktiv mængde af energi nødvendig for elektroner at passere. En stor række grundstoffer og sammesatte grundstoffer har halvledende egenskaber, f.eks. silicium og germanium fra hovedgruppe 14. Endeligt i figur \ref{fig:de tre bånd} kan man se halvlederen i midten, afstanden mellem de to rektangler er lille, hvilket er præcist det man ønsker.
+
+\subsubsection{Direkte og indirekte båndgab}  
+
+Som beskrevet i foregående afsnit, så er båndgab den energi krævet til at flytte en elektron fra valensbånd til det ledende bånd. Men da energi-bånd diagrammerne vist f.eks. i figur \ref{fig:de tre bånd} er simple, og fortæller om de tre solid state materialer, kan man udvide denne forståelse af båndgabet, specifikt for båndgabet for halvledere, og tilføje en ekstra dimension i form af momentum. Dette plot kaldes for et "E-k diagram", hvor $E$ er elektron energien på y-aksen og $k$ er bølgevektoren der beskriver elektronens kvantetilstand i krystalgitteret på x-aksen. 
+
+I figur \ref{fig:direct_indirect_bandgap} ses to E-k diagrammer. Det vigtige punkt er 
+positionen af valensbåndets maksimum og ledningsbåndets minimum:
+
+\begin{itemize}
+    \item Hvis de to ekstrema ligger ved samme krystal-momentum 
+    (samme k-værdi), kaldes båndgabet \textit{direkte}, se 
+    figur \ref{fig:direkte_bandgap}.
+    \item Hvis de ligger ved forskellige k-værdier, kaldes båndgabet 
+    \textit{indirekte}, se figur \ref{fig:indirekte_bandgap}.
+\end{itemize}
+
+En foton bærer energi, men næsten intet momentum sammenlignet med skalaen i et krystalgitter. Derfor kan en foton altså kun drive vertikale overgange i E-k diagrammet, hvor elektronen ikke skifter k-værdi. 
+
+%I et direkte båndgab ligger ledningsbåndets minimum lige over 
+%valensbåndets maksimum, og en elektron kan rekombinere med et hul 
+%ved at udsende en foton med energi $E_{foton} = E_g$. Denne proces 
+%er effektiv, og direkte båndgab-materialer som GaAs (\SI{1.42}{eV}) 
+%og AlGaInP (~\SI{1.9}{eV}) anvendes derfor som lyskilder i LED'er 
+%og lasere.
+
+%I et indirekte båndgab kræver rekombinationen samtidig medvirken af 
+%en fonon (en gittervibration), som leverer det manglende momentum. 
+%Sandsynligheden for en samtidig foton-fonon-proces er væsentligt 
+%lavere, hvilket gør indirekte materialer ineffektive som lyskilder. 
+%ilicium (\SI{1.12}{eV}) og germanium (\SI{0.67}{eV}) er begge 
+%indirekte og bruges derfor primært som detektorer og i elektronik, 
+%ikke som lysudsendere.
+
+%Denne skelnen forklarer hvorfor de røde og infrarøde LED'er anvendt 
+%i dette projekt er fremstillet af forbindelseshalvledere som AlGaInP 
+%og GaAs, mens fotodioden er silicium-baseret - silicium er en 
+%fremragende fotondetektor netop fordi det indirekte båndgab gør den 
+%omvendte proces (absorption efterfulgt af ladningsbærergeneration) 
+%fuldt brugbar over et bredt spektralområde.
+%
+\begin{figure}[htbp]
+     \centering
+     % First Image
+     \begin{subfigure}[b]{0.48\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Pictures/Other/direct_bandgap.png}
+         \caption{E-K diagram for materiale med direkte båndgab}
+         \label{fig:direkte_bandgap}
+     \end{subfigure}
+     \hfill % Adds horizontal space between the images
+     % Second Image
+     \begin{subfigure}[b]{0.48\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Pictures/Other/indirect_bandgap.png}
+         \caption{E-K diagram for materiale med indirekte båndgab}
+         \label{fig:indirekte_bandgap}
+     \end{subfigure}
+     
+     \caption{E-k diagrammer for henholdsvis et materiale med direkte (a) og indirekte (b) båndgab. $E_g$ er båndgabsenergien. }
+     \label{fig:direct_indirect_bandgap}
+\end{figure}
+
+
+\subsection{Doping og pn-overgangen}
+
+Når en halvleder dopes med grundstoffer fra den femte søjle i det periodiske system (Vanadium, Niobium, Tantalum, Dubnium), vil halvleder-doping materialet opføre sig som donorer der laver frie elektroner, dette kaldes for "n-type" doping.
+
+Når en halvleder dopes med grundstoffer fra den tredje søjle, vil kombinationen opføre sig som acceptorer der laver "frie huller", kendt som p-type doping. 
+
+Kompositionen og forholdene under doping styres forsigtigt, for at få den opbygning der tillader den ønskede funktion af komponenten.
 
 \subsection{Rekombination og fotonemission}
 
@@ -477,7 +607,7 @@ Almindeligt, vælges en fotodiode blandt andet ud fra den højeste $\text{Fotose
 
     \item Dark Current
 
-Dark current eller mørkestrøm er en strømmen der genereres fra en fotodiode når ingen lys indfalder på det fotosensitive areal. Den genereres af termisk støj eller strukturelle fejl under produktion. Processen hvorpå mørkestrøm genereres starter med at 
+Dark current eller mørkestrøm er en strømmen der genereres fra en fotodiode når ingen lys indfalder på det fotosensitive areal. 
     
     \item Terminal capacitance
 
