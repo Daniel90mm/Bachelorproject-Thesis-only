@@ -1,4 +1,4 @@
-\chapter{Baggrund}
+\chapter{Teori}
 
 \section{Pulsoximetri}
 Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, repræsenterer resultatet ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt.
@@ -329,10 +329,9 @@ Teoretisk kan $\text{SpO}_2$ udledes analytisk fra $R$ ved hjælp af kendte abso
 \end{equation}
 hvor $a$ og $b$ er empirisk bestemte konstanter. For $R = 1$ (ved det isobestiske punkt) er $\text{SpO}_2 \approx 85\,\%$, og for $R = 0{,}4$ er $\text{SpO}_2 \approx 100\,\%$.
 
-% TODO: Overvej at inkludere en figur med kalibreringskurven her.
+% Inkluder evt. en figur med kalibreringskurven her.
 
 \subsection{Tidsmultipleksing}
-        % NY — skriv kort (1/2 side)
         % Hvorfor LEDs ikke tændes samtidig, demodulering, 
         % hvordan AC/DC uddrages per bølgelængde
 
@@ -375,7 +374,7 @@ Målingerne køres i cyklus i rækkefølgen: \SI{660}{nm}, \SI{940}{nm}, mørkem
 
 
 \section{Optoelektroniske komponenter}
-    % NY sektion — principniveau, ikke komponent-specifik
+    % principniveau, ikke komponent-specifik
     \subsection{LED som lyskilde}   
         % Spektral bredde, drift med temperatur, fremad-strøm
 
@@ -419,9 +418,8 @@ Højere kvalitets LED'er har også et eller flere lag mellem n-type og p-type, k
 
         
     \subsection{Fotodetektion}
-        % Erstatter din tomme \section{Fotodiode}
         % Responsivitet, quantum efficiency, shot noise, dark current
-        % GENERISK — datasheet-tal hører i Eksperimentel opstilling
+        % GENERISK, datasheet-tal hører i Eksperimentel opstilling
 
 Fotodetektion handler om at måle den optiske effekt af den indfaldende lys der rammer en målende overflade. Det kan være en fotodiode, som skal opfange lys, og konverterer til en lille strømstyrke.
 
@@ -490,7 +488,7 @@ ggg
 
 
 \section{Hyperspektral måling}
-    % NY — kort, motiverer anden halvdel af projektet
+    % Kort, motiverer anden halvdel af projektet
     \subsection{Princip}
         % Bredspektret lyskilde + spektrometer, 
         % ingen tidsmultipleksing nødvendig
@@ -511,6 +509,13 @@ ggg
 \label{sec:støjkilder}
 
 
-
 \section{Fejlkilder}
 \label{sec:fejlkilder}
+
+  \subsection{Bevægelsesartefakter}
+  \subsection{Lavt perfusionsindeks}
+  \subsection{Omgivelseslys og elektromagnetisk støj}
+  \subsection{Hudpigmentering og neglelak}
+  \subsection{Dyshæmoglobiner}
+  \subsection{Temperaturafhængighed af LED og fotodiode}
+  \subsection{Komponenttolerancer}
