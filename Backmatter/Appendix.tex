@@ -1,5 +1,45 @@
-\chapter{Title}
+\chapter{Appendix}
 
 Kan forklare hvis jeg går til sidespor, skal tage censor i hånden,
 
 Appendix er til ting man ikke mener er nødvendige til hovedrapporten, men stadig er relevante for censor at vide
+
+\section{PCB}
+
+\begin{figure}[htbp]
+     \centering
+     % Første Billede (Øverst)
+     \begin{subfigure}[b]{\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{Pictures/PCB/TIA_LOWPASS.png}
+         \caption{Skematisk diagram af Trans Impedance Amplifier(TIA) og lavpasfilter.}
+         \label{fig:TIA_LP}
+     \end{subfigure}
+     
+     \vspace{1cm} % Tilføjer vertikal afstand mellem de to billeder
+
+     % Andet Billede (Nederst)
+     \begin{subfigure}[b]{\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{Pictures/PCB/HIGHPASS_GAIN.png}
+         \caption{Skematisk diagram af højpasfilter og den ikke-inverterende forstærker.}
+         \label{fig:HP_GAIN}
+     \end{subfigure}
+     
+     \caption{Samlet oversigt over de analoge kredsløbstrin: TIA, filtrering og forstærkning.}
+     \label{fig:circuit_stages}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/PCB/PCB.png}
+    \caption{Den færdige PCB med traces forbundet.}
+    \label{fig:PCB}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/PCB/PCB3D.png}
+    \caption{3D-preview af PCB uden komponenter loddet.}
+    \label{fig:PCB_3D}
+\end{figure}
