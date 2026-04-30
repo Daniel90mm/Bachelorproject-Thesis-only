@@ -1,10 +1,10 @@
 \chapter{Teori}
 
 \section{Pulsoximetri}
-Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, repræsenterer resultatet ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt.
+Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder af lys, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, kaldet for $\text{SpO}_2$, repræsenterer resultatet ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt.
 
 \subsection{Kliniske ilt-parametre}
-Herunder er en oversigt over de vigtigste kliniske ilt parametre:
+Herunder er en oversigt over de vigtigste kliniske ilt parametre \cite{Pltz1998,Nitzan2014, Webster1997, Mesquida2013}:
 
 \begin{description}
     \item[$\text{PaO}_2$ - Partialtryk af ilt i arterielt blod] \hfill
@@ -45,9 +45,10 @@ Herunder er en oversigt over de vigtigste kliniske ilt parametre:
 
     \item[$\text{SvO}_2$ - Venøs iltmætning] \hfill
     \\
-    Iltmætning i blandet venøst blod. \\ 
+    Iltmætning i venøst blod. \\ 
     En forøgelse i vævsmetabolisme eller reduceret blodtilførsel medfører større iltekstrahering, hvilket sænker $\text{SvO}_2$. \\
-    Enhed: \%. Normal: ca.\ \SI{75}{\percent}.
+    Enhed: \%.   
+    Normal: ca.\ \SI{75}{\percent}.
 
     \item[$\text{StO}_2$ - Vævs-iltmætning] \hfill
     \\
@@ -57,16 +58,18 @@ Herunder er en oversigt over de vigtigste kliniske ilt parametre:
     Enhed: \%.
 \end{description}
 
-Blandt disse parametre betragtes $\text{SaO}_2$ som guldstandarden, idet den bestemmes præcist via blodgasanalyse. Blodgasanalyser kræver imidlertid en arteriel blodprøve og er derfor invasive. \\ 
-$\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader kontinuerlig måling og er tilgængeligt til en lav pris i flere forbruger og kliniske produkter. Den reducerede præcision opvejes af de praktiske fordele ved metoden.
+Blandt disse parametre betragtes $\text{SaO}_2$ som guldstandarden, idet den bestemmes præcist via blodgasanalyse. Blodgasanalyser kræver imidlertid en arteriel blodprøve med en probe ind i en blodåre og er derfor invasive. \\ 
+$\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader kontinuerlig måling og er tilgængeligt til en lav pris i flere forbruger og kliniske produkter. Den reducerede præcision opvejes af de praktiske fordele ved metoden, dog har begge produkter hver deres plads under udredning og overvågning af sundhed hos mennesker i hjem og hospital.
 
 
 
 \subsection{Det fotoplethysmografiske signal}
-Ved måling af lystransmission gennem en finger observeres et periodisk signal der følger hjertets cyklus. Under systole (hjertets kontraktion) udvides arterierne og blodvolumen i fingeren forøges, hvilket øger absorptionen og reducerer den transmitterede intensitet. Under diastole (hjertets afslapning) falder blodvolumen og intensiteten stiger. Dette signal betegnes et fotoplethysmogram (PPG på engelsk).
 
-PPG signalet kan opdeles i en DC komponent og en AC komponent. DC komponenten repræsenterer den konstante absorption fra venøst blod, væv, knogle og ikke pulsatilt arterielt blod. AC komponenten repræsenterer den pulsatile ændring i arterielt blodvolumen og udgør typisk kun 1 til 5\,\% af det samlede signal. Det pulsatile(AC) signal, er signalet som PPG måler på.
+Et plethysmogram er et instrument til at måle ændringer i blod- og iltvolumen f.eks. i legemer som lungerne og lemmerne \cite{Crie2011}. En naturlig udvidelse af et plethysmogram er en måling af volumen af iltmætningen i blodet, dette kadles for et fotoplethysmogram (eng. PPG).
 
+Ved måling af lystransmission gennem en finger observeres et periodisk signal der følger hjertets cyklus. Under systole, som er hjertemuskulaturens kontraktion, udvides arterierne og blodvolumen i fingeren forøges, hvilket øger absorptionen og reducerer den transmitterede intensitet. Under diastole, som er fasen med hjertemuskulaturens afslapning, falder blodvolumen og intensiteten stiger igen.
+
+Som set i figur \ref{fig:ppg_signal} \cite{YossefHay2018}, kan PPG signalet opdeles i en DC komponent og en AC komponent. DC komponenten repræsenterer den konstante absorption fra venøst blod, væv, knogle og ikke pulsatilt arterielt og venøst blod. AC komponenten repræsenterer den pulsatile ændring i arterielt blodvolumen og udgør typisk kun 1 til 5\,\% af det samlede signal. Det pulsatile(AC) signal, er signalet som PPG måler på.
 
 \begin{figure}[htbp]
      \centering
@@ -75,10 +78,16 @@ PPG signalet kan opdeles i en DC komponent og en AC komponent. DC komponenten re
      \label{fig:ppg_signal}
 \end{figure}
 
-\section{Beer-Bouguer-Lamberts lov}
-Pulsoximetriske målinger bygger på Beer-Bouguer-Lamberts lov (herefter BBL), som beskriver attenuering af lys gennem et absorberende medium. Loven kan formuleres på to ækvivalente måder.
 
-\subsection{Fysik udgave}
+
+
+
+
+\section{Beer-Bouguer-Lamberts lov}
+Pulsoximetriske målinger bygger på Beer-Bouguer-Lamberts lov (herefter BBL), som beskriver attenuering af lys gennem et absorberende og homogent, ikke spredende, medium \cite{Tuchin2015,Pedrotti2017}. Loven kan formuleres på to ækvivalente måder.
+
+\subsection{Intensitetsformulering}
+
 Den fysiske formulering udtrykker den transmitterede intensitet som funktion af den indkommende intensitet, absorptionskoefficienten og materialets tykkelse:
 \begin{equation}
     I = I_0 \cdot e^{-\mu_a \cdot d}
@@ -90,130 +99,178 @@ $I_0$ er den indkommende lysintensitet \\
 $\mu_a$ er den lineære absorptionskoefficient i $\si{cm^{-1}}$ \\
 $d$ er tykkelsen af materialet i $\si{cm}$.
 
-\subsection{Kemisk udgave}
-Den kemiske formulering udtrykker absorbansen $A$ som:
-\begin{equation}
-    A = \varepsilon \cdot C \cdot l
-    \label{eq:bbl_kemi}
-\end{equation}
-Hvor: \\
-$\varepsilon$ er den molare absorptionskoefficient (også kaldet extinktionskoefficient) i $\si{cm^{-1}.M^{-1}}$ \\
-$C$ er molarkoncentrationen i $\si{M}$ \\
-$l$ er den optiske vejlængde i $\si{cm}$, denne er ikke den samme som afstanden $d$ i \cref{eq:bbl_fysik}, $l$ er vejen som fotonerne rejser i vævet.
+\subsection{Absorbansformulering}
+\label{subsec:absorbans}
 
-Absorbansen defineres som $A = -\log_{10}(\frac{I}{I_0})$, hvilket giver $A = \mu_a \cdot \frac{d}{\ln(10)}$. Sammenhængen mellem de to absorptionskoefficienter er:
+I kemi udtrykkes BBL ofte gennem absorbansen $A$, 
+defineret som \cite{Webster1997}
 \begin{equation}
-    \mu_a = \varepsilon \cdot C \cdot \ln(10)
+    A(\lambda) = -\log_{10}\!\left(\frac{I(\lambda)}{I_0(\lambda)}\right).
+    \label{eq:absorbans_def}
+\end{equation}
+Bemærk at \cref{eq:absorbans_def} er en generel definition af 
+absorbans uafhængig af om BBL gælder. Når BBL er gyldig, kan 
+absorbansen udtrykkes som
+\begin{equation}
+    A(\lambda) = \varepsilon(\lambda) \cdot C \cdot d,
+    \label{eq:bbl_absorbans}
+\end{equation}
+hvor: \\
+$\varepsilon(\lambda)$ er den molare absorptionskoefficient 
+(extinktionskoefficient) i $\si{cm^{-1}.M^{-1}}$ \\
+$C$ er molarkoncentrationen i $\si{M}$ \\
+$d$ er tykkelsen af mediet i $\si{cm}$.
+
+Sammenhængen mellem absorptionskoefficienten i \cref{eq:bbl_fysik} 
+og den molare absorptionskoefficient er
+\begin{equation}
+    \mu_a(\lambda) = \varepsilon(\lambda) \cdot C \cdot \ln(10).
     \label{eq:mu_epsilon}
 \end{equation}
-Hvor: \\ 
-$\ln(10) \approx 2{,}303$ 
+Forudsat at BBL er gyldig, er \cref{eq:bbl_fysik} og \cref{eq:bbl_absorbans} således ækvivalente 
+formuleringer af den samme fysik. I denne rapport anvendes primært 
+\cref{eq:bbl_fysik}.
 
-De to formuleringer er således ækvivalente. I denne rapport anvendes primært den fysiske formulering (\cref{eq:bbl_fysik}).
-
-\subsection{Flere absorberende materialer}
-I biologisk væv er der flere samtidige absorbere, herunder $\text{HbO}_2$, $\text{Hb}$, vand og melanin. BBL generaliseres til:
+For et medium med flere uafhængige absorbere er absorbansen 
+en sum af de individuelle bidrag:
 \begin{equation}
-    A(\lambda) = \sum_i \varepsilon_i(\lambda) \cdot C_i \cdot l
+    A(\lambda) = \sum_i \varepsilon_i(\lambda) \cdot C_i \cdot d.
     \label{eq:bbl_multi}
 \end{equation}
-Det er vigtigt at kunne dele bidragene op, da pulsoximetri kræver separation af bidragene fra $\text{HbO}_2$ og $\text{Hb}$.
+Dette superpositionsprincip følger af at hver foton interagerer 
+uafhængigt med de enkelte molekyler i væv.
 
 \subsection{Begrænsninger i spredende medier}
-BBL antager at al attenuation skyldes absorption, og at lys propagerer helt lige gennem vævet uden at sprede sig. I biologisk væv er denne antagelse ikke opfyldt, da spredning bidrager væsentligt til attenuationen. Konsekvenserne af spredning behandles i \cref{sec:spredning}, og en modificeret formulering af BBL præsenteres i \cref{sec:mbbl}.
+BBL antager attenuation skyldes absorption, og at lys propagerer lige gennem vævet uden at sprede sig, altså at: $$d = \text{afstand gennem medie}$$. 
 
-
+I væv er denne antagelse ikke opfyldt, da spredning bidrager væsentligt til attenuationen \cite{Tuchin2015}. Det vil altså sige, at formel \ref{eq:bbl_fysik} kun gælder når $\mu_a \gg \mu_s$, det vil sige, når man kun har med meget absorberende medier at gøre. Konsekvenserne af spredning behandles i \cref{subsec:rayleigh_spredning}, og en modificeret formulering af BBL præsenteres i \cref{sec:mbbl}.
 \section{Optiske egenskaber af biologisk væv}
 \label{sec:optik_vaev}
 
 \subsection{Attenuation}
-Den optiske parameter der beskriver det samlede tab af lysintensitet gennem væv, betegnes attenuation. Attenuationen kan forklares af to mekanismer: absorption, hvor fotoner destrueres ved energioverdragelse til molekyler, og spredning, hvor fotoner omdirigeres fra deres oprindelige udbredelsesretning. Den totale attenuationskoefficient er:
+Attenuation beskriver tabet af lysintensitet gennem et medium. 
+Den kan forklares af to mekanismer: absorption, hvor fotoner 
+destrueres ved energioverdragelse til molekyler, og spredning, 
+hvor fotoner omdirigeres fra deres oprindelige udbredelsesretning. 
+Den totale attenuationskoefficient er:
 \begin{equation}
-    \mu_{\text{total}} = \mu_a + \mu_s
+    \mu_t = \mu_a + \mu_s
     \label{eq:mu_total}
 \end{equation}
-Hvor: \\
-$\mu_a$ er absorptionskoefficienten \\
-$\mu_s$ er spredningskoefficienten, begge i $\si{cm^{-1}}$.
+hvor $\mu_a$ og $\mu_s$ er henholdsvis absorptions- og 
+spredningskoefficienterne $\left[\si{cm^{-1}}\right]$.
 
-Problemet for pulsoximetri er, at det ud fra den målte intensitet alene ikke kan afgøres, om tabet skyldes absorption (det ønskede signal) eller spredning (støj). Absorptionskoefficienten afhænger af koncentrationen af de molekyler/væv der absorberer ($\text{HbO}_2$, $\text{Hb}$, vand, melanin), mens spredningskoefficienten afhænger af bølgelængden via relationen:
-\begin{equation}
-    \mu_s(\lambda) \propto \lambda^{-b}
-    \label{eq:mu_scatter_wavelength}
-\end{equation}
-Hvor: \\
-$b \approx 0{,}2$ til $1{,}5$ afhængigt af vævstypen.
+Et grundlæggende problem for pulsoximetri er, at det ud fra den 
+målte intensitet alene ikke kan afgøres, om tabet skyldes 
+varierende absorption (det ønskede signal) eller spredning (støj). 
+For at modellere væv korrekt må begge mekanismer karakteriseres.
 
-I intervallet ca.\ \SI{600}{nm} til \SI{1000}{nm} er absorptionen fra vand, melanin og øvrige vævskomponenter relativt lav, samtidig med at absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ er tilstrækkeligt forskellige til at muliggøre diskrimination.
+\subsection{Absorption i væv}
+Absorptionskoefficienten afhænger af bølgelængden og af 
+koncentrationen af de absorberende molekyler i vævet, primært 
+$\text{HbO}_2$, $\text{Hb}$, vand og melanin \cite{Jacques2013}.
 
-Ved kortere bølgelængder (under \SI{600}{nm}) dominerer absorption fra hæmoglobin og melanin, hvilket begrænser penetrationsdybden. Ved længere bølgelængder (over \SI{1000}{nm}) dominerer absorption fra vand.
-
-\subsection{Absorptionsspektre}
-Den kemiske formulering tillader at plotte den molare absorptionskoefficient $\varepsilon$ som funktion af bølgelængden. Som det fremgår af \cref{fig:coeff_vs_wavelength}, adskiller absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ sig markant i intervallet \SI{600}{nm} til \SI{1000}{nm}. Det er denne forskel som pulsoximetri udnytter til at skelne mellem de to typer af hæmoglobin.
+I det optiske vindue mellem ca.\ \SI{600}{nm} og \SI{1000}{nm} 
+er absorptionen fra vand, melanin og øvrige vævskomponenter 
+relativt lav, samtidig med at absorptionskoefficienterne for 
+$\text{HbO}_2$ og $\text{Hb}$ er tilstrækkeligt forskellige til 
+at muliggøre diskrimination, dette ses i \cref{fig:coeff_vs_wavelength}. 
+Ved kortere bølgelængder (under \SI{600}{nm}) dominerer 
+absorption fra hæmoglobin og melanin, hvilket begrænser 
+penetrationsdybden, mens absorption fra vand dominerer ved 
+bølgelængder over \SI{1000}{nm} \cite[Fig.~(10.3)]{Tuchin2015}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{Pictures/Graphs/Extinction_coeff_vs_wavelength.png}
-    \caption{Molare absorptionskoefficienter for $\text{HbO}_2$ og $\text{Hb}$ som funktion af bølgelængden. Det isobestiske punkt ved ca.\ \SI{800}{nm}, hvor de to kurver krydser, er markeret.}
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/extinction_spectra.pdf}
+    \caption{Molare absorptionskoefficienter for $\text{HbO}_2$ 
+    og $\text{Hb}$ som funktion af bølgelængden. En af flere 
+    isobestiske punkter er markeret ved \SI{800}{nm}. 
+    \parencite{Prahl1998}}
     \label{fig:coeff_vs_wavelength}
 \end{figure}
 
-Ved det isobestiske punkt (ca.\ \SI{800}{nm}) er absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ identiske. Altså, $\lambda = 800$ medfører at $A(\lambda = 800)_{\text{HbO}_2} = A(\lambda = 800)_\text{Hb}$. \\
-\\
-Dette punkt er klinisk relevant, da en måling ved denne bølgelængde er uafhængig af iltmætningen og dermed kan bruges til kalibrering af blodvolumen. Selvom den ikke kan bruges til at skelne mellem $\text{HbO}_2 \enspace  \text{og} \enspace \text{Hb}$.
+Ved et isobestisk punkt (eksempelvis ca.\ \SI{800}{nm}) er 
+absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ 
+identiske: $\varepsilon_{\text{HbO}_2}(\SI{800}{nm}) = 
+\varepsilon_{\text{Hb}}(\SI{800}{nm})$. Dette punkt er klinisk 
+relevant, da en måling her er uafhængig af iltmætningen og 
+dermed kan anvendes til kalibrering af blodvolumen, selvom det 
+ikke kan bruges til at skelne mellem $\text{HbO}_2$ og 
+$\text{Hb}$.
 
-\subsection{Rayleigh-spredning}
-Rayleigh-spredning beskriver spredning af lys på partikler med dimensioner væsentligt mindre end bølgelængden. Hæmoglobinmolekylet har en diameter på ca.\ \SI{5}{nm} \parencite{Erickson2009}, hvilket er ca.\ 100 gange mindre end de anvendte bølgelængder (\SI{660}{nm} og \SI{940}{nm}). Spredningen på molekylær skala kan derfor beskrives ved Rayleigh-tilnærmelsen.
+\subsection{Spredning i væv}
+\label{subsec:spredning}
+Spredning i biologisk væv stammer fra strukturer over et bredt 
+størrelsesinterval: fra molekylær skala op til celleorganeller, 
+røde blodlegemer og kollagenfibre. Det afgørende parameter er 
+forholdet mellem partikelstørrelse og bølgelængde.
 
-Rayleigh-spredningens intensitet er proportional med $1/\lambda^4$. Effekten (eng: \textit{radiated power}) for en oscillerende dipol udtrykkes som:
+\paragraph{Rayleigh-spredning} dominerer når partiklerne er 
+væsentligt mindre end bølgelængden. Hæmoglobinmolekylet har en 
+diameter på ca.\ \SI{5}{nm} \cite{Erickson2009}, ca.\ 100 gange 
+mindre end de klassisk anvendte bølgelængder (\SI{660}{nm} og 
+\SI{940}{nm}) \cite{Webster1997}, og kan derfor beskrives ved 
+Rayleigh-tilnærmelsen. Spredningens intensitet er proportional 
+med $\lambda^{-4}$ \cite{Pedrotti2017}:
 \begin{equation}
-    P = \frac{e^2 \omega^4 r_0^2}{12\pi \varepsilon_0 c^3}
-    \label{eq:rayleigh_full}
-\end{equation}
-Da vinkelhastigheden kan omskrives som $\omega = \frac{2\pi c}{\lambda}$, og de resterende størrelser er konstanter, reducerer bølgelængdeafhængigheden til:
-\begin{equation}
-    P \propto \frac{1}{\lambda^4}
+    P_{\text{Rayleigh}} \propto \frac{1}{\lambda^4}
     \label{eq:rayleigh_prop}
 \end{equation}
-Forholdet mellem spredningsintensiteterne ved de to anvendte bølgelængder er:
+Forholdet mellem Rayleigh-spredning ved de to klassiske 
+bølgelængder bliver:
 \begin{equation}
-    \frac{I_{660}}{I_{940}} = \left(\frac{\lambda_{940}}{\lambda_{660}}\right)^4 
-    = \left(\frac{940}{660}\right)^4 \approx 3{,}94
+    \frac{I_{660}}{I_{940}} = 
+    \left(\frac{940}{660}\right)^4 \approx 3{,}94
     \label{eq:rayleigh_ratio}
 \end{equation}
-Rødt lys ved \SI{660}{nm} spredes altså ca. fire gange mere end NIR lys ved \SI{940}{nm}. 
+Rødt lys ved \SI{660}{nm} spredes altså ca.\ fire gange mere 
+end NIR-lys ved \SI{940}{nm} fra rene Rayleigh-spredere.
 
-\subsection{Mie spredning og vævsspredning}
-Rayleigh spredning beskriver spredning på molekylær skala, men biologisk væv indeholder også strukturer med størrelser sammenlignelige med eller større end bølgelængden (celleorganeller, røde blodlegemer, kollagenfibre). 
+\paragraph{Mie-spredning} dominerer når partikelstørrelsen er 
+sammenlignelig med eller større end bølgelængden, dette er relevant for 
+celleorganeller, røde blodlegemer ($\sim$\SI{7}{\micro\meter}) 
+og kollagenfibre \cite{DiezSilva2010} \cite[s.~4-6]{Tuchin2015}. Mie-spredning har en svagere bølgelængdeafhængighed end Rayleigh.
 
-\subsection{Anisotropi og den reducerede spredningskoefficient}
-Anisotropien kvantificeres ved anisotropifaktoren:
+\paragraph{Anisotropi.} Vævsspredning er ikke isotrop: 
+celleorganeller og kollagenfibre spreder overvejende fremad. 
+Anisotropien kvantificeres med faktoren \cite{Jacques2013}:
 \begin{equation}
     g = \langle \cos \theta \rangle
     \label{eq:anisotropy}
 \end{equation}
-Hvor: \\
-$\theta$ er spredningsvinklen. \\ 
+hvor $\theta$ er spredningsvinklen i forhold til indfaldsretningen. 
+Værdien $g = 0$ svarer til isotropisk spredning, $g = 1$ til 
+fuld fremadspredning og $g = -1$ til fuld tilbagespredning. 
+For biologisk væv er $g \approx 0{,}7$ til $0{,}95$.
 
-Værdierne:   \\
-$g = 0$ svarer til isotropisk spredning \\ 
-$g = 1$ til fuld fremadspredning \\
-$g = -1$ til fuld tilbagespredning \\ 
-For biologisk væv er $g \approx 0{,}7$ til $0{,}95$ hvilket indikerer overvejende fremadrettet spredning.
-
-Den simple attenuationsmodel i \cref{eq:mu_total} antager isotropisk spredning. For at korrigere for anisotropien defineres den reducerede spredningskoefficient:
+\paragraph{Reduceret spredningskoefficient.} Den simple attenuationsmodel i \cref{eq:mu_total} antager isotropisk 
+spredning. For at korrigere for den fremadrettede vævsspredning 
+defineres den reducerede spredningskoefficient som \cite[Eq.~(1.21)]{Tuchin2015}:
 \begin{equation}
-    \mu_{\text{spredning}}' = \mu_{\text{spredning}} (1 - g)
+    \mu_s' = \mu_s (1 - g)
     \label{eq:mu_s_red}
 \end{equation}
-Den effektive attenuationskoefficient bliver:
+$\mu_s'$ kan tolkes som den ækvivalente isotrope 
+spredningskoefficient, der ville give samme effektive 
+foton-diffusion som den faktiske anisotrope spredning.
+
+\paragraph{Bølgelængdeafhængighed.} Empirisk følger den 
+reducerede spredningskoefficient en power-law-relation 
+\cite{Jacques2013}:
 \begin{equation}
-    \mu_{\text{eff}} = \mu_a + \mu_{\text{spredning}}'
-    \label{eq:mu_eff}
+    \mu_s'(\lambda) \propto \lambda^{-b}
+    \label{eq:mu_scatter_wavelength}
 \end{equation}
+Eksponenten $b$ afspejler den relative andel af Rayleigh- og 
+Mie-spredere i vævet. Ren Rayleigh-spredning ville give $b = 4$, 
+ren Mie-spredning $b \approx 0$. For hudvæv ligger $b$ typisk 
+mellem 0,7 og 1,5, afhængigt af alder, målemetode og hudtype 
+\cite{Jacques2013}, hvilket afspejler at hud indeholder en 
+blanding af spredere fra begge regimer.
 
 \subsection{Karakteristiske afstande}
-De gennemsnitlige afstande mellem foton-hændelser kan udtrykkes ved de reciprokke koefficienter:
+De gennemsnitlige afstande mellem foton-hændelser kan udtrykkes ved de reciprokke koefficienter \cite[Eq.~(1.23)]{Tuchin2015}:
 \begin{equation}
     l_s = \frac{1}{\mu_s} \qquad \qquad l_a = \frac{1}{\mu_a} \qquad \qquad l_t = \frac{1}{\mu_s'}
     \label{eq:mean_free_paths}
@@ -226,7 +283,7 @@ $l_t$ er transportmiddelvejen (typisk $\sim$\,\SI{1}{mm}), dvs.\ den afstand hvo
 \section{Modificeret Beer-Lamberts lov}
 \label{sec:mbbl}
 
-Da BBL ikke tager højde for spredning, er den utilstrækkelig til beskrivelse af lystransmission gennem biologisk væv. Den modificerede Beer Lamberts lov inkluderer et spredningsled:
+Da BBL ikke tager højde for spredning, er den utilstrækkelig til beskrivelse af lystransmission gennem biologisk væv. Den modificerede Beer Lamberts lov (MBBL) inkluderer et spredningsled \cite[Eq.~(10.6)]{Tuchin2015} \cite[Eq.~(2)]{Barstow2019}:
 \begin{equation}
     I_t = I_0 \exp\!\left(-G - \varepsilon C l\right)
     \label{eq:mbbl}
@@ -237,19 +294,19 @@ eller ækvivalent:
     \label{eq:mbbl_ln}
 \end{equation}
 Hvor: \\ 
-$l$ er den gennemsnitlige længde som et foton rejser (ikke den fysiske afstand $d$)\\ 
-$G$ er lystabet pga.\ spredning samt lyskilde- og detektorgeometri \\
+$l$ er den effektive optiske vejlængde\\ 
+$G$ er lystabet pga.\ spredning\\
 $\varepsilon C l$ er bidraget fra absorption.
 
-Parameteren $G$ afhænger af målegeometrien. Ved transmissionsmåling repræsenterer $G$ primært tabet af fotoner som deflekteres ud af den direkte optiske vej. Ved refleksionsmåling inkluderer $G$ desuden bidrag fra tilbagespredning mod detektoren, hvilket gør modellen mere kompleks.
+Ved transmissionsmåling repræsenterer $G$ primært tabet af fotoner som deflekteres væk fra den optiske vej. Ved refleksionsmåling inkluderer $G$ desuden bidrag fra tilbagespredning mod detektoren, hvilket gør modellen mere  kompleks.
 
-\subsection{Differentiel vejlængdefaktor}
-
-Da fotoner spredes i vævet, er den effektive optiske vejlængde længere end den geometriske afstand. Forholdet beskrives af den differentielle vejlængdefaktor (DPF):
+Da fotoner spredes undervejs, er den effektive optiske vejlængde $l$ længere end den geometriske afstand $d$. Forholdet beskrives af den differentielle vejlængdefaktor (DPF):
 \begin{equation}
-    \text{DPF} = \frac{l}{d} \approx 3 \text{ til } 7 \quad \text{(for typisk væv)}
+    \text{DPF} = \frac{l}{d}
     \label{eq:dpf}
 \end{equation}
+For typisk fingervæv ligger $\text{DPF} \approx 4$ til $7$ 
+\cite{Jacques2013} \cite{Barstow2019}, hvilket vil sige at fotonerne i gennemsnit rejser 4–7 gange længere end den lige linje fra LED til detektor.
 
 \subsection{Gennemsnitlig absorptionskoefficient}
 Den gennemsnitlige absorptionskoefficient i blodet afhænger af iltmætningen:
@@ -266,25 +323,27 @@ Indsættes \cref{eq:epsilon_mix} i \cref{eq:mbbl_ln}, fås:
     \ln\!\left(\frac{I_0}{I_t}\right) = G + \varepsilon_D C l + C l (\varepsilon_O - \varepsilon_D) \cdot \text{SO}_2
     \label{eq:mbbl_so2}
 \end{equation}
-For at isolere $\text{SO}_2$ fra \cref{eq:mbbl_so2} skal parametrene $G$, $C$ og $l$ kendes. Disse parametre varierer imidlertid betydeligt fra person til person, hvilket gør direkte beregning upraktisk. Pulsoximetri løser dette problem ved at udnytte det pulserende signal, som behandles i det følgende afsnit.
+For at isolere $\text{SO}_2$ fra \cref{eq:mbbl_so2} skal parametrene $G$, $C$ og $l$ kendes. Disse parametre varierer imidlertid betydeligt fra person til person, hvilket gør direkte beregning upraktisk. Pulsoximetri omgår dette problem ved at udnytte det pulserende signal til at eliminere $G, C \ \text{og} \ l$, uden at kende deres absolutte værdier.
 
 \section{Målekonfigurationer}
 \label{sec:målekonfigurationer}
-Pulsoximetri kan både foregå ved gennemlysning af fingeren (transmission) eller ved en reflektionsmåling af fingeren (reflektion). I figur XX kan forskellen mellem de to metoder tydeligt ses.
 
-Fig. 12.1 Obtaining the photoplethysmogram and saturation signal with a pulse oximeter. A transmissive mode, on the
-left-hand side, and a reflective mode, on the right-hand side, are presented. A: a light source (emitting, for example, red
-and infrared light) and B: a detector
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/measurement_methods.png}
+    \caption{Princippet for transmissionsmåling (venstre) og refleksionsmåling (højre) i pulsoximetri. A: lyskilde, B: fotodiode. Tilpasset fra \cite[S.~87-88]{Webster1997}.}
+    \label{fig:målekonfigurationer}
+\end{figure}
 
-\subsection{Transmission}
-\label{sec:transmission}
-Medikoteknologi bruger hyppigst transmissionsmålinger. Transmissionsmålinger kan både foregå på fingeren, øret eller tæerne som f.eks. babyer bruger, altså, på periferierne.
+Pulsoximetri kan udføres i to optiske konfigurationer 
+(\cref{fig:målekonfigurationer}). Ved transmissionsmåling 
+placeres lyskilde og detektor på modsatte sider af vævet, 
+typisk fingerspids, øreflip eller hos spædbørn, fod eller 
+tå. Lyset gennemtrænger vævet, og detektoren registrerer den transmitterede intensitet. D
 
-Transmissionsmålinger bruger oftest rødt lys ved, \SI{660}{nm} da brugen af rødt lys øger nøjagtigheden af 
-
-\subsection{Reflektion}
-\label{sec:refleksion}
-Reflektionsmålingen er mere fleksibel end transmissionsmålinger, da denne kan placeres på mange forskellige steder på kroppen.
+Ved refleksionsmåling placeres lyskilde og detektor på 
+samme side, og detektoren registrerer det tilbagespredte lys. 
+Dette gør konfigurationen mere fleksibel, den kan placeres på brystet, panden eller håndleddet.
 
 \section{Pulsoximetrisk måleprincip}
 \label{sec:pulseox_princip}
@@ -372,7 +431,7 @@ Halvledere, isolatorer og metaller kan beskrives beskrives figurativt i figur \r
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{Pictures/Other/band_gaps_ins_semcond_metal.png}
+    \includegraphics[width=1\textwidth]{Pictures/Other/båndgab_faststof.png}
     \caption{De blå bokse repræsenterer ledningsbånd, de gule valensbånd. Søjlerne er henholdsvist: Isolator, halvleder og metal.}
     \label{fig:de tre bånd}
 \end{figure}
@@ -446,9 +505,11 @@ En elektron søger mod det båndgab med den mindste afstand mellem ekstrema, da 
 
 Scenariet i forrige paragraf, gør sig også gældende for ledningsbåndet, ved en bestemt hastighed af elektroner i ledningsbåndet, vil elektroner have lavest energi og derved nemmere at falde tilbage til valensbåndet.
 
-Hvis maxima og minima ligger vertikalt over og under hinanden, som set i (a) i \ref{fig:indirekte_bandgap}, så kaldes materialet for at have direkte båndgab, hvis materialet ikke har maxima og minima over og under hinanden, siges at materialet har indirekte båndgab, set i figur (b).
+Hvis maxima og minima ligger vertikalt over og under hinanden, som set i \ref{fig:direkte_bandgap}, så kaldes materialet for at have direkte båndgab, hvis materialet ikke har maxima og minima over og under hinanden, siges at materialet har indirekte båndgab, set i figur \ref{fig:indirekte_bandgap}.
 
-Materialer med direkte båndgab kræver kun et foton for at kunne rejse på tværs af båndgabet, dette er fordi en foton bærer energi, men næsten intet momentum sammenlignet med skalaen i et krystalgitter. Derfor kan en foton altså kun drive vertikale overgange i E-k diagrammet, hvor elektronen ikke skifter k-værdi/momentum/hastighed. 
+Materialer med direkte båndgab kræver kun en foton for at kunne rejse på tværs af båndgabet, da en foton bærer energi, men næsten intet momentum sammenlignet med skalaen i et krystalgitter. Derfor driver en foton derfor vertikale overgange i E-k diagrammet, hvor elektronen ikke skifter k-værdi/momentum/hastighed. 
+
+For materialer med indirekte båndgab, kræves der ekstra energitilførsel for at flytte elektronen til det ledende bånd, denne energi kommer fra fononer, 
 
 
 

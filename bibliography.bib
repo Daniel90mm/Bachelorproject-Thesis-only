@@ -1,10 +1,44 @@
-@online{biblatex,
-  title = {Biblatex – Sophisticated Bibliographies in LaTeX},
-  publisher = {Dansk Standard},
-  year = {2018},
-  author = {Philipp Lehman AND Joseph Wright AND Audrey Boruvka AND Philip Kime},
-  url = {https://www.ctan.org/pkg/biblatex}
+% Datasheet — use @manual
+@manual{Hamamatsu_S1223,
+    title        = {Si photodiodes S1223 series},
+    author       = {{Hamamatsu Photonics K.K.}},
+    organization = {Hamamatsu Photonics},
+    year         = {2020},
+    note         = {Datasheet},
+    url          = {https://www.hamamatsu.com/...},
+    urldate      = {2026-04-28}
 }
+
+% Book chapter (e.g. the pulse oximetry chapter you reference Fig. 12.1 from)
+@incollection{Mannheimer2011,
+    author    = {Mannheimer, Paul D.},
+    title     = {Pulse Oximetry: Physical Principles, Technical Realization and Present Limitations},
+    booktitle = {Encyclopedia of Medical Devices and Instrumentation},
+    editor    = {Webster, John G.},
+    year      = {2011},
+    publisher = {Wiley}
+}
+
+% Application note / app note from a manufacturer
+@techreport{AnalogDevices_AN,
+    author      = {{Analog Devices}},
+    title       = {Pulse Oximeter Front-End Design},
+    institution = {Analog Devices},
+    type        = {Application Note},
+    number      = {AN-XXX},
+    year        = {2018},
+    url         = {https://www.analog.com/...},
+    urldate     = {2026-04-28}
+}
+
+% Standard / regulation
+@manual{ISO80601,
+    title        = {{ISO 80601-2-61:2017} Medical electrical equipment — Particular requirements for basic safety and essential performance of pulse oximeter equipment},
+    organization = {International Organization for Standardization},
+    year         = {2017}
+}
+
+%-------------------------------------------------------------------
 
 #article template
 @article{Erickson2009,
@@ -16,5 +50,157 @@
     doi = {10.1007/s12575-009-9008-x}
 }
 
-#citation
-. 2009 May 15;11:32-51.
+
+@online{Prahl1998,
+    author  = {Prahl, Scott},
+    title   = {Tabulated Molar Extinction Coefficient for Hemoglobin in Water},
+    year    = {1998},
+    url     = {https://omlc.org/spectra/hemoglobin/summary.html}
+}
+
+@article{Pltz1998,
+  title = {Venous oxygen measurements in the inferior vena cava in neonates with respiratory failure},
+  volume = {2},
+  ISSN = {1364-8535},
+  url = {http://dx.doi.org/10.1186/cc126},
+  DOI = {10.1186/cc126},
+  number = {2},
+  journal = {Critical Care},
+  publisher = {Springer Science and Business Media LLC},
+  author = {Pl\"{o}tz,  Frans B and van Lingen,  Richard A and Bos,  Albert P},
+  year = {1998},
+  month = May 
+}
+
+@article{Nitzan2014,
+  title = {Pulse oximetry: fundamentals and technology update},
+  ISSN = {1179-1470},
+  url = {http://dx.doi.org/10.2147/MDER.S47319},
+  DOI = {10.2147/mder.s47319},
+  journal = {Medical Devices: Evidence and Research},
+  publisher = {Informa UK Limited},
+  author = {Nitzan,  Meir and Romem,  Ayal and Koppel,  Robert},
+  year = {2014},
+  month = July,
+  pages = {231}
+}
+
+@book{Webster1997,
+  title = {Design of Pulse Oximeters},
+  ISBN = {9780367802592},
+  url = {http://dx.doi.org/10.1201/9780367802592},
+  DOI = {10.1201/9780367802592},
+  author = {Webster, J. G.},
+  publisher = {CRC Press},
+  year = {1997},
+  month = Oct 
+}
+
+@article{Mesquida2013,
+  title = {Skeletal Muscle Oxygen Saturation (StO<sub>2</sub>) Measured by Near-Infrared Spectroscopy in the Critically Ill Patients},
+  volume = {2013},
+  ISSN = {2314-6141},
+  url = {http://dx.doi.org/10.1155/2013/502194},
+  DOI = {10.1155/2013/502194},
+  journal = {BioMed Research International},
+  publisher = {Wiley},
+  author = {Mesquida,  J. and Gruartmoner,  G. and Espinal,  C.},
+  year = {2013},
+  pages = {1–8}
+}
+
+@article{Crie2011,
+  title = {Body plethysmography – Its principles and clinical use},
+  volume = {105},
+  ISSN = {0954-6111},
+  url = {http://dx.doi.org/10.1016/j.rmed.2011.02.006},
+  DOI = {10.1016/j.rmed.2011.02.006},
+  number = {7},
+  journal = {Respiratory Medicine},
+  publisher = {Elsevier BV},
+  author = {Criée,  C.P. and Sorichter,  S. and Smith,  H.J. and Kardos,  P. and Merget,  R. and Heise,  D. and Berdel,  D. and K\"{o}hler,  D. and Magnussen,  H. and Marek,  W. and Mitfessel,  H. and Rasche,  K. and Rolke,  M. and Worth,  H. and J\"{o}rres,  R.A.},
+  year = {2011},
+  month = July,
+  pages = {959–971}
+}
+
+@article{YossefHay2018,
+  title = {Pulse Oximetry with Two Infrared Wavelengths without Calibration in Extracted Arterial Blood},
+  volume = {18},
+  ISSN = {1424-8220},
+  url = {http://dx.doi.org/10.3390/s18103457},
+  DOI = {10.3390/s18103457},
+  number = {10},
+  journal = {Sensors},
+  publisher = {MDPI AG},
+  author = {Yossef Hay,  Ohad and Cohen,  Meir and Nitzan,  Itamar and Kasirer,  Yair and Shahroor-karni,  Sarit and Yitzhaky,  Yitzhak and Engelberg,  Shlomo and Nitzan,  Meir},
+  year = {2018},
+  month = Oct,
+  pages = {3457}
+}
+
+@book{Tuchin2015,
+  title = {Tissue Optics: Light Scattering Methods and Instruments for Medical Diagnosis},
+  ISBN = {9781628415162},
+  url = {http://dx.doi.org/10.1117/3.1003040},
+  DOI = {10.1117/3.1003040},
+  publisher = {Society of Photo-Optical Instrumentation Engineers (SPIE)},
+  author = {Tuchin,  Valery V.},
+  year = {2015}
+}
+
+@book{Pedrotti2017,
+  title = {Introduction to Optics},
+  ISBN = {9781108552493},
+  url = {http://dx.doi.org/10.1017/9781108552493},
+  DOI = {10.1017/9781108552493},
+  publisher = {Cambridge University Press},
+  author = {Pedrotti,  Frank L. and Pedrotti,  Leno M. and Pedrotti,  Leno S.},
+  year = {2017},
+  month = Dec 
+}
+
+@article{Jacques2013,
+  title = {Optical properties of biological tissues: a review},
+  volume = {58},
+  ISSN = {1361-6560},
+  url = {http://dx.doi.org/10.1088/0031-9155/58/11/R37},
+  DOI = {10.1088/0031-9155/58/11/r37},
+  number = {11},
+  journal = {Physics in Medicine and Biology},
+  publisher = {IOP Publishing},
+  author = {Jacques,  Steven L},
+  year = {2013},
+  month = May,
+  pages = {R37–R61}
+}
+
+@article{DiezSilva2010,
+  title = {Shape and Biomechanical Characteristics of Human Red Blood Cells in Health and Disease},
+  volume = {35},
+  ISSN = {1938-1425},
+  url = {http://dx.doi.org/10.1557/mrs2010.571},
+  DOI = {10.1557/mrs2010.571},
+  number = {5},
+  journal = {MRS Bulletin},
+  publisher = {Springer Science and Business Media LLC},
+  author = {Diez-Silva,  Monica and Dao,  Ming and Han,  Jongyoon and Lim,  Chwee-Teck and Suresh,  Subra},
+  year = {2010},
+  month = May,
+  pages = {382–388}
+}
+
+@article{Barstow2019,
+  title = {Understanding near infrared spectroscopy and its application to skeletal muscle research},
+  volume = {126},
+  ISSN = {1522-1601},
+  url = {http://dx.doi.org/10.1152/japplphysiol.00166.2018},
+  DOI = {10.1152/japplphysiol.00166.2018},
+  number = {5},
+  journal = {Journal of Applied Physiology},
+  publisher = {American Physiological Society},
+  author = {Barstow,  Thomas J.},
+  year = {2019},
+  month = May,
+  pages = {1360–1376}
+}
