@@ -1,0 +1,212 @@
+
+\chapter{Systemdesign og bølgelængdevalg}
+\label{chap:system_design}
+
+\section{Overordnet designstrategi}
+% Beskriv den samlede strategi:
+% % Optisk teori + litteratur -> foreløbigt bølgelængdevalg
+% % Spektrometer/hyperspektral -> verificering og nuancering
+% % Analogt system -> fysisk realisering og test
+
+Systemdesignet blev udviklet ud fra en kombination af litteratur, optisk teori og praktiske komponenthensyn. Som udgangspunkt blev \SI{660}{nm} og \SI{940}{nm} valgt, da disse bølgelængder anvendes i de fleste kommercielle og kliniske pulsoximetre \cite[s.~35]{Webster1997}. Valget er motiveret af, at rødt lys omkring \SI{660}{nm} giver høj absorptionskontrast mellem oxyhæmoglobin og deoxyhæmoglobin, mens nær-infrarødt lys omkring \SI{940}{nm} generelt har større penetration i væv og samtidig indgår i det klassiske to-bølgelængdeprincip for pulsoximetri.
+
+Valget af bølgelængder blev desuden understøttet af komponenttilgængelighed. LED'er nær \SI{660}{nm} og \SI{940}{nm} er let tilgængelige fra butikker, og deres databladsspecifikationer er veldokumenterede. Dette gjorde dem velegnede som udgangspunkt for det analoge system.
+
+Efter det indledende designvalg blev bølgelængderne undersøgt yderligere ved hjælp af både spektrometriske og hyperspektrale målinger. Disse målinger blev ikke anvendt til at vælge de første kandidatbølgelængder, men til at verificere lyskildernes faktiske spektrale placering og til at vurdere den relative transmission gennem fingervæv ved udvalgte bølgelængder.
+
+\paragraph{Spektrometer.}
+Et spektrometer anvender dispersion, typisk via et diffraktionsgitter, til at adskille indkommende lys i dets spektrale komponenter. Herved kan intensiteten som funktion af bølgelængde bestemmes.
+
+I projektet blev spektrometeret anvendt til tre formål. For det første blev det brugt til at bestemme de faktiske emissionsmaksima for udvalgte LED kandidater. For det andet blev det brugt til at måle emissionsspektret fra et kommercielt pulsoximeter. For det tredje blev det brugt i transmissionsmålinger gennem en finger for at undersøge, hvilke bølgelængdeområder der gav brugbare signaler.
+
+\paragraph{Hyperspektralt setup.}
+Det hyperspektrale setup bestod af en Glo-Bar som infrarød lyskilde, et sæt linser, et lineært variabelt filter, en lineær stage og et hyperspektralt kamera.
+
+En Glo-Bar blev anvendt som transmissionslyskilde, således at en forsøgsperson placerede en finger i strålegangen mellem lyskilden og detektionssystemet. Det transmitterede lys passerede herefter det lineære variable filter, som kun tillod et smalt bølgelængdeinterval at passere ad gangen inden for et område omkring \SIrange{700}{1200}{nm}. Ved at flytte filteret på den lineære stage kunne forskellige bølgelængdeintervaller selekteres med høj nøjagtighed.
+
+Det filtrerede lys blev derefter afbildet på det hyperspektrale kamera. For hvert udvalgt bølgelængdeinterval blev intensiteten i en defineret ROI(region of interest) på fingeren bestemt. Målingerne blev anvendt til at sammenligne den relative transmitterede intensitet ved forskellige bølgelængder under den givne optiske geometri. Resultaterne blev dermed brugt som en supplerende vurdering af, hvilke bølgelængdeområder der var interessante til videre brug i pulsoximetrisystemet.
+
+
+\section{Valg af bølgelængder}
+\label{sec:wavelength_selection}
+% Meget centralt afsnit.
+% Her skal du være ærlig om rækkefølgen.
+% Skriv noget i stil med:
+% % 660 nm og 940 nm blev valgt som udgangspunkt på baggrund af litteratur og komponenttilgængelighed.
+% % Efterfølgende blev valg og nærliggende alternativer undersøgt med spektrometriske og hyperspektrale målinger.
+
+\SI{660}{nm} og \SI{940}{nm} blev valgt som primære kandidatbølgelængder på baggrund af litteratur og komponenttilgængelighed. Disse bølgelængder udgør det klassiske to-bølgelængdepar i pulsoximetri, hvor \SI{660}{nm} anvendes i det røde område med høj forskel mellem oxyhæmoglobin og deoxyhæmoglobin, mens \SI{940}{nm} anvendes i det nær-infrarøde område, hvor vævspenetrationen er større, og absorptionsforholdet mellem de to hæmoglobinformer er ændret.
+
+Herudover blev \SI{810}{nm} og \SI{970}{nm} undersøgt som supplerende kandidatbølgelængder. \SI{810}{nm} er interessant som et omtrent isosbestisk punkt, mens \SI{970}{nm} blev inkluderet som en ekstra sammenligning i det nær-infrarøde område. Disse bølgelængder blev karakteriseret spektrometrisk, men blev ikke integreret i det endelige analoge system på grund af tidsbegrænsninger.
+
+\begin{table}[h]
+\centering
+\caption{Oversigt over undersøgte kandidatbølgelængder og deres rolle i projektet.}
+\label{tab:kandidat_boelgelaengder}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{l l X X}
+\toprule
+Kandidatbølgelængde & Rolle & Motivation & Status i projektet \\
+\midrule
+\SI{660}{nm} & Rød hovedmåling & Høj absorptionsforskel mellem HbO$_2$ og Hb & Brugt i analogt system, karakteriseret med spektrometer \\
+\SI{810}{nm} & Isosbestisk reference & Omtrent samme absorption for HbO$_2$ og Hb & Karakteriseret med spektrometer \\
+\SI{940}{nm} & IR-hovedmåling & Klassisk NIR-bølgelængde med større vævspenetration og komplementær information til \SI{660}{nm} & Brugt i analogt system og karakteriseret med spektrometer \\
+\SI{970}{nm} & Supplerende NIR-måling & Ekstra sammenligning i det nær-infrarøde område & Karakteriseret med spektrometer \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+\section{Overordnet systemarkitektur}
+% Beskriv kæden fra LED-driver til databehandling.
+
+Som vist i figur \ref{fig:blockdiagram_architecture} styres LED'erne via et separat driverkredsløb. Da de røde og infrarøde LED'er har forskellige fremadspændinger og ønskede strømme de drives i, blev driveren designet således, at strømmen til hver LED kan tilpasses ved hjælp af udskiftelige modstande. En N-kanal MOSFET anvendes som switch, så LED-strømmen kan leveres fra et separat \SI{9}{V} batteri frem for direkte fra oscilloskopets interne udgange.
+
+De pulserede LED'er er monteret i et 3D-printet kabinet, hvor de belyser fingeren i transmissionsgeometri. Det transmitterede lys detekteres af en S1223-fotodiode placeret på den modsatte side af fingeren. Fotodiodens strøm føres herefter til transimpedansforstærkeren, hvor den omsættes til en spænding.
+
+Den analoge signalkæde består herefter af en transimpedansforstærker efterfulgt af et lavpasfilter, et højpasfilter og et ikke-inverterende forstærkertrin. Lavpasfilteret anvendes til at begrænse båndbredden og dæmpe højfrekvent støj, mens højpasfilteret anvendes til at undertrykke DC-komponenten og meget lave frekvenser, eksempelvis drift og langsomme bevægelser. Det afsluttende forstærkertrin hæver signalniveauet, så det udnytter dataopsamlingens dynamiske område bedre.
+
+De enkelte stadier er forbundet modulært via JST-XH-forbindelser, hvilket letter samling, udskiftning og fejlfinding under prototypingen.
+
+Som dataopsamlingsenhed blev et Analog Discovery 3 anvendt. Denne enhed blev brugt både til at generere styresignaler til tidsmultipleksing af LED'erne og til at opsamle det analoge signal fra signalkæden. Den endelige signalbehandling og visualisering blev udført i Python.
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/blockdiagram_architecture.png}
+    \caption{Komplet systemarkitektur af kredsløb.}
+    \label{fig:blockdiagram_architecture}
+\end{figure}
+
+
+\section{Mekanisk design}
+\label{sec:mechanical_design}
+
+\subsection{Modulært 3D-printet design}
+% Beskriv hvorfor du valgte modulært design.
+% Knyt det til iterativ udvikling, udskiftelighed og demonstrerbarhed.
+
+\paragraph{Modularitet.} Det 3D-printede designvalg set i figur \ref{fig:3D design arkitektur} stammer fra et ønske af modularitet, og nem prototyping. Hvert stadie er skruet ned i en enkelt puslespils-lignende brik, som hæftes sammen med andre stadier via et dovetail inspireret joint. Dette tillader moduler der kan opgraderes, fjernes og tilføjes uden at hele kæden går i stykker, som er en kritisk egenskab under prototyping. 
+
+Det giver muligheder som at f.eks. tilføje et evt. \SI{50}{Hz} notch filter i signalkæden hvis det viser sig at \SI{50}{Hz} støj dominerer.
+
+Til sidst, som ikke er en egenskab af modularitet, men en egenskab af det printede materiale (PLA & PETG). Disse materialer er ikke ledende, hvilket forhindrer kortslutninger mellem stadierne, det kan f.eks. ske hvis bunden af PCB'erne hviler mod f.eks. et optisk bord eller anden ledende overflade.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/3D print kæde.png}
+    \caption{3D design af systemarkitektur, farve er arbitrær. Bemærk, tre huller er designet til de originalt tænkte 3 LEDer (\SI{660}{nm}, \SI{810}{nm}, \SI{940}{nm}), men pga. tidsmangel, blev \SI{810}{nm} ikke inkluderet.}
+    \label{fig:3D design arkitektur}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/LED PD closeup.png}
+    \caption{Zoom-in af 3D design af pulsoximeter hylsters top(venstre) og bund (højre). Farve er arbitrær. I billedet vil både LED og fotodiode pege op mod kameraet, med fingeren "sandwichet" mellem de to. De to halvdele vil være forbundet en cylindrisk låse pin.}
+    \label{fig:3D design finger hylster}
+\end{figure}
+
+\subsection{Praktiske designhensyn}
+% Ambient light, fingertryk, alignment, kabelføring, mekanisk stabilitet.
+% Kort men konkret.
+
+\paragraph{Anden belysning.} Hylsteret er blandt andet designet ud fra ideen om at baggrundsbelysning skal ikke kunne deltage i det endelige signal, derfor er hylsteret printet i jet-sort PLA & PETG. En sort farve hjælper afvise forstyrrelser fra omgivende lys, og hjælper derfor med den endelige signalkvalitet.
+
+\paragraph{Pulsoxi-hylster.} Som set i figur \ref{fig:3D design finger hylster} er der specielt designet plads til fotodioden og de to LED'er. De specifikke mål er hentet fra hvert datablad og itereret over med de faktiske mål for komponenterne.
+
+LED'erne og fotodioden er limet fast til 3D printet for at holde komponenterne på plads, dette vil ikke påvirke signalerne, kortslutning eller nogle andre egenskaber af komponenterne.
+
+Der blev desuden indarbejdet en fingerformet rille i både top- og bundsektionen for at forbedre fingerens placering og reproducerbarheden af målegeometrien. Geometrien blev dimensioneret ud fra en repræsentativ fingerstørrelse og er derfor ikke nødvendigvis optimal for alle brugere.
+
+\paragraph{Hylster til TIA-kabling.} #TODO: JEG VED IKKE HVORDAN DETTE SKAL SE UD DA JEG IKKE ER FÆRDIG MED DEN ANALOGE OPSTILLING ENDNU. 
+
+\paragraph{JST forbindelser.} Hvert stadie er forbundet via en kabelstandard der hedder JST. Specifikt bruges JST-XH, som er en ofte brugt forbindelse designet til brug i 3D print. Motivationen for JST forbindelser opstod samtidigt som forrige afsnits motivation. 
+
+Med JST kabler kan man selv bestemme længden af kablerne. Forbindelserne sidder godt fast med en simpel låsemekanisme, og de er billige.
+
+\section{Elektronisk design}
+\label{sec:electrical_design}
+
+\subsection{LED-driver}
+LED driver stadiet er separeret fra resten af signalkæden 
+for at isolere switching transienter fra LED'erne fra det følsomme analoge domæne, og for at levere tilstrækkelig strøm til  LED'erne. AD3'ens programmerbare wavegen udgang kan levere op til \SI{40}{mA} før hardware-cutoff, set i datasheet i appendiks \ref{fig:ad3_datasheet}, hvilket er utilstrækkeligt til IR-LED'en der drives ved op til \SI{50}{mA}. Wavegen anvendes derfor udelukkende som styresignal, mens selve LED-strømmen leveres fra et separat \SI{9}{V} batteri.
+
+Hver LED drives gennem en 2N7000 N-kanal MOSFET konfigureret som switch. Wavegen-signalet (0 til \SI{3.3}{V}) styrer MOSFET'ens gate, mens drain er forbundet til LED-katoden og source til GND. LED-anoden tilsluttes forsyningsspændingen via en strømbegrænsende seriemodstand $R_{LED}$. LED-strømmen er givet ved
+\begin{equation}
+    I_{LED} = \frac{V_{CC} - V_f - V_{DS(\text{on})}}{R_{LED}}
+    \label{eq:led_current}
+\end{equation}
+hvor $V_f$ er LED'ens fremadspænding og $V_{DS(\text{on})}$ 
+er MOSFET'ens spændingsfald i ledende tilstand.
+
+2N7000 har en turn on/turn off-tid på 
+\SI{10}{ns} set i datasheet i appendiks \ref{fig:2n7000_datasheet}, hvilket er hurtigere end LED'ernes egen rise/fall-tid, hvor f.eks. IR-LED'ens rise/fall-tid er \SI{15}{ns}, og dermed ikke begrænser switching-hastigheden i tidsmultipleksingen. 
+
+Strømbegrænsning via den udskiftelige seriemodstand giver mulighed for at regulering af $I_{LED}$ og dermed lysstyrken af LED'en. 
+
+Et Python program blev anvendt til at styre tidsmultipleksingen af LED'erne og til samtidig opsamling af signalet fra den analoge kæde. Selve LED-strømmen blev dog leveret fra en separat forsyning, således at oscilloskopets udgange kun fungerede som styresignaler og ikke som hovedstrømkilde for LED'erne.
+
+\subsection{Transimpedansforstærker - TIA}
+% Beskriv valg af gain, komponenter og designhensyn.
+
+TIA'en er baseret på en OP27, som er en lavstøjs præcisions operationsforstærker. Den er vist i figur \ref{fig:PD_ingen_bias_TIA}, og er også vist i PCB skemaet i appendiks \ref{fig:TIA_LP}. 
+
+I feedback stien fra $V_{out}$ til den negative input terminal $-in$ er der en modstand, betegnet med $R_f$ der sætter gain, og en kondensator parallelt forbundet med $R_f$, kaldet for $C_f$. 
+
+Den parallelkoblede feedbackkondensator $C_f$ anvendes til at forbedre stabiliteten i TIA'en, særligt i samspillet mellem fotodiodens kapacitans og operationsforstærkerens dynamik. Typiske komponentvalg, og de samme som er valgt i projektet og designet efter \cite{analog_tia_stabilize}:
+
+\begin{itemize}
+    \item $R_f = 100 \ \text{k} \ohm$
+    \item $C_f = 10 \  \text{pF}$
+\end{itemize}
+
+TIA'ens fundamentale formel for output spænding er derfor:
+
+\begin{equation}
+    V_{out} = - I_{pd} R_f
+\end{equation}
+Hvor minustegnet indikerer en inverterende konfiguration fra fotodiode til operationsforstærker.
+
+
+\subsection{Filtrering og ekstra forstærkning}
+% LPF, HPF og ekstra gain samlet eller opdelt.
+% Gør det kun så detaljeret som nødvendigt.
+
+
+
+
+\subsection{Fra perfboard til PCB}
+% Kort men vigtigt.
+% Vis udviklingsforløbet og hvorfor PCB-versionen var nødvendig.
+%
+% Figur:
+% % Foto af perfboard-prototype vs. PCB.
+%
+% Hold det på ca. 0.5--1 side, ikke mere.
+
+Overgangen fra perfboard til printet kredsløb blev motiveret af både sikkerheds- og robusthedshensyn. Under test af perfboard-prototypen opstod der en kortslutning mellem de to batteriforsyninger via det ledende optiske bord. Selvom ingen komponenter blev permanent beskadiget, viste episoden, at den manuelle prototypeløsning var sårbar over for fejl og fjernet i den videre udviklingsproces.
+
+Perfboard løsningen gjorde det desuden tidskrævende at foretage ændringer, da aflodning og ombygning ofte var besværligt og kunne belaste komponenterne termisk. En dedikeret PCB-løsning gav derfor både en mere robust elektrisk opbygning, en mere reproducerbar geometri og en mere overskuelig platform for videre test og fejlfinding.
+
+I figur \ref{perf_vs_pcb} vises fordelen hurtigt ved at producere en PCB vs. et perfboard.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/Perfboard_vs_PCB.png}
+    \caption{Sammenligning med perfboard setup til venstre og PCB til højre.}
+    \label{fig:perf_vs_pcb}
+\end{figure}
+
+
+
+\section{Forventede styrker og begrænsninger}
+% Kort afsnit inden metodekapitlet.
+% Her sætter du læserens forventning:
+% % systemet forventes at kunne måle PPG og puls
+% % absolut SpO2 er mere usikker uden klinisk kalibrering
+% % optiske målinger bruges til validering af bølgelængdevalg
+
+Det forventes, at systemet kan måle et brugbart PPG-signal i transmissionsgeometri og dermed også muliggøre estimering af puls ud fra det pulsatile signal.
+
+Derimod er det endelige SpO$_2$ estimat forbundet med større usikkerhed. Systemet er ikke klinisk kalibreret mod arteriel iltmætning, og den anvendte sammenhæng mellem $R$ og SpO$_2$ er derfor baseret på en standardkalibreringskurve fra litteraturen. Resultatet bør derfor fortolkes som et proof-of-concept-estimat snarere end som en klinisk valideret måling.

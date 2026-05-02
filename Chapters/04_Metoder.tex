@@ -1,0 +1,146 @@
+\chapter{Eksperimentel opstilling og metoder}
+\label{chap:methods}
+
+\section{Overordnet valideringsstrategi}
+% Forklar at projektet bruger tre spor:
+% % 1) Analogt pulsoximetersystem som hovedspor
+% % 2) Hyperspektral opstilling som optisk validering
+% % 3) Spektrometer som spektral karakterisering
+%
+% Gør det tydeligt at disse spor er komplementære og ikke konkurrerende.
+
+\section{Analog måleopstilling}
+\label{sec:analog_setup}
+
+\subsection{Formål}
+% Hvad skulle denne opstilling vise?
+% % At det analoge system kan generere et brugbart PPG-signal ved udvalgte bølgelængder.
+
+\subsection{Fysisk opstilling}
+% Beskriv komponenter, sammenkobling, fingerplacering, afskærmning, AD3/DAQ osv.
+%
+% Figur:
+% % Foto af den virkelige opstilling på bordet.
+% % Eventuelt også et rent diagram.
+
+\subsection{Måleprocedure}
+% Beskriv helt konkret hvordan målingerne blev kørt.
+% % LED-tilstande
+% % varighed
+% % sampling rate
+% % forsøgsperson/finger
+% % normal vejrtrækning, evt. breath-hold, recovery
+%
+% Vær reproducerbar.
+
+\subsection{Elektrisk karakterisering}
+% Gain, saturation, støj, frekvensrespons, evt. verificering af delkredsløb.
+%
+% Figur:
+% % Delsignal gennem kæden eller karakteriseringsplots.
+
+\subsection{Signalbehandling}
+% Separering af multiplexede signaler, filtrering, AC/DC, peak detection, puls.
+% Hold metode og resultat adskilt.
+
+\subsection{Udledte parametre}
+% Hvilke parametre udtrækkes?
+% % rå signal
+% % filtreret PPG
+% % puls
+% % AC/DC
+% % R
+% % evt. relativ SpO2-trend
+%
+% Brug "relativt estimat" hvis absolut SpO2 er for usikkert.
+
+\section{Hyperspektral opstilling}
+\label{sec:hyperspectral_setup}
+
+\subsection{Formål}
+% Optisk vurdering af relativ transmission gennem finger ved udvalgte bølgelængder.
+
+\subsection{Opstilling}
+% Beskriv kamera, lineær stage, variabelt filter, glowbar, fingerplacering.
+%
+% Figur:
+% % Skematisk figur af opstillingen.
+% % Foto kan flyttes til appendix hvis der er mange billeder.
+
+\subsection{Måleprocedure}
+% Hvilke bølgelængder?
+% Hvordan blev billeder taget?
+% Hvad blev holdt konstant?
+% Var der dark/reference?
+% Hvis ikke, skriv ærligt hvad der faktisk blev gjort.
+
+\subsection{Billedanalyse}
+% Beskriv ROI, intensitetsudtræk, normalisering og sammenligningsmål.
+% Brug ikke kun maksimal pixel.
+% Brug middelintensitet i ROI eller lignende.
+
+\subsection{Begrænsninger}
+% Lav tidsopløsning, ikke pulsopløsning, afhængighed af geometri og kilde.
+% Kort men vigtigt.
+
+\section{Spektrometrisk karakterisering}
+\label{sec:spectrometer_characterization}
+
+\subsection{Formål}
+% Verificere de faktiske emissionsmaksima og spektralprofiler for LED'er og andre kilder.
+
+\subsection{Opstilling}
+% Spektrometer, fiberplacering, mørkemåling, integrationstid, afstand.
+%
+% Figur:
+% % Foto eller skematisk figur, men kun hvis den hjælper.
+
+\subsection{Måleprocedure}
+% Beskriv hvilke kilder der blev målt.
+% % 660 nm LED
+% % 810 nm LED
+% % 960/970 nm LED
+% % kommercielt pulsoximeter
+%
+% Skriv hvordan peaks blev bestemt.
+
+\subsection{Dataanalyse}
+% Peak wavelength, FWHM, evt. smoothing.
+% Dette afsnit er meget vigtigt fordi det kobler til LED-spektral bredde.
+
+\section{Sammenligning med kommercielt pulsoximeter}
+\label{sec:reference_comparison}
+% Kun hvis du har målingen.
+% Gør dette til en separat metode, ikke bare en note i resultater.
+%
+% Beskriv:
+% % referenceenhed
+% % samtidighed
+% % måleprotokol
+% % hvad der sammenlignes: puls, SpO2, trend, R
+%
+% Tabel:
+% % Sammenligningsprotokol og evalueringsmål.
+
+\section{Usikkerheder og metodiske begrænsninger}
+% Vigtigt.
+% Saml metodiske svagheder ét sted:
+% % få forsøgspersoner
+% % manglende klinisk kalibrering
+% % variation i fingertryk og geometri
+% % LED-bredden
+% % forskel mellem 930 og 940 nm
+% % begrænset reference
+%
+% Dette afsnit skal være ærligt og kontrolleret, ikke defensivt.
+
+
+
+
+
+
+
+
+Hvad er det for en opstilling man arbejder med, hvilke processeringsmetoder er brugt? Hvordan har man analyseret data? Hvad ligger forud for eksperimenterne?
+
+Den eksperimentelle opstilling er opdelt i to, af årsagen at påvise forskellen mellem en af de billigere hjemmelavede setups mod et kalibreret, professionelt setup.
