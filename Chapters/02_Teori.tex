@@ -1,7 +1,7 @@
 \chapter{Teori}
 
 \section{Pulsoximetri}
-Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder af lys, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, kaldet for $\text{SpO}_2$, repræsenterer resultatet ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt.
+Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder af lys, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, betegnes resultatet $\text{SpO}_2$, repræsenterer resultatet ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt.
 
 \subsection{Kliniske ilt-parametre}
 Herunder er en oversigt over de vigtigste kliniske ilt parametre \cite{Pltz1998,Nitzan2014, Webster1997, Mesquida2013}:
@@ -65,7 +65,8 @@ $\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader konti
 
 \subsection{Det fotoplethysmografiske signal}
 
-Et plethysmogram er et instrument til at måle ændringer i blod- og iltvolumen f.eks. i legemer som lungerne og lemmerne \cite{Crie2011}. En naturlig udvidelse af et plethysmogram er en måling af volumen af iltmætningen i blodet, dette kadles for et fotoplethysmogram (eng. PPG).
+En plethysmograf er et instrument der måler volumenændringer i et organ, og det resulterende signal kaldes et plethysmogram. Når målingen foregår optisk via lystransmission, betegnes signalet et 
+fotoplethysmogram (PPG) \cite{Allen2007}.
 
 Ved måling af lystransmission gennem en finger observeres et periodisk signal der følger hjertets cyklus. Under systole, som er hjertemuskulaturens kontraktion, udvides arterierne og blodvolumen i fingeren forøges, hvilket øger absorptionen og reducerer den transmitterede intensitet. Under diastole, som er fasen med hjertemuskulaturens afslapning, falder blodvolumen og intensiteten stiger igen.
 
@@ -140,10 +141,10 @@ en sum af de individuelle bidrag:
 Dette superpositionsprincip følger af at hver foton interagerer 
 uafhængigt med de enkelte molekyler i væv.
 
-\subsection{Begrænsninger i spredende medier}
-BBL antager attenuation skyldes absorption, og at lys propagerer lige gennem vævet uden at sprede sig, altså at: $$d = \text{afstand gennem medie}$$. 
+BBL antager at attenuation udelukkende skyldes absorption, og at lys propagerer i en lige linje gennem vævet uden at sprede sig, altså 
+at den optiske vejlængde er lig med den geometriske afstand $d$. 
 
-I væv er denne antagelse ikke opfyldt, da spredning bidrager væsentligt til attenuationen \cite{Tuchin2015}. Det vil altså sige, at formel \ref{eq:bbl_fysik} kun gælder når $\mu_a \gg \mu_s$, det vil sige, når man kun har med meget absorberende medier at gøre. Konsekvenserne af spredning behandles i \cref{subsec:rayleigh_spredning}, og en modificeret formulering af BBL præsenteres i \cref{sec:mbbl}.
+I væv er denne antagelse ikke opfyldt, da spredning bidrager væsentligt til attenuationen \cite{Tuchin2015}. Det vil altså sige, at formel \ref{eq:bbl_fysik} kun gælder når $\mu_a \gg \mu_s$, det vil sige, når man kun har med meget absorberende medier at gøre. Konsekvenserne af spredning behandles i \cref{subsec:spredning}, og en modificeret formulering af BBL præsenteres i \cref{sec:mbbl}.
 \section{Optiske egenskaber af biologisk væv}
 \label{sec:optik_vaev}
 
@@ -269,8 +270,7 @@ mellem 0,7 og 1,5, afhængigt af alder, målemetode og hudtype
 \cite{Jacques2013}, hvilket afspejler at hud indeholder en 
 blanding af spredere fra begge regimer.
 
-\subsection{Karakteristiske afstande}
-De gennemsnitlige afstande mellem foton-hændelser kan udtrykkes ved de reciprokke koefficienter \cite[Eq.~(1.23)]{Tuchin2015}:
+\paragraph{Karakteristiske afstande.} De gennemsnitlige afstande mellem foton-hændelser kan udtrykkes ved de reciprokke koefficienter \cite[Eq.~(1.23)]{Tuchin2015}:
 \begin{equation}
     l_s = \frac{1}{\mu_s} \qquad \qquad l_a = \frac{1}{\mu_a} \qquad \qquad l_t = \frac{1}{\mu_s'}
     \label{eq:mean_free_paths}
@@ -331,7 +331,7 @@ For at isolere $\text{SO}_2$ fra \cref{eq:mbbl_so2} skal parametrene $G$, $C$ og
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{Pictures/Other/measurement_methods.png}
-    \caption{Princippet for transmissionsmåling (venstre) og refleksionsmåling (højre) i pulsoximetri. A: lyskilde, B: fotodiode. Tilpasset fra \cite[S.~87-88]{Webster1997}.}
+    \caption{Princippet for transmissionsmåling (venstre) og refleksionsmåling (højre) i pulsoximetri. Tilpasset fra \cite[S.~87--88]{Webster1997}.}
     \label{fig:målekonfigurationer}
 \end{figure}
 
@@ -339,7 +339,7 @@ Pulsoximetri kan udføres i to optiske konfigurationer
 (\cref{fig:målekonfigurationer}). Ved transmissionsmåling 
 placeres lyskilde og detektor på modsatte sider af vævet, 
 typisk fingerspids, øreflip eller hos spædbørn, fod eller 
-tå. Lyset gennemtrænger vævet, og detektoren registrerer den transmitterede intensitet. D
+tå. Lyset gennemtrænger vævet, og detektoren registrerer den transmitterede intensitet.
 
 Ved refleksionsmåling placeres lyskilde og detektor på 
 samme side, og detektoren registrerer det tilbagespredte lys. 
@@ -349,7 +349,7 @@ Dette gør konfigurationen mere fleksibel, den kan placeres på brystet, panden 
 \label{sec:pulseox_princip}
 
 \subsection{Eliminering af ukendte parametre}
-Ved at betragte forholdet mellem intensiteterne ved systole og diastole kan de ukendte parametre elimineres. Intensiteterne udtrykkes via \cref{eq:mbbl}:
+Ved at betragte forholdet mellem intensiteterne ved systole og diastole kan de ukendte parametre elimineres. Intensiteterne udtrykkes via \cref{eq:mbbl} \cite[s.126--129]{Webster1997}:
 \begin{equation}
     I_D = I_0 \exp(-G_D - \varepsilon C_D l_D)
     \label{eq:i_diastole}
@@ -381,12 +381,13 @@ Hermed er den ukendte parameter $G$ elimineret, og udtrykket afhænger kun af ab
 Tilnærmelsen $\ln(I_S/I_D) \approx AC/DC$ gælder da AC komponentens amplitude er lille i forhold til DC niveauet. $R$ er dimensionsløs og uafhængig af $I_0$, $G$, og den absolutte mængde væv. $R$ afhænger dermed kun af de relative absorptionsforskelle mellem de to bølgelængder, som er bestemt af iltmætningen.
 
 \subsection{Empirisk kalibrering}
-Teoretisk kan $\text{SpO}_2$ udledes analytisk fra $R$ ved hjælp af kendte absorptionskoefficienter. I praksis er de forenklende antagelser (bl.a.\ $G_D \approx G_S$, samt neglekt af spredningens bølgelængdeafhængighed) ikke fuldstændigt opfyldt. Derfor kalibreres forholdet mellem $R$ og $\text{SpO}_2$ empirisk ved at sammenligne pulsoximetriske målinger med samtidige blodgasanalyser ($\text{SaO}_2$) på frivillige forsøgspersoner. Den resulterende kalibreringskurve tilnærmes typisk med et lineært udtryk:
+Teoretisk kan $\text{SpO}_2$ udledes analytisk fra $R$ ved hjælp af kendte absorptionskoefficienter. I praksis er de forenklende antagelser (bl.a.\ $G_D \approx G_S$, samt neglekt af spredningens bølgelængdeafhængighed) ikke fuldstændigt opfyldt. Derfor kalibreres forholdet mellem $R$ og $\text{SpO}_2$ empirisk ved at sammenligne pulsoximetriske målinger med samtidige blodgasanalyser ($\text{SaO}_2$) på frivillige forsøgspersoner. Den resulterende kalibreringskurve tilnærmes typisk med et lineært udtryk \cite[s. (15)]{Kyriacou2005}:
 \begin{equation}
     \text{SpO}_2 = a - b \cdot R
     \label{eq:spo2_calibration}
 \end{equation}
-hvor $a$ og $b$ er empirisk bestemte konstanter. For $R = 1$ (ved det isobestiske punkt) er $\text{SpO}_2 \approx 85\,\%$, og for $R = 0{,}4$ er $\text{SpO}_2 \approx 100\,\%$.
+hvor $a$ og $b$ er empirisk bestemte konstanter. For $R = 0{,}4$ er $\text{SpO}_2 \approx 100\,\%$, og for $R = 1$ er 
+$\text{SpO}_2 \approx 85\,\%$ \cite{Webster1997}.
 
 % Inkluder evt. en figur med kalibreringskurven her.
 
@@ -420,151 +421,173 @@ Måling 3 & Slukket & Slukket \\
 
 Målingerne køres i cyklus i rækkefølgen: \SI{660}{nm}, \SI{940}{nm}, mørkemåling. Tabel \ref{tab:maalinger} ovenover viser en komplet målecyklus.
 
-\section{Halvleder fysik}
+\section{Halvlederfysik}
+\label{sec:halvleder}
 
-Konduktivitet er en egenskab der beskriver et materiales evne at lede elektricitet.
-En halvleder er et materiale med en elektrisk konduktivitet, mellem en leder og isolator. Konduktiviteten kan ændres ved at dope strukturen af halvlederens struktur, hvor at dopingen øger antallet af ladningsbærere i halvlederen.
+Fremstillingen i dette og efterfølgende kapitel om optoelektroniske 
+komponenter (\cref{sec:optoelektroniske_komponenter}) bygger 
+primært på \cite[Kap.~16--18]{Saleh2007}, medmindre andet er 
+angivet.
+
+Konduktivitet er en egenskab der beskriver et materiales evne til at lede elektricitet. En halvleder er et krystallinsk materiale med en elektrisk konduktivitet mellem en leder og en isolator. 
+Konduktiviteten kan ændres ved at variere temperaturen, doping eller belysning. Elektronik bruger typisk halvledere lavet af silicium (Si), mens optoelektronik ofte bruger legeringer af flere grundstoffer på en gang. Legeringer med to, tre eller fire grundstoffer kaldes henholdsvis binære, ternære og kvaternære halvledere.
+
+Behovet for legeringer stammer fra ønsket om at skræddersy 
+materialets egenskaber, herunder:
+\begin{itemize}
+    \item et specifikt båndgab (og dermed en specifik bølgelængde)
+    \item temperaturstabilitet
+    \item billigere eller nemmere fabrikation
+    \item høj lysstyrke ved emission
+    \item lav defektrate i krystalgitteret
+\end{itemize}
 
 \subsection{Båndteori}
 
-Halvledere, isolatorer og metaller kan beskrives beskrives figurativt i figur \ref{fig:de tre bånd}. Hver af de tre klasser, som kaldes for "solid-state materials", repræsenteres med to bånd, et ledningsbånd(eng. conduction band) og et valensbånd (eng. valence band). I virkeligheden, kan materialerne både være rene grundstoffer eller legeringer af andre metaller. 
+Forskellen mellem halvledere, isolatorer og metaller illustreres i \cref{fig:de tre bånd}. Hver klasse repræsenteres med to bånd: et valensbånd (eng. \textit{valence band}) og et ledningsbånd (eng. \textit{conduction band}). 
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{Pictures/Other/båndgab_faststof.png}
-    \caption{De blå bokse repræsenterer ledningsbånd, de gule valensbånd. Søjlerne er henholdsvist: Isolator, halvleder og metal.}
+    \caption{Skematisk båndstruktur for de tre faststoftyper. 
+    De gule bokse repræsenterer valensbåndet og de blå 
+    repræsenterer ledningsbåndet. Søjlerne er henholdsvis 
+    isolator, halvleder og metal.}
     \label{fig:de tre bånd}
 \end{figure}
 
-Valensbåndet er et interval af energiniveauer der er proppede med elektroner, der godt kan bevæge sig frit indbyrdes, men må ikke rejse ud af dem samlede nærliggende, lokale konstruktion.
-
-Et solid-state materiales mellemrum mellem lednings- og valensbånd, illustreret i figur \ref{fig:de tre bånd} beskriver den energi det tager for at få en elektron til at øge sit energi niveau, til det niveau, hvor elektronen kan bevæge sig frit. Dette mellemrum kaldes på engelsk for "the forbidden gap".
-
-Så snart elektronen får en energitilførsel der tillader at skifte energiniveau/bånd, kan den hoppe komplet over det midterste bånd, og bevæge sig frit i det ledende bånd. Når elektronen er hoppet fra valensbåndet, efterlader den et "hul", i praksis er det ikke et hul, men en manglende elektron i gitteret, det hul, eller manglende elektron, som også er frit til at rejse, men nu i valensbåndet. Dette elektron-hul par bevæger sig begge nu rundt i hver deres bånd, efter nano- til mikrosekunder, falder elektronen tilbage til valensbåndet i et vilkårligt hul, og dens ekstra energi som den fik fra excitationen, frigives enten som varme eller lys.
-
-Energien der påkræves for at flytte en elektron for et specifikt materiale, kaldes for elektronvolt, ofte skrevet som $\text{eV}$. En elektronvolt er en energienhed for sig selv, og sammenlignes med SI-enheden Joules herunder:
-$$
-1 \ \text{eV} = 1.6 \times 10^{-19} \ \text{J}
-$$
-
-Specifikt for en foton med en bølgelængde lambda, kan en elektronvolt beskrives som:
-
+Valensbåndet består af de energiniveauer hvor materialets valenselektroner befinder sig i grundtilstanden. I silicium, der har fire valenselektroner per atom, er valensbåndet helt fyldt ved $T = \SI{0}{K}$. Elektroner i et fyldt valensbånd kan ikke bidrage til en elektrisk strøm, da der ikke er ledige energi-niveauer at flytte sig til. Energien der kræves for at løfte en elektron fra valensbåndet til ledningsbåndet, hvor den frit kan bevæge sig, kaldes båndgabsenergien $E_g$ og angives typisk i enheden elektronvolt:
 \begin{equation}
-    E = \frac{hc}{\lambda} = \frac{1240}{\lambda} \ [\text{eV}]
+    1 \ \text{eV} = \SI{1{,}602e-19}{J}.
 \end{equation}
-Hvor:
-$hc = 1240$ er Plancks konstant ganget med lysets hastighed.  
-$\lambda$ er bølgelængden i nanometer.
 
-F.eks., vil en \SI{660}{nm} rød foton, have $\frac{1240}{660} \approx 1.88 \ \text{eV}$, hvilket passer med AlGaInP's båndgab energi vist i \ref{tab:solid_state_materialer}, kol. 2, kaldet for Eg.
+Ved $T > \SI{0}{K}$ vil termisk energi excitere nogle elektroner til ledningsbåndet. Den exciterede elektron efterlader en tom plads i valensbåndet, betegnet et hul. Hullet kan beskrives som en positivt ladet kvasi-partikel der bevæger sig i valensbåndet, mens den exciterede elektron bevæger sig i ledningsbåndet. Begge ladningsbærere bidrager til konduktiviteten ved påførelse af et eksternt elektrisk felt, og konduktiviteten stiger derfor med temperaturen, da flere elektron-hul par dannes.
 
+Forskellen mellem metaller, halvledere og isolatorer ligger i størrelsen af deres båndgab. I metaller overlapper valens- og ledningsbånd, så ladningsbærere spontant kan deltage i elektrisk 
+strøm uden ekstern excitation. I isolatorer er båndgabet så stort ($> \SI{4}{eV}$) at termisk excitation ved stuetemperatur ikke er nok for at flytte energiniveauet af elektronerne. Halvledere ligger imellem, med båndgab i intervallet \SIrange{0{,}5}{3}{eV}, hvilket gør deres konduktivitet kontrollerbar via temperatur, doping og belysning.
+
+\subsection{Båndgab og foton-energi}
+
+Når en exciteret elektron rekombinerer med et hul, frigives båndgabsenergien $E_g$. I direkte båndgab-materialer (se næste afsnit) frigives denne energi som en foton. Sammenhængen mellem 
+foton-energi og bølgelængde er:
+\begin{equation}
+\label{eq:bølgelængde_energi}
+    E = \frac{hc}{\lambda},
+\end{equation}
+hvor $h = \SI{6{,}626e-34}{J.s}$ er Plancks konstant og $c$ er lysets hastighed. Med $E$ angivet i eV og $\lambda$ i nm approksimeres udtrykket bekvemt som:
+\begin{equation}
+    E \approx \frac{1240}{\lambda}.
+\end{equation}
+
+Som eksempel: AlGaInP er en kvaternær halvleder med båndgabsenergi $E_g \approx \SI{1{,}9}{eV}$. Når elektroner exciteres over båndgabet og efterfølgende rekombinerer, emitteres fotoner med denne energi. Den tilsvarende bølgelængde er:
+\begin{equation}
+    \lambda = \frac{1240}{1{,}9} \approx \SI{660}{nm},
+\end{equation}
+svarende til den røde LED anvendt i dette projekt. 
+\Cref{tab:faststoffer} viser båndgab og typiske anvendelser for relevante materialer.
 
 \begin{table}[h]
 \centering
-\caption{Oversigt over eV energier for udvalgte solid state materialer, hvilken type og typisk anvendelse for materiale.}
-\label{tab:solid_state_materialer}
-\begin{tabular}{llll}
+\caption{Båndgabsenergier for udvalgte halvledermaterialer ved 
+\SI{300}{K}, samt deres typiske anvendelse. Værdier fra 
+\cite[Tabel~16.3-1]{Saleh2007}.}
+\label{tab:faststoffer}
+\begin{tabular}{@{}lSll@{}}
 \toprule
-Materiale & Eg [eV] & Type & Typisk anvendelse \\
+Materiale & {$E_g$ [eV]} & Type & Typisk anvendelse \\
 \midrule
-Silicium & 1.12 & Indirekte & Fotodiode, elektronik \\
-Germanium & 0.67 & Indirekte & NIR-fotodiode\\
-GaAs & 1.42 & Direkte & NIR LED, laser  \\
-AlGaInP  & ~1.9 & Direkte & Rød LED (660 nm) \\
-GaN & 3.4 & Direkte & Blå/UV LED  \\
-SiO2 (isolator) & ~9 & - & Isolering \\
+Germanium (Ge)  & 0.67 & Indirekte & NIR-fotodiode \\
+Silicium (Si)   & 1.12 & Indirekte & Fotodiode, elektronik \\
+GaAs            & 1.42 & Direkte   & NIR LED, laser \\
+AlGaInP         & 1.9  & Direkte   & Rød LED (\SI{660}{nm}) \\
+GaN             & 3.4  & Direkte   & Blå/UV LED \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsubsection{Metaller}
-Karakteristisk for metaller er at deres atomiske struktur tillader nem og hurtigt bevægelse af elektroner på tværs af det gitter af atomer som metallet udgøres af. Dette betyder at energien påkrævet for at en elektron kan få lov til at bevæge sig på tværs af et metal, er nær nul. Dette kan ses i figur \ref{fig:de tre bånd}, hvor søjlen længst til højre, har overlappende bånd. Derfor vil der spontant oprettes elektron-hul par, uden nogen ekstern excitation. Det er altså en standard konfiguration for metaller, dog har hvert metal, unik opførsel hvor nogle er nemmere og sværere at få elektroner til at hoppe over båndgabet.
+\subsection{Direkte og indirekte båndgab}
+\label{subsec:direkte_indirekte}
 
-\subsubsection{Isolatorer}  
-Modsat, for isolatorer kræver det meget mere energi for en elektron kan slås løs, og når den først er løs, falder den hurtigt tilbage til et tomt hul. Igen i figur \ref{fig:de tre bånd}, kan man se yderst til venstre, at dem afstand mellem de to bånd, er længere end metal og halvledere, det kræver altså megen mere energi at flytte elektronerne, og er derfor også årsagen til at ledninger oftest er dækket af gummi belægning, denne isolator dækker for metallet inde i.
+Den simple båndmodel i \cref{fig:de tre bånd} kan udvides ved at inkludere ladningsbærernes momentum. I et $E$-$k$-diagram plottes elektron-energien $E$ mod krystal-momentum $\hbar k$, 
+hvor $k$ er bølgevektoren der beskriver elektronens kvantetilstand i krystalgitteret.\Cref{fig:direct_indirect_bandgap} viser to repræsentative diagrammer.
 
-\subsubsection{Halvledere}
-Som det sidste, har man halvledere. Halvledere har et båndgab der er mindre end isolatorer og større end metaller, denne klasse af materialer har en attraktiv mængde af energi nødvendig for elektroner at passere. En stor række grundstoffer og sammesatte grundstoffer har halvledende egenskaber, f.eks. silicium og germanium fra hovedgruppe 14. Endeligt i figur \ref{fig:de tre bånd} kan man se halvlederen i midten, afstanden mellem de to rektangler er lille, hvilket er præcist det man ønsker.
+Når en elektron exciteres til ledningsbåndet med en energi der overstiger $E_g$, vil den hurtigt afgive overskydende energi til gittervibrationer (\emph{fononer}) og falde til ledningsbåndets minimum. Denne proces, kaldet \emph{termalisering}, sker på picosekund($^{-12}$) tidsskala og er væsentligt hurtigere end den efterfølgende rekombination, som typisk tager nano til mikrosekunder. Tilsvarende termaliserer hullet til valensbåndets maksimum. Rekombination foregår derfor mellem disse to ekstrema.
 
-\subsubsection{Direkte og indirekte båndgab}  
+\paragraph{Direkte båndgab.} I et materiale med direkte båndgab ligger ledningsbåndets minimum og valensbåndets maksimum ved samme $k$-værdi (\cref{fig:direkte_bandgap}). Rekombination kan ske ved emission af en enkelt foton med energi $E_g$, da fotonen bærer energi men forsvindende lille momentum. Foton-emission svarer dermed til en vertikal overgang i $E$-$k$-diagrammet, hvor elektronens $k$-værdi bevares. Denne proces er effektiv, og 
+direkte halvledere som AlGaInP og GaAs anvendes derfor som 
+lyskilder i LEDer og lasere.
 
-Som beskrevet i foregående afsnit, så er båndgab den energi krævet til at flytte en elektron fra valensbånd til det ledende bånd. Men da energi-bånd diagrammerne vist f.eks. i figur \ref{fig:de tre bånd} er simple, og fortæller om de tre solid state materialer, kan man udvide denne forståelse af båndgabet, specifikt for båndgabet for halvledere, og tilføje en ekstra dimension i form af momentum. Dette plot kaldes for et "E-k diagram", hvor $E$ er elektron energien på y-aksen og $k$ er bølgevektoren der beskriver elektronens kvantetilstand i krystalgitteret på x-aksen. 
+\paragraph{Indirekte båndgab.} I et materiale med indirekte båndgab ligger ekstrema ved forskellige $k$-værdier (\cref{fig:indirekte_bandgap}). Rekombination kræver derfor samtidig deltagelse af en fonon for at bevare momentum, hvilket reducerer sandsynligheden for foton-emission betydeligt. Indirekte materialer som silicium er derfor ineffektive som lyskilder, men velegnede som fotodetektorer, fordi den omvendte proces, fotonabsorption efterfulgt af ladningsbærergeneration er effektiv over et bredt spektralområde.
 
-I figur \ref{fig:direct_indirect_bandgap} ses to E-k diagrammer. Det vigtige punkt er 
-positionen af valensbåndets maksimum og ledningsbåndets minimum:
+Denne distinktion forklarer komponentvalget i pulsoximetri: LEDerne er fremstillet af direkte halvledere (AlGaInP for \SI{660}{nm}, GaAs-baserede legeringer for \SI{940}{nm}), mens fotodioden er silicium-baseret.
 
-\begin{itemize}
-    \item Hvis de to ekstrema ligger ved samme krystal-momentum 
-    (samme k-værdi), kaldes båndgabet \textit{direkte}, se 
-    figur \ref{fig:direkte_bandgap}.
-    \item Hvis de ligger ved forskellige k-værdier, kaldes båndgabet 
-    \textit{indirekte}, se figur \ref{fig:indirekte_bandgap}.
-\end{itemize}
-
-En elektron søger mod det båndgab med den mindste afstand mellem ekstrema, da dette er den afstand med mindst potentiel energi påkrævet til at rejse til det ledende bånd. Elektronerne der sidder i valensbåndet, sidder fast i et krystallinsk gitter, og kan kun bevæge sig indbyrdes i gitteret, hvis en elektron i valensbåndet bevæger sig med en hastighed(impuls), der øger energien så meget som muligt, og dette er en specifik hastighed for hver halvleder, så repræsenteres dette som et maximum for valensbåndet set i figur \ref{fig:direct_indirect_bandgap}. Det vil altså sige, for det materiale, i valensbåndet, ved den hastighed, der er elektron energien, målt i $\text{eV}$, højest, og det er derfor den energi der kræves at halvlederen exciteres med, hvis man ønsker gennemstrømning af elektroner.
-
-Scenariet i forrige paragraf, gør sig også gældende for ledningsbåndet, ved en bestemt hastighed af elektroner i ledningsbåndet, vil elektroner have lavest energi og derved nemmere at falde tilbage til valensbåndet.
-
-Hvis maxima og minima ligger vertikalt over og under hinanden, som set i \ref{fig:direkte_bandgap}, så kaldes materialet for at have direkte båndgab, hvis materialet ikke har maxima og minima over og under hinanden, siges at materialet har indirekte båndgab, set i figur \ref{fig:indirekte_bandgap}.
-
-Materialer med direkte båndgab kræver kun en foton for at kunne rejse på tværs af båndgabet, da en foton bærer energi, men næsten intet momentum sammenlignet med skalaen i et krystalgitter. Derfor driver en foton derfor vertikale overgange i E-k diagrammet, hvor elektronen ikke skifter k-værdi/momentum/hastighed. 
-
-For materialer med indirekte båndgab, kræves der ekstra energitilførsel for at flytte elektronen til det ledende bånd, denne energi kommer fra fononer, 
-
-
-
-%I et direkte båndgab ligger ledningsbåndets minimum lige over 
-%valensbåndets maksimum, og en elektron kan rekombinere med et hul 
-%ved at udsende en foton med energi $E_{foton} = E_g$. Denne proces 
-%er effektiv, og direkte båndgab-materialer som GaAs (\SI{1.42}{eV}) 
-%og AlGaInP (~\SI{1.9}{eV}) anvendes derfor som lyskilder i LED'er 
-%og lasere.
-
-%Denne skelnen forklarer hvorfor de røde og infrarøde LED'er anvendt 
-%i dette projekt er fremstillet af forbindelseshalvledere som AlGaInP 
-%og GaAs, mens fotodioden er silicium-baseret - silicium er en 
-%fremragende fotondetektor netop fordi det indirekte båndgab gør den 
-%omvendte proces (absorption efterfulgt af ladningsbærergeneration) 
-%fuldt brugbar over et bredt spektralområde.
-%
 \begin{figure}[htbp]
      \centering
-     % First Image
      \begin{subfigure}[b]{0.48\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Pictures/Other/direct_bandgap.png}
-         \caption{E-k diagram for materiale med direkte båndgab}
+         \caption{Direkte båndgab.}
          \label{fig:direkte_bandgap}
      \end{subfigure}
-     \hfill % Adds horizontal space between the images
-     % Second Image
+     \hfill
      \begin{subfigure}[b]{0.48\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Pictures/Other/indirect_bandgap.png}
-         \caption{E-k diagram for materiale med indirekte båndgab}
+         \caption{Indirekte båndgab.}
          \label{fig:indirekte_bandgap}
      \end{subfigure}
-     
-     \caption{E-k diagrammer for henholdsvis et materiale med direkte (a) og indirekte (b) båndgab. $E_g$ er båndgabsenergien. }
+     \caption{$E$-$k$-diagrammer for henholdsvis et materiale med 
+     direkte (a) og indirekte (b) båndgab. $E_g$ er 
+     båndgabsenergien.}
      \label{fig:direct_indirect_bandgap}
 \end{figure}
 
-
 \subsection{Doping og pn-overgangen}
 
-Når en halvleder dopes med grundstoffer fra den femte søjle i det periodiske system (Vanadium, Niobium, Tantalum, Dubnium), vil halvleder-doping materialet opføre sig som donorer der laver frie elektroner, dette kaldes for "n-type" doping.
+De elektriske og optiske egenskaber af en halvleder kan ændres markant ved kontrolleret introduktion af urenheder, kaldet \emph{doteringsstoffer}. Doping ændrer koncentrationen af ladningsbærere i materialet og er fundamentet for stort set alle halvlederkomponenter.
 
-Når en halvleder dopes med grundstoffer fra den tredje søjle, vil kombinationen opføre sig som acceptorer der laver "frie huller", kendt som p-type doping. 
+Doteringsstoffer der bidrager med et overskud af valenselektroner kaldes \emph{donorer}. For silicium (gruppe 14) anvendes typisk donorer fra gruppe 15, f.eks. fosfor eller arsen, der har en ekstra valenselektron sammenlignet med silicium. Den resulterende halvleder kaldes en \textbf{n-type halvleder} og har et overskud af frie elektroner.
 
-Kompositionen og forholdene under doping styres forsigtigt, for at få den opbygning der tillader den ønskede funktion af komponenten.
+Doteringsstoffer der mangler en valenselektron kaldes \emph{acceptorer}. Typiske acceptorer for silicium kommer fra gruppe 13, f.eks. bor eller gallium. Den resulterende halvleder kaldes en \textbf{p-type halvleder} og har et overskud af huller.
+
+Når en n-type og en p-type halvleder bringes i kontakt, dannes en \emph{pn-overgang}, som er den fundamentale byggesten i både LEDer og fotodioder. Ved kontaktfladen diffunderer elektroner fra n-siden til p-siden og rekombinerer med huller, og omvendt. 
+
+Resultatet er en zone uden frie ladningsbærere, kaldet \emph{depletionsregionen}, hvor der opbygges et internt elektrisk felt der modvirker yderligere diffusion. I termisk ligevægt balancerer dette felt diffusionen, og der løber ingen netto-strøm gennem overgangen.
+
+Pn-overgangens funktion afhænger af hvordan den biaseres:
+
+\begin{description}
+    \item[Forward bias.] Når der påføres en positiv spænding fra p-siden til n-siden, reduceres det interne felt, og ladningsbærere kan strømme over overgangen. Elektroner injiceres fra n-siden til p-siden og rekombinerer med huller. I direkte båndgab-materialer udsendes en foton ved hver rekombination, dette er princippet bag en LED.
+    
+    \item[Reverse bias.] Når den modsatte spænding påføres, forstørres depletionsregionen og det interne felt, og ingen netto-strøm flyder. Hvis der absorberes en foton i depletionsregionen, genereres et elektron-hul-par der separeres af det interne felt, hvilket resulterer i en lille fotostrøm. Dette er princippet bag en fotodiode.
+\end{description}
 
 \subsection{Rekombination og fotonemission}
 
+Den modsatte proces til elektron-hul-generation er \emph{rekombination}: en elektron i ledningsbåndet henfalder tilbage til et hul i valensbåndet. Energien $E_g$ skal afgives til omgivelserne, og dette kan ske på to måder:
+
+\begin{itemize}
+    \item \textbf{Radiativ rekombination.} Energien afgives som en foton med energi $E_{\text{foton}} \approx E_g$. Dette er den dominerende proces i direkte båndgab-materialer og er grundlaget for LEDer og lasere.
+    
+    \item \textbf{Ikke-radiativ rekombination.} Energien afgives som varme via gittervibrationer (fononer) eller via krystaldefekter. Dette er den dominerende proces i indirekte båndgab-materialer og repræsenterer et tab i lyskilder.
+\end{itemize}
+
+I praksis foregår begge processer parallelt, og forholdet mellem dem bestemmer LEDens \emph{interne kvanteeffektivitet}. For direkte halvledere som AlGaInP er den interne kvanteeffektivitet høj, hvilket gør dem til effektive lyskilder.
+
 \subsection{Foton-absorption og ladningsbærergeneration}
 
+Den omvendte proces, foton-absorption er fundamentet for fotodetektion. Når en foton med energi $E_{\text{foton}} \geq E_g$ rammer halvlederen, kan den absorberes ved at excitere en elektron fra valensbåndet til ledningsbåndet, hvilket genererer et elektron-hul-par.
 
+For at processen er effektiv, skal foton-energien overstige båndgabet. Dette definerer en \emph{cutoff-bølgelængde}:
+\begin{equation}
+    \lambda_{\text{cutoff}} = \frac{hc}{E_g} \approx \frac{1240}{E_g \ [\text{eV}]} \ \text{nm}.
+\end{equation}
+Fotoner med længere bølgelængder end $\lambda_{\text{cutoff}}$ har ikke tilstrækkelig energi til at excitere elektroner over båndgabet og passerer derfor uhindret gennem materialet.
+
+For silicium ($E_g = \SI{1{,}12}{eV}$) er cutoff-bølgelængden ca. \SI{1100}{nm}. Silicium-fotodioder kan derfor detektere lys i hele det synlige spektrum samt i nær-infrarødt op til ca. \SI{1100}{nm}, hvilket dækker både \SI{660}{nm} og \SI{940}{nm} anvendt i pulsoximetri. I modsætning hertil har germanium ($E_g = \SI{0{,}67}{eV}$) en cutoff-bølgelængde på ca. \SI{1850}{nm}, hvilket gør det velegnet til længere NIR-bølgelængder, men med højere mørkestrøm grundet det smallere båndgab.
 
 \section{Optoelektroniske komponenter}
+\label{sec:optoelektroniske_komponenter}
     % principniveau, ikke komponent-specifik
     \subsection{LED som lyskilde}   
         % Spektral bredde, drift med temperatur, fremad-strøm
