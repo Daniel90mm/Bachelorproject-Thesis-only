@@ -4,8 +4,6 @@ Kan forklare hvis jeg går til sidespor, skal tage censor i hånden,
 
 Appendix er til ting man ikke mener er nødvendige til hovedrapporten, men stadig er relevante for censor at vide
 
-\section{PCB}
-
 \begin{figure}[htbp]
      \centering
      % Første Billede (Øverst)
@@ -56,4 +54,46 @@ Appendix er til ting man ikke mener er nødvendige til hovedrapporten, men stadi
     \includegraphics[width=1\textwidth]{Pictures/Datasheets/2N7000_off_on_time.png}
     \caption{2N7000 MOSFET on/off tid fra datasheet fra Mouser.}
     \label{fig:2n7000_datasheet}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Datasheets/LVF.png}
+    \caption{Relativ transmission i \% for det lineære variable filter (LF103924).}
+    \label{fig:LVF}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/led_spectra_normalized_comparison.pdf}
+    \caption{LED spektrum for SMD- og THT-LED'er. Bemærk en "hot" pixel ved ~\SI{970}{nm}, denne skal ignoreres.}
+    \label{fig:LED_spektrum}
+\end{figure}
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|}
+    \hline
+        LED & Nominel bølgelængde [nm] & Målt peak [nm] & Afvigelse [nm] & FWHM [nm] & Maks intensitet [counts] \\ \hline
+        660 nm & 660 & 664.99 & 4.99 & 18.30 & 44.83 \\ \hline
+        810 nm & 810 & 806.73 & -3.27 & 20.98 & 43.59 \\ \hline
+        940 nm & 940 & 951.79 & 11.79 & 27.25 & 38.79 \\ \hline
+        970 nm & 970 & 965.58 & -4.42 & 40.00 & 34.37 \\ \hline
+    \end{tabular}
+    \caption{Tabel over LED peaks og deres afvigelser.}
+    \label{tab:LED_bølgelængder}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/Finger_spektrum.pdf}
+    \caption{Spektrum fra gennemlysning af finger med halogenpære.}
+    \label{fig:finger_gennemlysning}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/Braun_pulsoximeter.pdf}
+    \caption{Spektrum af det kommercielle Braun pulsoximeter}
+    \label{fig:Braun_pulsox}
 \end{figure}

@@ -1,7 +1,6 @@
 \chapter{Eksperimentel opstilling og metoder}
 \label{chap:methods}
 
-\section{Overordnet valideringsstrategi}
 % Forklar at projektet bruger tre spor:
 % % 1) Analogt pulsoximetersystem som hovedspor
 % % 2) Hyperspektral opstilling som optisk validering
@@ -9,12 +8,18 @@
 %
 % Gør det tydeligt at disse spor er komplementære og ikke konkurrerende.
 
+\section{Overordnet valideringsstrategi}
+
+Projektets eksperimentelle del bestod af tre komplementære spor. Det analoge pulsoximetersystem udgjorde hovedsporet og blev anvendt til at måle fotopletysmografiske signaler i transmissionsgeometri. Herudover blev et hyperspektralt setup anvendt som optisk valideringsspor til at undersøge den relative transmission gennem fingervæv ved udvalgte bølgelængder, mens et spektrometer blev anvendt til spektral karakterisering af de anvendte lyskilder og til supplerende transmissionsmålinger.
+
+De tre spor havde således forskellige roller i projektet. Det analoge system blev brugt til at demonstrere den praktiske måling af PPG-signaler, mens de to optiske opstillinger blev anvendt til at understøtte og nuancere bølgelængdevalget samt verificere de anvendte lyskilders faktiske spektrale egenskaber.
+
 \section{Analog måleopstilling}
 \label{sec:analog_setup}
 
 \subsection{Formål}
-% Hvad skulle denne opstilling vise?
-% % At det analoge system kan generere et brugbart PPG-signal ved udvalgte bølgelængder.
+
+Formålet med den analoge opstilling var at undersøge, om det udviklede system kunne måle et brugbart fotopletysmografisk signal i fingertransmission ved brug af rødt og nær-infrarødt lys. Derudover var formålet at vurdere, om signalet havde tilstrækkelig kvalitet til udtræk af puls og videre analyse af AC- og DC-komponenter.
 
 \subsection{Fysisk opstilling}
 % Beskriv komponenter, sammenkobling, fingerplacering, afskærmning, AD3/DAQ osv.
@@ -22,6 +27,32 @@
 % Figur:
 % % Foto af den virkelige opstilling på bordet.
 % % Eventuelt også et rent diagram.
+
+Den analoge måleopstilling bestod af et 3D-printet kabinet/hylster med to LED'er og en fotodiode placeret over for hinanden, således at en finger kunne placeres mellem lyskilde og detektor. LED'erne blev styret via et separat driverkredsløb, mens det transmitterede lys blev detekteret af fotodioden og ført videre til den analoge signalkæde bestående af en transimpedansforstærker, filtrering og et afsluttende forstærkertrin.
+
+Signalet blev opsamlet med et Analog Discovery 3, som både blev anvendt til styring af tidsmultipleksingen og til dataopsamling. Under måling blev fingeren placeret i kabinettet med neglesiden vendt mod LED'erne og fingerblommen mod fotodioden. Kabinettet blev lukket omkring fingeren for at fastholde målegeometrien og reducere påvirkning fra omgivende lys. Samt var en elastik sat rundt om top- og bundkabinet for at holde målegeometrien intakt.
+
+De vigtigste komponenter i den analoge opstilling er opsummeret i tabel \ref{tab:centrale_komponenter}.
+
+\begin{table}[h]
+\centering
+\caption{Centrale komponenter i det analoge system.}
+\label{tab:centrale_komponenter}
+\begin{tabular}{lll}
+\toprule
+Komponenttype & Valgt komponent & Funktion \\
+\midrule
+Fotodiode & Hamamatsu S1223 & Detektion af transmitteret lys \\
+Operationsforstærker & OP27 & Transimpedansforstærker, filtrering og forstærkning \\
+Rød LED & 660 nm LED & Hovedmåling i rød kanal \\
+IR-LED & 940 nm LED & Hovedmåling i NIR-kanal \\
+MOSFET & 2N7000 & Switching i LED-driver \\
+Dataopsamling & Analog Discovery 3 & Styring og signalopsamling \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
 
 \subsection{Måleprocedure}
 % Beskriv helt konkret hvordan målingerne blev kørt.
@@ -33,15 +64,22 @@
 %
 % Vær reproducerbar.
 
+Målingerne blev initialt udført uden
+
 \subsection{Elektrisk karakterisering}
 % Gain, saturation, støj, frekvensrespons, evt. verificering af delkredsløb.
 %
 % Figur:
 % % Delsignal gennem kæden eller karakteriseringsplots.
 
+% todo: delplots af output fra TIA, LPF, HPF og GAIN med multiplexing gennem finger.
+
+
 \subsection{Signalbehandling}
 % Separering af multiplexede signaler, filtrering, AC/DC, peak detection, puls.
 % Hold metode og resultat adskilt.
+
+
 
 \subsection{Udledte parametre}
 % Hvilke parametre udtrækkes?
@@ -60,12 +98,32 @@
 \subsection{Formål}
 % Optisk vurdering af relativ transmission gennem finger ved udvalgte bølgelængder.
 
+Formålet med den hyperspektrale opstilling var at undersøge hvilket interval bølgelængder der havde den bedste relative intensitet gennem en finger ved udvalgte bølgelængder. 
+
 \subsection{Opstilling}
 % Beskriv kamera, lineær stage, variabelt filter, glowbar, fingerplacering.
 %
-% Figur:
-% % Skematisk figur af opstillingen.
-% % Foto kan flyttes til appendix hvis der er mange billeder.
+
+Kameraet er et UI-3240CP-NIR-GL, som har en kvanteeffektivitet der specielt sensitiv overfor NIR-området. Den lineære stage sidder foran kameraet, som set i figur \ref{fig:hyperspekt_diagram}, dets opgave er at flytte LVF med nøjagtighed under en millimeter. 
+
+Inden dataopsamling, blev der brugt en kalibreringsgraf der mapper lineær stage position, og dermed position af LVF, til en bølgelængde som filtreres ind på kameralinsen. Den fungerer derfor som et bandpass filter af bølgelængder.
+
+Mellem fingerpositionen og det lineært variable filter var et linsehus monteret med tre akromatiske dubletter. Den første linse var en \SI{30}{mm} akromatisk dublet med en diameter på \SI{1}{inch}, mens de to efterfølgende linser var achromatiske dubletter med brændvidder på henholdsvis \SI{50}{mm} og \SI{25}{mm}, begge med diameter på \SI{1/2}{inches}. Alle tre linser havde antirefleksbelægning(ARC) specificeret til \SIrange{400}{1100}{nm}.
+
+Linsernes samlede funktion i opstillingen var at opsamle, forme og fokusere det transmitterede lys fra fingeren videre mod det lineært variable filter og det hyperspektrale kamera. Den store linse nærmest fingerpositionen blev anvendt til at indsamle en større del af det transmitterede lysfelt, mens de to efterfølgende linser indgik i den videre behandling af lyset mod filter og kameraet.
+
+Lyset der passerer gennem fingeren stammer fra en glo-bar, som er en bredbåndet lyskilde hvis funktion er at primært udsende et stort interval af NIR-lys.
+
+Afstanden mellem hver delkomponent i opstillingen er ikke specificeret, dog er afstanden fra linsen og LVF så kort som mulig for at sikre fokallængden passer med kameraets position. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/Hyperspektral_diagram.png}
+    \caption{En Glo-Bar anvendes som bredbåndet infrarød lyskilde, og det transmitterede lys gennem fingeren fokuseres gennem et lineært variabelt filter (LVF) og registreres af et hyperspektralt kamera. Ved horisontal forskydning af LVF’et ændres det transmitterede bølgelængdeinterval, således at forskellige spektrale bånd kan måles sekventielt.}
+    \label{fig:hyperspekt_diagram}
+\end{figure}
+
+
 
 \subsection{Måleprocedure}
 % Hvilke bølgelængder?
@@ -74,14 +132,46 @@
 % Var der dark/reference?
 % Hvis ikke, skriv ærligt hvad der faktisk blev gjort.
 
+De bølgelængder der skulle valideres med det hyperspektrale setup var nærliggende \SI{810}{nm} og \SI{940}{nm}. Bemærk \SI{660}{nm} ikke er inkluderet, dette er pga. filteret ikke var designet til så lave bølgelængder. Der blev derfor testet med:
+
+\begin{itemize}
+    \item \SI{800}{nm}
+    \item \SI{810}{nm}
+    \item \SI{820}{nm}
+    \item \SI{930}{nm}
+    \item \SI{940}{nm}
+    \item \SI{950}{nm}
+\end{itemize}
+
+Billeder af fingeren blev taget af kameraet sat op til en laptop med ThorCam software. Fingeren blev så vidt mulig i den samme position ved hver målte bølgelængde. Den størst mulige integrationstid på \SI{00}{ms} og holdt konstant henover alle billeder. Derudover, blev indstillingen for ADC-dybden sat til 10-bit, som tillader for intensiteten af hver pixel at måles fra 0-1023 værdier.
+
+Først, blev en mørk-reference måling taget. Loftlyset i lokalet og andre lyskilder i lokalet var slukket eller vendt væk fra kameraet. Derefter, var LVF flyttet via dets stage, til alle seks positioner der tillod de udvalgte bølgelængder falde på kameraets linse. 
+
+
+
+
+
+
 \subsection{Billedanalyse}
 % Beskriv ROI, intensitetsudtræk, normalisering og sammenligningsmål.
 % Brug ikke kun maksimal pixel.
 % Brug middelintensitet i ROI eller lignende.
 
+
+
 \subsection{Begrænsninger}
 % Lav tidsopløsning, ikke pulsopløsning, afhængighed af geometri og kilde.
 % Kort men vigtigt.
+
+Begrænsningerne for den hyperspektrale opstilling er flerfoldet:
+
+\begin{itemize}
+    \item Lavtidsopløsning. med et enkelt snapshot i tid, kan man havde taget et billede ved systole, og fingerens blodårer er maksimalt udspilede, derved fås mindre intensitet selvom tranmissionen for bølgelængden er tilpas. Samme gør sig gældende for diastole.
+
+    \item Mange variable. Med forskellige sensitiviteter og transmissionskoefficienter for dele af det større setup er der derfor chance for flere fejlkilder kan ophobe sig.
+
+    \item Det lineære variable filter. LVF'et havde en nedre grænse på \SI{800}{nm} til den øvre grænse på \SI{1100}{nm}, hvor filterets opløselighed var stærkest ved lavere bølgelængder end ved de længere bølgelængder, dette fremgår på datasheet for filteret i appendiks \ref{fig:LVF}.
+\end{itemize}
 
 \section{Spektrometrisk karakterisering}
 \label{sec:spectrometer_characterization}
@@ -89,11 +179,21 @@
 \subsection{Formål}
 % Verificere de faktiske emissionsmaksima og spektralprofiler for LED'er og andre kilder.
 
+Formålet ved spektrometeret var at verificere emissionsspektrum for LED'er (surface mount og through hole), måle relativ intensitet for glo-bar til brug i den hyperspektrale opsætning og karakterisere hvilke bølgelængder der transmitteres igennem en finger.
+
+
 \subsection{Opstilling}
 % Spektrometer, fiberplacering, mørkemåling, integrationstid, afstand.
-%
-% Figur:
-% % Foto eller skematisk figur, men kun hvis den hjælper.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/Spektrometer_diagram.png}
+    \caption{Spektrometer bruges som valideringsværktøj under hele projektet.}
+    \label{fig:spektro_diagram}
+\end{figure}
+
+
+
 
 \subsection{Måleprocedure}
 % Beskriv hvilke kilder der blev målt.
@@ -104,23 +204,26 @@
 %
 % Skriv hvordan peaks blev bestemt.
 
+Der blev målt en række forskellige kilder:
+
+\begin{itemize}
+    \item \SI{660}{nm} through-hole LED
+    \item \SI{940}{nm} through-hole LED
+    \item \SI{810}{nm} surface-mount LED
+    \item \SI{970}{nm} surface-mount LED
+    \item Et kommercielt pulsoximeter fra Braun
+    \item Glo-bar
+    \item Transmissionsmåling af pegefinger fra halogenpære
+\end{itemize}
+
+Spektrometer proben var monteret på et stativ forankret til det optiske bord, de forskellige komponenter var holdt ~\SI{10}{cm} fra cosinus proben. Derefter var spektrum gem.
+
 \subsection{Dataanalyse}
 % Peak wavelength, FWHM, evt. smoothing.
 % Dette afsnit er meget vigtigt fordi det kobler til LED-spektral bredde.
 
-\section{Sammenligning med kommercielt pulsoximeter}
-\label{sec:reference_comparison}
-% Kun hvis du har målingen.
-% Gør dette til en separat metode, ikke bare en note i resultater.
-%
-% Beskriv:
-% % referenceenhed
-% % samtidighed
-% % måleprotokol
-% % hvad der sammenlignes: puls, SpO2, trend, R
-%
-% Tabel:
-% % Sammenligningsprotokol og evalueringsmål.
+Ved indkøb af LED'er, var filtreret efter peak-bølgelængde, dette er den reklamerede bølgelængde der udsender med størst intensitet, og hvor resten af den spektrale bredde 
+
 
 \section{Usikkerheder og metodiske begrænsninger}
 % Vigtigt.
@@ -137,10 +240,21 @@
 
 
 
-
-
-
-
-Hvad er det for en opstilling man arbejder med, hvilke processeringsmetoder er brugt? Hvordan har man analyseret data? Hvad ligger forud for eksperimenterne?
-
-Den eksperimentelle opstilling er opdelt i to, af årsagen at påvise forskellen mellem en af de billigere hjemmelavede setups mod et kalibreret, professionelt setup.
+\begin{table}[!ht]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+Bølgelængde & Finger ROI & Mørke & Mørkekorr. & Hyperspektral & Korrigeret & Relativ til 940 \\
+\hline
+800 & 21.0 & 14.0 & 7.0 & 736.842105 & 1150.486427 & 0.721983 \\ \hline
+810 & 22.0 & 14.0 & 8.0 & 842.105263 & 1207.512896 & 0.757770 \\ \hline
+820 & 23.0 & 14.0 & 9.0 & 947.368421 & 1283.453673 & 0.805427 \\ \hline
+930 & 19.0 & 3.0 & 16.0 & 1684.210526 & 1653.571142 & 1.037692 \\ \hline
+940 & 17.0 & 2.0 & 15.0 & 1578.947368 & 1593.507923 & 1.000000 \\ \hline
+950 & 13.0 & 2.0 & 11.0 & 1157.894737 & 1344.244118 & 0.843575 \\ \hline
+\end{tabular}%
+}
+\caption{...}
+\label{tab:...}
+\end{table}
