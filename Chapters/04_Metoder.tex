@@ -64,7 +64,66 @@ Dataopsamling & Analog Discovery 3 & Styring og signalopsamling \\
 %
 % Vær reproducerbar.
 
-Målingerne blev initialt udført uden
+Målingerne blev udført siddende, loftbelysning slukket og så stille som muligt, hurtigere eller dybe vejrtrækninger var undgået. En standard elastik blev anvendt til at sikre let tryk mod fingeren, den var sat i nogle designede riller, og minimerer bevægelsesartefakter. Målingen var udført over et minut, med en initiel start-up forsinkelse på 15 sekunder, så man havde tid til at sætte sig i stolen, indsætte fingeren i hylsteret og berolige sig selv. 
+
+Derefter, kørte de multiplekserende LED'er i 10 sekunder, for at varme LED'erne op, og få de initielle fejl ud af vejen. 
+
+Til sidst blev der udført en minut lang måling, med en multipleksing frekvens på \SI{7.41}{Hz}, denne frekvens var valgt ud fra antagelsen at støj fra el-nettet er sinusformet, og ved at midle over sinusbølgen, kan man fjerne støjen i software uden for stor byrde af lavpasfilteret, mere om lavpasfilter løsningen efter.
+
+Løsningen for attenuering af \SI{50}{Hz} støjen bygger på antagelsen om, at støjen kan modelleres som en sinusformet forstyrrelse med ukendt fase $\varphi$. Middelværdien over et tidsvindue T er:
+
+\begin{equation}
+    \frac{1}{T} \int_0^T A \sin (2 \pi \cdot 50 \cdot t + \varphi)\, dt = \frac{A}{2\pi \cdot 50 \cdot T} \cdot \left[\cos(\varphi) - \cos(2\pi \cdot 50 \cdot T + \varphi)\right]
+\end{equation}
+
+Hvis $T = \frac{N}{50 \ \text{Hz}}$ , hvor N er et positivt heltal svarende til et heltalligt multiplum af nettets periode $\frac{1}{50 \ \text{Hz}} = 20 \ \text{ms}$, gælder det at $2\pi \cdot 50 \cdot T = 2\pi N$, og dermed:
+\begin{equation}
+    \cos(2\pi N + \varphi) = \cos(\varphi)
+\end{equation}
+
+Parentesen går ud, og integralet er lig nul uanset amplitude A og fase $\varphi$. 
+
+Hvis det var man lagde arbejdet for at fjerne \SI{50}{Hz} støj fra el-nettet via lavpas filteret, og med en fastloddet kondensator værdi af \SI{1}{nF}, skulle man sætte knækfrekvensen for filteret et godt stykke før de \SI{50}{Hz} man prøver at fjerne. Et sted man kunne prøve var måske \SI{30}{Hz}, hvor man vil attenuere støjen med følgende formel for et andenordens butterworth sallen key filter:
+
+\begin{equation}
+    |H(50 \ \text{Hz})| = \frac{1}{\sqrt{1+ \left(\frac{50}{30} \right)^4}} \approx 0.34
+\end{equation}
+\SI{50}{Hz} støj vil derfor attenueres med 34\% med en knækfrekvens på \SI{30}{Hz}. For at bruge den knækfrekvens, skal man bruge en modstandsværdi på:
+\begin{equation}
+    \text{f}_{\text{knæk}} = \frac{1}{2\pi RC}
+\end{equation}
+Isolerer for modstandsværdien med $f_\text{knæk} = 30 \ \text{Hz}$ og $C= 1 \ \text{nF}$:
+\begin{equation}
+    R = \frac{1}{2 \pi 30 \times 1\times10^{-9}} = 5.3 \ \text{M} \Omega
+\end{equation}
+
+En modstandsværdi på $5.3 \ \text{M} \Omega$, introducerer dog en bias strøm fra operationsforstærkeren brugt, den er på \SI{15}{nA} for en OP27, som via ohms lov, producerer en DC spænding på:
+
+\begin{equation}
+    V_\text{DC} = I_{\text{OP27 bias}} \cdot (R \cdot 2) = 15 \times10^{-9} \cdot 10.6 \times 10^{6} = 159 \ \text{mV}
+\end{equation}
+
+Det vil sige, at med et modstandspar på $5.3 \ \text{M} \Omega$, vil man have et DC offset på \SI{159}{mV} efter lavpasfilteret, inde i sit signal, og efter forstærkertrinnet, hvor forstærkningen ligger på cirka 5, vil man minimum have et DC offset på \SI{0.795}{V}. Bidraget fra TIA vil gøre den endelige DC offset højere, med en $R_f = 2.1 \ \text{M}\Omega$.
+
+Dette er al forventeligt, og trækkes fra med mørkemålingen via software, så dette vil ikke forurene signalet i sidste ende, men påvirker hvor hårdt man kan drive $\pm 9$ Volt forsyningerne, og tillade for overskud for svinginger og pludselige bevægelser.
+
+\paragraph{Frekvensvalg.} Da man ønsker at måle et multiplum af \SI{20}{ms}, kan man f.eks. vælge at måle hver af de tre faser, som vist i tabel \ref{tab:maalinger}, med tiden \SI{40}{ms}.
+
+En begrænsende faktor er lavpasfilterets settling time, som bestemmes af filterets kondensatorer og modstande, specifikt via tidskonstanterne. Her beregnet for lavpas filteret:
+
+\begin{equation}
+    \tau = RC = 8\times10^{6} \cdot 1 \times 10^{-9} = 8 \ \text{ms} 
+\end{equation}
+Det vil sige, efter \SI{8}{ms}, er lavpasfilteret tilbage til $\approx 68 \%$ af dets oprindelige steady state værdi, efter 5 tidskonstanter, er lavpasfilteret tilbage til $\approx 99 \%$ af dets steady state værdi. Derfor ventes \SI{40}{ms} efter hver LED slukkes, for at sikre at lavpasfilteret er i steady state.
+
+Det vil sige at hver fase måles og skiftes efter \SI{80}{ms}, da man har tre faser, vil det sige en total cyklus er \SI{240}{ms} lang, eller $\frac{1}{0.240} \approx 4.17 \ \text{Hz}$. 
+
+Frekvensen ligger over hvilepulsen, som har sin maksimalt målbare hastighed på 120 hjerteslag pr. minut. Med en hvilepuls på 120 eller i Hz som:
+$$
+\frac{1}{\frac{60}{120\ \text{bpm}}} = 2 \ \text{Hz}
+$$
+Da der samples med \SI{4.17}{Hz}, er nyquist kriteriet dermed overholdt, op til \SI{120}{bpm}, og vi forhindrer aliasering.
+
 
 \subsection{Elektrisk karakterisering}
 % Gain, saturation, støj, frekvensrespons, evt. verificering af delkredsløb.
@@ -74,10 +133,149 @@ Målingerne blev initialt udført uden
 
 % todo: delplots af output fra TIA, LPF, HPF og GAIN med multiplexing gennem finger.
 
+I dette delafsnit vises plots med pulsoximeteret drevet ved \SI{7.41}{Hz}.
+
+\paragraph{Transimpedance Amplifier - TIA}
+
+TIA'en fungerede som både en konvertering fra strøm til spænding og en initiel forstærkning af det indkommende signal. Forstærkningen bestemmes ud fra feedbackmodstanden, $R_f$. Desuden er tilsat en kondensator, $C_f$, i parallel til $R_f$ for at hjælpe med hurtigt skiftende diodestrøm. De er sat til:
+
+\begin{itemize}
+    \item $C_f = 10 \ \text{pF}$
+    \item $R_f = 2.1 \ \text{M}\Omega$
+\end{itemize}
+
+Regner man konverteringsfaktoren fra strøm til spænding, kaldet transimpedansen:
+
+\begin{equation}
+    V_{\text{out}} = -I_{\text{in}} \times R_f= -(-10\times 10^{-9}) \cdot 2.1 \times 10^{6} = 21
+\end{equation}
+
+TIA output:
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/TIA_output.png}
+    \caption{Udsnit af oscilloskop output. Bemærk de tre faser og \SI{50}{Hz} støj med amplitude \SI{160}{mV}.}
+    \label{fig:TIA_output}
+\end{figure}
+
+
+\paragraph{Lavpasfilter - LPF}
+Lavpasfilteret er et andenordens Sallen-Key filter med følgende komponentværdier:
+\begin{itemize}
+    \item $R = 8 \ \text{M}\Omega$
+    \item $C = 1 \ \text{nF}$
+    \item $f_{\text{knæk}} = \frac{1}{2\pi RC} \approx 19.9 \ \text{Hz}$
+\end{itemize}
+Filteret tjener et hovedformål og to mindre formål. For det første dæmpes \SI{50}{Hz} støj fra el-nettet analogt,
+da knækfrekvensen ligger under \SI{50}{Hz}. Attenuationen ved \SI{50}{Hz} for et
+andenordens filter er:
+\begin{equation}
+    |H(50 \ \text{Hz})| = \frac{1}{\sqrt{1+\left(\frac{50}{19.9}\right)^4}} \approx 0.16
+\end{equation}
+altså en dæmpning til ca. 16\% af den oprindelige amplitude. For det andet, begrænser
+filteret den bredspektrede termiske støj, også kaldet for Johnson-støj fra TIA'ens feedbackmodstand $R_f$, dette er en meget lille spænding, i nV til uV, frekvensen af denne støj er som sagt, bredspektret, så man kan ikke undgå den støj under LPF'en, men da den alligevel er i nanovolt til mikrovolt, er den negligibel.
+
+For det tredje fjerner filteret mulig højfrekvent støj der kan opstå i et travlt elektrisk miljø, som en sikring, og da der attenueres ned til 16\% for \SI{50}{Hz}, vil der ske yderligere attenuation med -40 dB per dekade via topologien fra det anden ordens Sallen-Key filter.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/LPF_output.pdf}
+    \caption{LPF output ved 7.41 Hz multipleksing.}
+    \label{fig:LPF_output}
+\end{figure}
+
+
+\paragraph{Højpas filter - HPF}
+
+Højpasfilteret endte ikke med at blive brugt, da det var nødvendigt til at udregne R i ratio-of-ratios. 
+
+Det var originalt tænkt at blive brugt for at filtrere DC-offset spændingen genereret af de store modstande tidligere i kredsløbet.
+
+Dets komponentværdier var indstillet til:
+
+\begin{itemize}
+    \item 2x $330 \text{k}\Omega$
+    \item 2x $1 \ \mu \text{F}$
+\end{itemize}
+
+Hvilket giver en knækfrekvens på:
+
+\begin{equation}
+    f_{\text{knæk}} = \frac{1}{2\pi \times 330 \times 10^{3} \times 1 \times 10^{-6}} = 0.48 \ \text{Hz}
+\end{equation}
+
+Den designede knækfrekvens kunne fjerne meget lavfrekvent, DC-lignende eller faktisk DC støj, og samtidiget lade en puls på:
+
+$$
+\frac{1}{\frac{60}{29 \ \text{bpm}}}=0.48 \ \text{Hz}
+$$
+
+Trænge igennem til ADC'en
+
+\paragraph{Ikke-inverterende forstærkning - Gain}
+
+Gain stadiet havde følgende komponentværdier:
+\begin{itemize}
+    \item $R_f = 39 \ k \Omega$
+    \item $R_g = 10 \ k \Omega$
+\end{itemize}
+
+Som producerer en gain på:
+
+\begin{equation}
+    \text{Gain} = 1 + \frac{R_f}{R_g} = 1 + \frac{39000}{10000} = 4.9
+\end{equation}
+
+Den ikke inverterende forstærkning fungerede som det sidste stadie inden dataopsamling, og flyttede signalet ind i et sundt område af ADC'ens dynamic range. 
 
 \subsection{Signalbehandling}
 % Separering af multiplexede signaler, filtrering, AC/DC, peak detection, puls.
 % Hold metode og resultat adskilt.
+
+Softwaren skal derfor adskille de tre tilstande, rense de
+adskilte signaler og udlede henholdsvis puls og iltmætning fra de
+relevante frekvensbånd.
+
+\paragraph{Tidsdemultipleksering.}
+Hver cyklus deles i tre faser: 660\,nm tændt, 940\,nm tændt, og begge
+slukkede. Hver fase består af 40\,ms settling efterfulgt af 40\,ms
+måling, så én cyklus tager 240\,ms svarende til en effektiv prøvefrekvens
+på 4{,}17\,Hz pr.\ bølgelængde. Settling er nødvendig, fordi den analoge
+kædes filtre ikke kan følge LED-skiftene øjeblikkeligt, de 40\,ms
+målevindue svarer desuden til to perioder af 50\,Hz nettet, så netbrum
+midles ud allerede her. Den mørke fase trækkes fra de to LED-prøver, så
+ambient lys og mørkestrøm fjernes, og der opnås to mørkekorrigerede
+tidsserier $V_{660}(t)$ og $V_{940}(t)$.
+
+\paragraph{Pulsestimat.}
+Pulsen udregnes på 940\,nm-signalet i et glidende vindue på 60\,s, så
+estimatet løbende følger en eventuel ændring i hjerterytmen. Inden for
+vinduet fjernes en lineær trend (en ret linje fittes og trækkes fra),
+hvorved langsom drift i baseline ikke forstyrrer detektionen. Det
+trendfjernede signal glattes med et 0{,}35\,s middelvindue, og
+\texttt{scipy.signal.find\_peaks} finder lokale toppe med en mindste
+afstand svarende til 140\,BPM og en prominens på 30\,\% af peak-to-peak.
+Prominensen er, hvor højt en top rager op over det laveste niveau før
+en endnu højere top, og forhindrer at små ripler tælles som selvstændige
+slag. Algoritmen kører på både toppe og dale, og det sæt med mindst
+spredning på interbeat-intervallerne (tiderne mellem efterfølgende slag)
+vælges. Pulsen rapporteres som $60/\tilde{T}_{\text{IBI}}$, og estimater
+med relativ spredning over 35\,\% eller uden for 40--140\,BPM kasseres.
+
+\paragraph{SpO\textsubscript{2}-estimat.}
+I et 30\,s vindue tages DC som signalets middelværdi, mens AC isoleres
+med et nulfase Butterworth-båndpas af anden orden i hjertebåndet
+0{,}5--2{,}0\,Hz. AC-amplituden estimeres robust som forskellen mellem
+95.- og 5.-percentilen, hvilket dæmper enkeltstående bevægelsesartefakter.
+Forholdet
+\[
+  R = \frac{AC_{660}/DC_{660}}{AC_{940}/DC_{940}}
+\]
+omsættes til iltmætning via en lineær kalibrering $\mathrm{SpO_2} = aR + b$,
+hvor $a$ og $b$ bestemmes mod et referencepulsoximeter (se afsnit om
+kalibrering). Værdier under tærskler for DC/AC eller uden for 50--100\,\%
+markeres som ugyldige.
 
 
 
@@ -237,24 +435,3 @@ Ved indkøb af LED'er, var filtreret efter peak-bølgelængde, dette er den rekl
 %
 % Dette afsnit skal være ærligt og kontrolleret, ikke defensivt.
 
-
-
-
-\begin{table}[!ht]
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|l|l|l|l|l|l|l|}
-\hline
-Bølgelængde & Finger ROI & Mørke & Mørkekorr. & Hyperspektral & Korrigeret & Relativ til 940 \\
-\hline
-800 & 21.0 & 14.0 & 7.0 & 736.842105 & 1150.486427 & 0.721983 \\ \hline
-810 & 22.0 & 14.0 & 8.0 & 842.105263 & 1207.512896 & 0.757770 \\ \hline
-820 & 23.0 & 14.0 & 9.0 & 947.368421 & 1283.453673 & 0.805427 \\ \hline
-930 & 19.0 & 3.0 & 16.0 & 1684.210526 & 1653.571142 & 1.037692 \\ \hline
-940 & 17.0 & 2.0 & 15.0 & 1578.947368 & 1593.507923 & 1.000000 \\ \hline
-950 & 13.0 & 2.0 & 11.0 & 1157.894737 & 1344.244118 & 0.843575 \\ \hline
-\end{tabular}%
-}
-\caption{...}
-\label{tab:...}
-\end{table}

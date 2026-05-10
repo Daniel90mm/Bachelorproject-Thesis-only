@@ -119,8 +119,6 @@ LED'erne og fotodioden er limet fast til 3D printet for at holde komponenterne p
 
 Der blev desuden indarbejdet en fingerformet rille i både top- og bundsektionen for at forbedre fingerens placering og reproducerbarheden af målegeometrien. Geometrien blev dimensioneret ud fra en repræsentativ fingerstørrelse og er derfor ikke nødvendigvis optimal for alle brugere.
 
-\paragraph{Hylster til TIA-kabling.} #TODO: JEG VED IKKE HVORDAN DETTE SKAL SE UD DA JEG IKKE ER FÆRDIG MED DEN ANALOGE OPSTILLING ENDNU. 
-
 \paragraph{JST forbindelser.} Hvert stadie er forbundet via en kabelstandard der hedder JST. Specifikt bruges JST-XH, som er en ofte brugt forbindelse designet til brug i 3D print. Motivationen for JST forbindelser opstod samtidigt som forrige afsnits motivation. 
 
 Med JST kabler kan man selv bestemme længden af kablerne. Forbindelserne sidder godt fast med en simpel låsemekanisme, og de er billige.
@@ -145,7 +143,7 @@ er MOSFET'ens spændingsfald i ledende tilstand.
 
 Strømbegrænsning via den udskiftelige seriemodstand giver mulighed for at regulering af $I_{LED}$ og dermed lysstyrken af LED'en. 
 
-Et Python program blev anvendt til at styre tidsmultipleksingen af LED'erne og til samtidig opsamling af signalet fra den analoge kæde. Selve LED-strømmen blev dog leveret fra en separat forsyning, således at oscilloskopets udgange kun fungerede som styresignaler og ikke som hovedstrømkilde for LED'erne.
+Et Python program blev anvendt til at styre tidsmultipleksingen af LED'erne og til samtidig opsamling af signalet fra den analoge kæde. Selve LED-strømmen blev dog leveret fra et \SI{9}{V} batteri, således at oscilloskopets udgange kun fungerede som styresignaler og ikke som hovedstrømkilde for LED'erne.
 
 \subsection{Transimpedansforstærker - TIA}
 % Beskriv valg af gain, komponenter og designhensyn.
@@ -173,7 +171,7 @@ Hvor minustegnet indikerer en inverterende konfiguration fra fotodiode til opera
 % LPF, HPF og ekstra gain samlet eller opdelt.
 % Gør det kun så detaljeret som nødvendigt.
 
-
+Lavpasfilteret, herefter kaldet LPF, er en nødvendig addition til kredsløbet da man mest muligt vil undgå specifikt \SI{50}{Hz} støj der påvirker signalet. Det er også en generel god ide at inkludere i sit kredsløb, da de signaler man er interesseret i for pulsoximetri ligger ved  
 
 
 \subsection{Fra perfboard til PCB}
