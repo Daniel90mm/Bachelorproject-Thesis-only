@@ -2,20 +2,11 @@
 \label{chap:results}
 
 \section{Spektral karakterisering af lyskilder}
-% Start resultaterne her.
-% Dette giver optisk tyngde tidligt.
-%
-% Figur:
-% % Målte LED-spektre med peak wavelength og FWHM markeret.
-% % Sammenlign gerne med datablad i tabel.
-%
-% Tabel:
-% % Lyskilde | Nominel wavelength | Målt peak | FWHM | Kommentar
 Tabel \ref{tab:LED_karakteristikker} og figur \ref{fig:Karakteriserede_leder} viser den spektrale karakterisering af de undersøgte LED’er.
 
 De målte peak-bølgelængder lå generelt tæt på peak værdierne angivet i databladene, men med tydelige afvigelser for enkelte komponenter. Den nominelle 660 nm LED blev målt til 664.99 nm, mens den nominelle 940 nm LED blev målt til 951.79 nm. Den største afvigelse blev således observeret for den \SI{940}{nm} LED. Samtidig viser målingerne, at LED’ernes spektrale bredde varierer betydeligt, idet 660 nm LED’en havde den smalleste emissionsbredde med FWHM på 18.30 nm, mens 970 nm LED’en havde den bredeste med FWHM på 40.00 nm.
 
-Resultaterne bekræfter, at de valgte lyskilder opererer i de ønskede spektralområder, men viser også, at den faktiske emission ikke nødvendigvis er identisk med den angivne bølgelængde angivet i databladet. Dette er relevant for den videre fortolkning af både de hyperspektrale målinger og det analoge pulsoximeters bølgelængdevalg. Desuden påvirker dette absorptionsmålingerne for HbO$_2$ og Hb betydeligt, da som set på figur \ref{fig:coeff_vs_wavelength}, er absorptionskoefficienterne vist i log-skala, hvilket kan ses at variere kraftigt som funktion af bølgelængden.
+Resultaterne bekræfter, at de valgte lyskilder opererer i de ønskede spektralområder, men viser også, at den faktiske emission ikke nødvendigvis er identisk med den angivne bølgelængde angivet i databladet. Dette er relevant for den videre fortolkning af både de hyperspektrale målinger og det analoge pulsoximeters bølgelængdevalg. Dette er relevant, fordi hæmoglobinernes absorptionskoefficienter varierer kraftigt med bølgelængden. Den effektive måling afhænger derfor ikke kun af  LED-betegnelsen, men af LED’ens faktiske spektrale emission. På figur \ref{fig:coeff_vs_wavelength}, er absorptionskoefficienterne vist i log-skala, hvilket kan ses at variere kraftigt som funktion af bølgelængden.
 
 \begin{figure}
     \centering
@@ -63,97 +54,98 @@ Figur \ref{fig:Karakteriseret_finger} viser det målte transmissionsspektrum gen
 Figur \ref{fig:braun} viser den spektrale karakterisering af et kommercielt Braun-pulsoximeter. Det målte emissionsmaksimum for den registrerede kanal lå ved 663.5 nm med en FWHM på 15.9 nm. Denne værdi ligger tæt på både den nominelle røde pulsoximeterkanal omkring 660 nm og den målte værdi for projektets egen røde LED. Resultatet understøtter derfor, at den valgte røde kanal i det udviklede system ligger i samme spektrale område som en kommerciel reference.
 
 \section{Hyperspektrale resultater}
-% Vis relative transmissionsresultater ved de valgte bølgelængder.
-%
-% Figur:
-% % Eksempelbilleder ved fx 810 og 930/940 nm.
-% % Plot af ROI-intensitet som funktion af bølgelængde.
-%
-% Vigtigt:
-% % Vær forsigtig med at konkludere "størst intensitet = bedst" uden nuance.
-% % Skriv "relativ transmission under de givne målebetingelser".
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{Pictures/Other/finger_930nm_roi_regioner.png}
-    \caption{Zoomet billede af fingeropsætning, med indtegnede ROI.}
-    \label{fig:ROI_zoom}
-\end{figure}
-
-Figur \ref{fig:ROI_zoom} viser den anvendte billedanalyse, hvor to forskellige regioner af interesse blev udvalgt i fingerbilledet. Formålet var at undersøge, om den observerede bølgelængdeafhængighed var robust over for valg af ROI. Den store ROI dækker et bredere område af fingeren, mens den smalle centrale ROI fokuserer på den mest transmitterende del af signalet. Desuden, via det lineært variable filter mellem finger og kamera, lukkes der ikke kun en bølgelængde igennem filteret, men et smalt spænd, den fungerer derfor som et båndpas filter.
-
-Dette spænd af bølgelængder bliver større jo større spændet er, for at modvirke dette, fungerer den smalle kolonne ROI i figur \ref{fig:ROI_zoom} som en bedre repræsentation af den valgte bølgelængde af den lineære stage, sammenlignet med den større firkantede ROI.
-
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{Pictures/Graphs/Hyperspect_trans_twoROI.pdf}
     \caption{Sammenligning med gennemsnit og median af pixelintensiteter.}
     \label{fig:ROI_transmissionsværdier}
 \end{figure}
+Figur \ref{fig:ROI_transmissionsværdier} viser de relative transmissionsværdier beregnet ud fra både gennemsnit og median af pixelintensiteterne i de to valgte ROI’er. For analysemetoder ses den samme overordnede tendens at pixelintensitet er større ved bølgelængderne omkring \SI{810 \pm 10}{nm} end ved \SI{940 \pm 10}{nm}, hvilket indikerer, at resultatet ikke alene skyldes det præcise valg af ROI . 
 
-Figur \ref{fig:ROI_transmissionsværdier} viser de relative transmissionsværdier beregnet ud fra både gennemsnit og median af pixelintensiteterne i de to valgte ROI’er. For begge analysemetoder ses den samme overordnede tendens, hvilket indikerer, at resultatet ikke alene skyldes det præcise valg af ROI. Samtidig ses mindre forskelle i de absolutte værdier mellem gennemsnits- og medianbaseret analyse, særligt for den smalle ROI, hvilket viser, at den numeriske værdi er følsom over for den valgte statistik. Den overordnede rangordning mellem bølgelængderne bevares dog, og resultatet peger derfor på, at de observerede forskelle er reelle under de givne målebetingelser.
+Samtidigt ses mindre forskelle i de absolutte værdier mellem gennemsnit og median af pixelregionen, hvilket viser, at den den samlede pixelværdi er følsom over for den valgte statistik. Det overordnede mønster mellem bølgelængderne bevares dog, og resultatet peger derfor på, at den observerede tendens ikke alene skyldes valg af ROI eller statistik..
 
+Den smalle ROI med median blev anvendt som primær analysemetode, fordi den reducerer sammenblanding af bølgelængder fra LVF-gradienten og samtidig er robust over for lokale refleksioner og enkelte eventuelle lyse pixels. 
+
+Det vil sige at den betydelige forskel i transmissionsværdier mellem ROI som set i figur \ref{fig:ROI_transmissionsværdier} er et signal om at median bedre skelner mellem forskellen i pixelintensitet, derved er median muligvis en mere præcis statistik til at vise den ægte transmitterede intensitet. Plotdata i figur \ref{fig:ROI_transmissionsværdier} vises i tabel \ref{tab:hyperspectral_relative_transmission}.
+\begin{table}[h]
+\centering
+\caption{Relativ, spektralt korrigeret fingertransmission beregnet med smal ROI og median som primær analysemetode. Værdierne er normaliseret til 940 nm.}
+\label{tab:hyperspectral_relative_transmission}
+\begin{tabular}{lcccccc}
+\toprule
+Bølgelængde [nm] & 800 & 810 & 820 & 930 & 940 & 950 \\
+\midrule
+Relativ transmission & 1.74 & 1.78 & 1.76 & 1.16 & 1.00 & 0.93 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Under dataopsamling, kan det antages at forsøgspersonen havde en normal perifær arteriel iltmætning, SpO$_2$ $\approx 99\%$, det vil sige at det gennemstrømmende blod overvejende bestod af oxyhæmoglobin (HbO$_2$). En sammenligning af HbO$_2$'s ekstinktionskoefficienter, set i figur \ref{fig:coeff_vs_wavelength} med tabellen ovenover, fortæller en lignende historie. 
+
+Spændet $810 \pm10 \ \text{nm}$ har ekstinktionskoefficienter der er mindre end $940 \pm 10 \ \text{nm}$. Det vil sige lys ved $810 \pm10 \ \text{nm}$ har bedre gennemtrængelighed i vævet end ved $940 \pm 10 \ \text{nm}$, denne konklusion bekræftes ud fra forsøgstabellen i tabel \ref{tab:hyperspectral_relative_transmission}, der ses større transmission ved $810 \pm10 \ \text{nm}$ end ved $940 \pm 10 \ \text{nm}$.
 
 \section{Elektroniske delresultater}
-% Dokumentér at delkredsløb virker.
-% Hold det kort og fokuseret.
-%
-% Figur:
-% % Et eller to nøgleplots af signal gennem kæden eller karakterisering af gain/støj.
-Figur \ref{fig:TIA_output} viser outputtet fra TIA-stadiet før yderligere analog filtrering. Det rå signal består af tre gentagne faser svarende til de to LED-målinger samt mørkemålingen. Derudover ses en tydelig 50 Hz-komponent med en amplitude omkring \SI{160}{mV}, hvilket viser, at signalet på dette stadie stadig er påvirket af netstøj og omgivelsesrelaterede interferenskilder.
+Figur \ref{fig:TIA_output} viser outputtet fra TIA-stadiet før yderligere analog filtrering. Det rå signal består af tre gentagne faser svarende til de to LED-målinger og mørkemålingen. Derudover ses en tydelig 50 Hz-komponent med en amplitude omkring \SI{180}{mV} peak-to-peak, hvilket viser, at signalet på dette stadie stadig  er påvirket af netrelateret interferens.
+
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{Pictures/Graphs/TIA_output.png}
-    \caption{Udsnit af oscilloskop output efter TIA.}
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/tia_led_tændt_scope.pdf}
+    \caption{Udsnit af oscilloskopmåling fra TIA-output. De tre faser svarer til 940 nm, 660 nm og mørkemåling}
     \label{fig:TIA_output}
 \end{figure}
-
-Efter lavpasfiltrering, vist i figur \ref{fig:LPF_output}, reduceres de hurtigste variationer og \SI{50}{Hz} støj i signalet. Multiplexstrukturen kan stadig observeres, men signalet fremstår væsentligt glattere end direkte efter TIA-stadiet. Dette viser, at lavpasfilteret bidrager til at begrænse højfrekvent støj uden at fjerne den overordnede signalstruktur.
+Efter lavpasfiltrering, vist i figur \ref{fig:LPF_output},  reduceres hurtige variationer og bredspektret højfrekvent støj. Multiplekstrukturen kan stadig observeres, men signalet fremstår glattere end direkte efter TIA-stadiet. Dette viser, at lavpasfilteret bidrager til at begrænse højfrekvent støj uden at fjerne den overordnede signalstruktur. Da filterets knækfrekvens ligger over 50 Hz, forventes 50 Hz-komponenten kun i begrænset grad dæmpet af selve LPF’et.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{Pictures/Graphs/LPF_output.pdf}
-    \caption{LPF output ved 4.17 Hz multipleksing.}
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/tia_lpf_tændt_scope.pdf}
+    \caption{Udsnit af oscilloskopmåling fra TIA- og LPF-udgang.}
     \label{fig:LPF_output}
 \end{figure}
 
-Figur \ref{fig:gain_output} viser signalet efter det afsluttende gain-stadie. Her ses, at signalamplituden er hævet til et niveau, der udnytter dataopsamlingens dynamiske område bedre. Samtidig bevares den tidslige struktur fra de foregående stadier, hvilket indikerer, at forstærkningen ikke har introduceret væsentlig forvrængning af signalformen.
+Figur \ref{fig:gain_output} viser signalet efter det afsluttende gain-trin. Signalamplituden er hævet til et niveau, der udnytter ADC'ens dynamiske område bedre. Samtidigt bevares den tidslige struktur fra de foregående stadier, hvilket indikerer, at forstærkningen ikke har introduceret væsentlig forvrængning af signalformen.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{Pictures/Graphs/gain_output.pdf}
-    \caption{Udsnit af oscilloskop output efter gain stadiet}
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/tia_lpf_gain_tændt_scope.pdf}
+    \caption{Udsnit af oscilloskopmåling efter TIA, LPF og gain-trin. Bemærk signalet ligger i et område, hvor ADC’ens dynamiske område udnyttes bedre.}
     \label{fig:gain_output}
 \end{figure}
 
-\section{PPG-resultater fra det analoge system}
-% Dette er hovedsektionen i resultatkapitlet.
-%
-% Figur:
-% % Råt tidsdomænesignal
-% % Filtreret PPG
-% % Rød og IR sammenlignet
-% % Zoom på 2--3 pulscykler
-%
-% Tabel:
-% % Målt pulsrate
-% % AC/DC eller signalamplitude
-% % evt. R-værdier
+\paragraph{Frekvensrespons for filtertrin.}
+Figur~\ref{fig:lpf_bode} viser den målte frekvensrespons for lavpasfilteret. Den målte -3 dB-frekvens lå tæt på den beregnede værdi, hvilket bekræfter at filtertrinnet havde den forventede båndbegrænsende funktion i signalkæden. 
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/lpf_bode_scope.pdf}
+    \caption{Karakterisering af lavpasfilter, knækfrekvens ses ved 159 Hz}
+    \label{fig:LPF_TIA_GAIN}
+\end{figure}
+Højpasfilteret blev ligeledes karakteriseret, men da DC-komponenten var nødvendig for beregning af AC/DC, blev HPF-trinnet ikke anvendt i den endelige SpO$_2$-analyse. Bode-plottet er derfor placeret i appendiks som dokumentation for det producerede filtertrin.
+
+\section{PPG-resultater fra det analoge system}
 Figur \ref{fig:pulsox_final} viser en live-måling med det endelige pulsoximetersystem ved 7.17 Hz multiplexing. De to optiske kanaler ved 660 nm og 940 nm kan følges over tid, og på baggrund af disse signaler blev både puls og SpO$_2$ estimeret i realtid. I det viste eksempel blev der for den valgte analyseperiode opnået en middelværdi for pulsen på $51.7 \ \pm \ 0.3$ BPM og et middelestimat for SpO$_2$ på $95.8 \ \pm \ 1.5 \%$. 
 
 Resultatet demonstrerer, at systemet ikke blot kan registrere et optisk signal gennem fingeren, men også udtrække pulsoximetrisk relevante parametre ved efterfølgende signalbehandling. Estimatet skal dog fortolkes som et proof-of-concept, da systemet ikke er klinisk kalibreret mod arterielle blodgasmålinger(SaO$_2$).
 
+\section{PPG-resultater fra det analoge system}
+
+Figur~\ref{fig:pulsox_final} viser en live-måling med det endelige pulsoximetersystem. De to kanaler ved 660 nm og 940 nm kan følges over tid, og signalbehandlingen estimerer både puls og et proof-of-concept-estimat for SpO$_2$.
+
+I den viste analyseperiode blev pulsen estimeret til $51.7 \pm 0.3$ BPM, mens SpO$_2$-estimatet var $95.8 \pm 1.5\,\%$. Usikkerhederne angiver variationen i estimaterne over analyseperioden.
+
+Resultatet demonstrerer, at systemet kan registrere et PPG-signal i fingertransmission og udtrække pulsoximetrisk relevante parametre. SpO$_2$-estimatet skal dog fortolkes som proof-of-concept, da systemet ikke er klinisk kalibreret mod arteriel iltmætning målt ved blodgas.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{Pictures/Graphs/live_pulsoximeter_final_demo.pdf}
-    \caption{Live pulsoximeter test kørt ved \SI{7.17}{Hz}}
+    \caption{Live pulsoximeter test kørt ved \SI{7.41}{Hz}}
     \label{fig:pulsox_final}
 \end{figure}
 
 
 \section{Opsummering af centrale fund}
-% Kort resultatsammenfatning.
-% Ingen stor fortolkning endnu.
+Samlet viste resultaterne, at de valgte LED’er opererede i de ønskede spektralområder, men med målbare forskelle mellem nominelle og faktiske peak-bølgelængder. Den største afvigelse blev observeret for den nominelle 940 nm LED, som blev målt til 951.79 nm.
 
-Samlet set viste resultaterne, at de valgte LED’er opererede i de ønskede spektralområder, men med målbare forskelle mellem nominelle og faktiske peak-bølgelængder. De hyperspektrale målinger viste, at de relative transmissionsværdier afhænger af både bølgelængde og valg af analysemetode, men at den overordnede tendens var robust over for ROI-valg. De elektroniske delmålinger viste desuden, at den analoge signalkæde kunne omsætte den svage fotostrøm til et brugbart spændingssignal, som efter filtrering og forstærkning muliggjorde realtidsestimering af både puls og
+De hyperspektrale målinger viste, at den relative, spektralt korrigerede transmission afhænger af bølgelængde og ROI-valg, men at den overordnede tendens var robust på tværs af de anvendte ROI-statistikker. Målingerne understøtter dermed brugen af hyperspektral billeddannelse som et supplerende optisk valideringsværktøj for NIR-området.
+
+De elektroniske delmålinger viste, at den analoge signalkæde kunne omsætte fotodiodens svage strøm til et brugbart spændingssignal, og at signalet kunne filtreres og forstærkes uden at miste multipleksstrukturen. Det endelige system kunne registrere et PPG-signal i fingertransmission og estimere puls samt et proof-of-concept-SpO2-estimat i realtid.

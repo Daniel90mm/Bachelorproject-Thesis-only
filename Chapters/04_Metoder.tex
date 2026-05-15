@@ -1,16 +1,8 @@
 \chapter{Eksperimentel opstilling og metoder}
 \label{chap:methods}
 
-% Forklar at projektet bruger tre spor:
-% % 1) Analogt pulsoximetersystem som hovedspor
-% % 2) Hyperspektral opstilling som optisk validering
-% % 3) Spektrometer som spektral karakterisering
-%
-% Gør det tydeligt at disse spor er komplementære og ikke konkurrerende.
-
 \section{Overordnet valideringsstrategi}
-
-Projektets eksperimentelle del bestod af tre komplementære spor. Det analoge pulsoximetersystem udgjorde hovedsporet og blev anvendt til at måle fotopletysmografiske signaler i transmissionsgeometri. Herudover blev et hyperspektralt setup anvendt som optisk valideringsspor til at undersøge den relative transmission gennem fingervæv ved udvalgte bølgelængder, mens et spektrometer blev anvendt til spektral karakterisering af de anvendte lyskilder og til supplerende transmissionsmålinger.
+Projektets eksperimentelle del bestod af tre komplementære spor. Det analoge pulsoximetersystem udgjorde hovedsporet og blev anvendt til at måle PPG-signaler i transmissionsgeometri. Herudover blev et hyperspektralt setup anvendt som optisk valideringsspor til at undersøge den relative transmission gennem fingervæv ved udvalgte bølgelængder, mens et spektrometer blev anvendt til spektral karakterisering af de anvendte lyskilder og til supplerende transmissionsmålinger.
 
 De tre spor havde således forskellige roller i projektet. Det analoge system blev brugt til at demonstrere den praktiske måling af PPG-signaler, mens de to optiske opstillinger blev anvendt til at understøtte og nuancere bølgelængdevalget samt verificere de anvendte lyskilders faktiske spektrale egenskaber.
 
@@ -18,19 +10,12 @@ De tre spor havde således forskellige roller i projektet. Det analoge system bl
 \label{sec:analog_setup}
 
 \subsection{Formål}
-
-Formålet med den analoge opstilling var at undersøge, om det udviklede system kunne måle et brugbart fotopletysmografisk signal i fingertransmission ved brug af rødt og nær-infrarødt lys. Derudover var formålet at vurdere, om signalet havde tilstrækkelig kvalitet til udtræk af puls og videre analyse af AC- og DC-komponenter.
+Formålet med den analoge opstilling var at undersøge, om det udviklede system kunne måle et brugbart PPG-signal i fingertransmission ved brug af rødt og nær-infrarødt lys. Derudover var formålet at vurdere, om signalet havde tilstrækkelig kvalitet til udtræk af puls og videre analyse af AC- og DC-komponenter.
 
 \subsection{Fysisk opstilling}
-% Beskriv komponenter, sammenkobling, fingerplacering, afskærmning, AD3/DAQ osv.
-%
-% Figur:
-% % Foto af den virkelige opstilling på bordet.
-% % Eventuelt også et rent diagram.
-
 Den analoge måleopstilling bestod af et 3D-printet kabinet/hylster med to LED'er og en fotodiode placeret over for hinanden, således at en finger kunne placeres mellem lyskilde og detektor. LED'erne blev styret via et separat driverkredsløb, mens det transmitterede lys blev detekteret af fotodioden og ført videre til den analoge signalkæde bestående af en transimpedansforstærker, filtrering og et afsluttende forstærkertrin.
 
-Signalet blev opsamlet med et Analog Discovery 3, som både blev anvendt til styring af tidsmultipleksingen og til dataopsamling. Under måling blev fingeren placeret i kabinettet med neglesiden vendt mod LED'erne og fingerblommen mod fotodioden. Kabinettet blev lukket omkring fingeren for at fastholde målegeometrien og reducere påvirkning fra omgivende lys. Samt var en elastik sat rundt om top- og bundkabinet for at holde målegeometrien intakt.
+Signalet blev opsamlet med et Analog Discovery 3, som både blev anvendt til styring af tidsmultipleksingen og til dataopsamling. Under måling blev den venstre pegefinger placeret i kabinettet med neglesiden vendt mod LED'erne og fingerblommen mod fotodioden. Kabinettet blev lukket omkring fingeren for at fastholde målegeometrien og reducere påvirkning fra omgivende lys. En elastik blev desuden placeret omkring top- og bunddelen for at fastholde fingerens placering.
 
 De vigtigste komponenter i den analoge opstilling er opsummeret i tabel \ref{tab:centrale_komponenter}.
 
@@ -43,7 +28,7 @@ De vigtigste komponenter i den analoge opstilling er opsummeret i tabel \ref{tab
 Komponenttype & Valgt komponent & Funktion \\
 \midrule
 Fotodiode & Hamamatsu S1223 & Detektion af transmitteret lys \\
-Operationsforstærker & OP27 & Transimpedansforstærker, filtrering og forstærkning \\
+Operationsforstærker & OP27G & Transimpedansforstærker, filtrering og forstærkning \\
 Rød LED & 660 nm LED & Hovedmåling i rød kanal \\
 IR-LED & 940 nm LED & Hovedmåling i NIR-kanal \\
 MOSFET & 2N7000 & Switching i LED-driver \\
@@ -52,25 +37,35 @@ Dataopsamling & Analog Discovery 3 & Styring og signalopsamling \\
 \end{tabular}
 \end{table}
 
+\subsection{Måleprotokol} 
+Målingerne blev udført siddende, loftbelysning slukket og så stille som muligt, hurtigere eller dybe vejrtrækninger var undgået. Målingen var udført over et minut, med en initiel start-up forsinkelse på 15 sekunder, så forsøgspersonen kunne nå at placere fingeren stabilt i hylsteret før dataopsamlingen begyndte.
 
+Derefter blev systemet kørt i 10 sekunder før dataopsamling for at lade LED-driver, analogkæde og softwaresekvens stabilisere sig. Til sidst blev der udført en minut lang måling, med en multipleksing frekvens på \SI{7.41}{Hz}.
 
-\subsection{Måleprocedure}
-% Beskriv helt konkret hvordan målingerne blev kørt.
-% % LED-tilstande
-% % varighed
-% % sampling rate
-% % forsøgsperson/finger
-% % normal vejrtrækning, evt. breath-hold, recovery
-%
-% Vær reproducerbar.
+\paragraph{Frekvensvalg.} Da man ønsker at måle et heltals multiplum af \SI{20}{ms}, kan man f.eks. vælge at måle hver af de tre faser, som vist i tabel \ref{tab:maalinger}, med tiden \SI{40}{ms}.
 
-Målingerne blev udført siddende, loftbelysning slukket og så stille som muligt, hurtigere eller dybe vejrtrækninger var undgået. En standard elastik blev anvendt til at sikre let tryk mod fingeren, den var sat i nogle designede riller, og minimerer bevægelsesartefakter. Målingen var udført over et minut, med en initiel start-up forsinkelse på 15 sekunder, så man havde tid til at sætte sig i stolen, indsætte fingeren i hylsteret og berolige sig selv. 
+Hver målecyklus bestod af tre faser: \SI{660}{nm}-LED tændt, \SI{940}{nm}-LED tændt og begge LED'er slukket. Hver fase bestod af en settlingperiode på \SI{5}{ms} efterfulgt af et målevindue på \SI{40}{ms}. En komplet cyklus varede derfor
+\begin{equation}
+    T_{\mathrm{cyklus}} = 3 \cdot (\SI{5}{ms}+\SI{40}{ms}) = \SI{135}{ms},
+\end{equation}
+svarende til en kanalrate på
+\begin{equation}
+    f_{\mathrm{kanal}} = \frac{1}{T_{\mathrm{cyklus}}} \approx \SI{7.41}{Hz}
+\end{equation}
 
-Derefter, kørte de multiplekserende LED'er i 10 sekunder, for at varme LED'erne op, og få de initielle fejl ud af vejen. 
+Nyquist-kriteriet skal også overholdes, og da:
+\begin{equation}
+    120 \ \text{BPM} = 2 \ \text{Hz}
+\end{equation}
+og da Nyquist frekvensen er:
+\begin{equation}
+    \frac{7.41}{2} = 3.7 \ \text{Hz}
+\end{equation}
+Dækkes \SI{2}{Hz} komfortabelt.
 
-Til sidst blev der udført en minut lang måling, med en multipleksing frekvens på \SI{7.41}{Hz}, denne frekvens var valgt ud fra antagelsen at støj fra el-nettet er sinusformet, og ved at midle over sinusbølgen, kan man fjerne støjen i software uden for stor byrde af lavpasfilteret, mere om lavpasfilter løsningen efter.
+Frekvensen var desuden valgt ud fra antagelsen at for en ren sinusformet \SI{50}{Hz}-komponent vil midlingen ideelt give nul middelværdi, man kan derfor fjerne støjen i software uden for stor byrde af lavpasfilteret, mere om lavpasfilter løsningen efter.
 
-Løsningen for attenuering af \SI{50}{Hz} støjen bygger på antagelsen om, at støjen kan modelleres som en sinusformet forstyrrelse med ukendt fase $\varphi$. Middelværdien over et tidsvindue T er:
+Løsningen for attenuering af \SI{50}{Hz} støjen bygger som sagt på antagelsen om, at støjen kan modelleres som en sinusformet forstyrrelse med ukendt fase $\varphi$. Middelværdien over et tidsvindue $T$ er:
 
 \begin{equation}
     \frac{1}{T} \int_0^T A \sin (2 \pi \cdot 50 \cdot t + \varphi)\, dt = \frac{A}{2\pi \cdot 50 \cdot T} \cdot \left[\cos(\varphi) - \cos(2\pi \cdot 50 \cdot T + \varphi)\right]
@@ -81,144 +76,84 @@ Hvis $T = \frac{N}{50 \ \text{Hz}}$ , hvor N er et positivt heltal svarende til 
     \cos(2\pi N + \varphi) = \cos(\varphi)
 \end{equation}
 
-Parentesen går ud, og integralet er lig nul uanset amplitude A og fase $\varphi$. 
-
-Hvis det var man lagde arbejdet for at fjerne \SI{50}{Hz} støj fra el-nettet via lavpas filteret, og med en fastloddet kondensator værdi af \SI{1}{nF}, skulle man sætte knækfrekvensen for filteret et godt stykke før de \SI{50}{Hz} man prøver at fjerne. Et sted man kunne prøve var måske \SI{30}{Hz}, hvor man vil attenuere støjen med følgende formel for et andenordens butterworth sallen key filter:
-
-\begin{equation}
-    |H(50 \ \text{Hz})| = \frac{1}{\sqrt{1+ \left(\frac{50}{30} \right)^4}} \approx 0.34
-\end{equation}
-\SI{50}{Hz} støj vil derfor attenueres med 34\% med en knækfrekvens på \SI{30}{Hz}. For at bruge den knækfrekvens, skal man bruge en modstandsværdi på:
-\begin{equation}
-    \text{f}_{\text{knæk}} = \frac{1}{2\pi RC}
-\end{equation}
-Isolerer for modstandsværdien med $f_\text{knæk} = 30 \ \text{Hz}$ og $C= 1 \ \text{nF}$:
-\begin{equation}
-    R = \frac{1}{2 \pi 30 \times 1\times10^{-9}} = 5.3 \ \text{M} \Omega
-\end{equation}
-
-En modstandsværdi på $5.3 \ \text{M} \Omega$, introducerer dog en bias strøm fra operationsforstærkeren brugt, den er på \SI{15}{nA} for en OP27, som via ohms lov, producerer en DC spænding på:
-
-\begin{equation}
-    V_\text{DC} = I_{\text{OP27 bias}} \cdot (R \cdot 2) = 15 \times10^{-9} \cdot 10.6 \times 10^{6} = 159 \ \text{mV}
-\end{equation}
-
-Det vil sige, at med et modstandspar på $5.3 \ \text{M} \Omega$, vil man have et DC offset på \SI{159}{mV} efter lavpasfilteret, inde i sit signal, og efter forstærkertrinnet, hvor forstærkningen ligger på cirka 5, vil man minimum have et DC offset på \SI{0.795}{V}. Bidraget fra TIA vil gøre den endelige DC offset højere, med en $R_f = 2.1 \ \text{M}\Omega$.
-
-Dette er al forventeligt, og trækkes fra med mørkemålingen via software, så dette vil ikke forurene signalet i sidste ende, men påvirker hvor hårdt man kan drive $\pm 9$ Volt forsyningerne, og tillade for overskud for svinginger og pludselige bevægelser.
-
-\paragraph{Frekvensvalg.} Da man ønsker at måle et multiplum af \SI{20}{ms}, kan man f.eks. vælge at måle hver af de tre faser, som vist i tabel \ref{tab:maalinger}, med tiden \SI{40}{ms}.
-
-En begrænsende faktor er lavpasfilterets settling time, som bestemmes af filterets kondensatorer og modstande, specifikt via tidskonstanterne. Her beregnet for lavpas filteret:
-
-\begin{equation}
-    \tau = RC = 8\times10^{6} \cdot 1 \times 10^{-9} = 8 \ \text{ms} 
-\end{equation}
-Det vil sige, efter \SI{8}{ms}, er lavpasfilteret tilbage til $\approx 68 \%$ af dets oprindelige steady state værdi, efter 5 tidskonstanter, er lavpasfilteret tilbage til $\approx 99 \%$ af dets steady state værdi. Derfor ventes \SI{40}{ms} efter hver LED slukkes, for at sikre at lavpasfilteret er i steady state.
-
-Det vil sige at hver fase måles og skiftes efter \SI{80}{ms}, da man har tre faser, vil det sige en total cyklus er \SI{240}{ms} lang, eller $\frac{1}{0.240} \approx 4.17 \ \text{Hz}$. 
-
-Frekvensen ligger over hvilepulsen, som har sin maksimalt målbare hastighed på 120 hjerteslag pr. minut. Med en hvilepuls på 120 eller i Hz som:
-$$
-\frac{1}{\frac{60}{120\ \text{bpm}}} = 2 \ \text{Hz}
-$$
-Da der samples med \SI{4.17}{Hz}, er nyquist kriteriet dermed overholdt, op til \SI{120}{bpm}, og vi forhindrer aliasering.
-
+Dermed bliver de to cosinusled identiske, og middelværdien bliver nul uanset amplitude og fase.
 
 \subsection{Elektrisk karakterisering}
-% Gain, saturation, støj, frekvensrespons, evt. verificering af delkredsløb.
-%
-% Figur:
-% % Delsignal gennem kæden eller karakteriseringsplots.
-
-% todo: delplots af output fra TIA, LPF, HPF og GAIN med multiplexing gennem finger.
-
 I dette delafsnit vises plots med pulsoximeteret drevet ved \SI{7.41}{Hz}.
 
 \paragraph{Transimpedance Amplifier - TIA}
-
 TIA'en fungerede som både en konvertering fra strøm til spænding og en initiel forstærkning af det indkommende signal. Forstærkningen bestemmes ud fra feedbackmodstanden, $R_f$. Desuden er tilsat en kondensator, $C_f$, i parallel til $R_f$ for at hjælpe med hurtigt skiftende diodestrøm. De er sat til:
 
 \begin{itemize}
     \item $C_f = 10 \ \text{pF}$
-    \item $R_f = 2.1 \ \text{M}\Omega$
+    \item $R_f = 2.21 \ \text{M}\Omega$
 \end{itemize}
 
-Regner man konverteringsfaktoren fra strøm til spænding, kaldet transimpedansen:
+Ud fra TIA outputtet i resultatsafsnittet figur \ref{fig:TIA_output}, kan de omtrentlige middelværdier for de tre faser estimeres som:
+\begin{itemize}
+    \item $940 \ \text{nm} \ \xrightarrow{\text{Gennemsnit}} 0.9 \ \text{V}$
+    \item $660 \ \text{nm} \ \xrightarrow{\text{Gennemsnit}} 0.5 \ \text{V}$
+    \item $\text{Mørke} \ \xrightarrow{\text{Gennemsnit}} 0 \ \text{V}$
+\end{itemize}
 
-\begin{equation}
-    V_{\text{out}} = -I_{\text{in}} \times R_f= -(-10\times 10^{-9}) \cdot 2.1 \times 10^{6} = 21
-\end{equation}
-
-TIA output:
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1\textwidth]{Pictures/Graphs/TIA_output.png}
-    \caption{Udsnit af oscilloskop output. Bemærk de tre faser og \SI{50}{Hz} støj med amplitude \SI{160}{mV}.}
-    \label{fig:TIA_output}
-\end{figure}
-
+Størrelsen af den tilsvarende inputstrøm kan estimeres fra TIA-relationen
+\[
+    |I_{\text{in}}|=\frac{|V_{\text{out}}|}{R_f}.
+\]
+Med $R_f=2.21\,\text{M}\Omega$ fås omtrent
+\[
+    |I_{940}|=\frac{0.9}{2.21\cdot 10^6}=0.41\,\mu\text{A},
+\]
+og
+\[
+    |I_{660}|=\frac{0.5}{2.21\cdot 10^6}=0.23\,\mu\text{A}.
+\]
+Fotostrømmen i den analoge opstilling ligger dermed i størrelsesordenen $0.2$--$0.4\,\mu\text{A}$.
 
 \paragraph{Lavpasfilter - LPF}
 Lavpasfilteret er et andenordens Sallen-Key filter med følgende komponentværdier:
 \begin{itemize}
-    \item $R = 8 \ \text{M}\Omega$
-    \item $C = 1 \ \text{nF}$
-    \item $f_{\text{knæk}} = \frac{1}{2\pi RC} \approx 19.9 \ \text{Hz}$
+    \item To modstande på $1 \ \text{M}\Omega$
+    \item To kondensatorer på $1 \ \text{nF}$
+    \item $f_{\text{knæk}} = \dfrac{1}{2\pi RC} \approx \SI{159}{Hz}$
 \end{itemize}
-Filteret tjener et hovedformål og to mindre formål. For det første dæmpes \SI{50}{Hz} støj fra el-nettet analogt,
-da knækfrekvensen ligger under \SI{50}{Hz}. Attenuationen ved \SI{50}{Hz} for et
-andenordens filter er:
+
+Knækfrekvensen på \SI{159}{Hz} er bevidst placeret over PPG-signalets nyttige
+båndbredde, men lavt nok til at begrænse den samlede støjbåndbredde i signalkæden inden sampling. Filteret har to primære funktioner:
+
+\begin{enumerate}
+    \item \textbf{Anti-aliasing for AD3'ens sampling.} AD3'en sampler kontinuerligt under hver \SI{40}{ms} LED-fase ved \SI{20}{kHz}, og prøverne midles efterfølgende til en værdi per fase. LPF'en bidrager til at dæmpe højfrekvent indhold over Nyquist-frekvensen på \SI{10}{kHz} inden digitalisering. 
+
+Med en knækfrekvens på \SI{159}{Hz} og en rolloff på \SI{-40}{dB/dekade} er dæmpningen ved \SI{10}{kHz} på størrelsesordenen $10^{-4}$, hvilket reducerer risikoen for aliasing af højfrekvent støj.
+
+    \item \textbf{Dæmpning af bredspektret højfrekvent støj.} Elektromagnetisk støj fra omkringliggende udstyr (skærme, strømforsyninger, switching elektronik) kan koble ind på JST-XH-kablingen og fotodiodens ledninger. Disse bidrag dæmpes effektivt af filteret.
+\end{enumerate}
+
+Den efterfølgende midling af samples inden for hver \SI{40}{ms} LED-fase udgør et lavpasfilter. Det første nul ligger ved $\frac{1} {T_{\text{fase}}} = \SI{25}{Hz}$, og \SI{50}{Hz} falder nær det andet nul. Midlingen undertrykker derfor \SI{50}{Hz}-støj fra elnettet markant, hvilket forklarer hvorfor analog \SI{50}{Hz}-filtrering ikke er nødvendig i signalkæden. LPF'en ved \SI{159}{Hz} dæmper \SI{50}{Hz} med en faktor:
 \begin{equation}
-    |H(50 \ \text{Hz})| = \frac{1}{\sqrt{1+\left(\frac{50}{19.9}\right)^4}} \approx 0.16
+    |H(\SI{50}{Hz})| = \frac{1}{\sqrt{1+\left(\frac{50}{159}\right)^4}}
+    \approx 0.995
 \end{equation}
-altså en dæmpning til ca. 16\% af den oprindelige amplitude. For det andet, begrænser
-filteret den bredspektrede termiske støj, også kaldet for Johnson-støj fra TIA'ens feedbackmodstand $R_f$, dette er en meget lille spænding, i nV til uV, frekvensen af denne støj er som sagt, bredspektret, så man kan ikke undgå den støj under LPF'en, men da den alligevel er i nanovolt til mikrovolt, er den negligibel.
+altså med lav attenuation, \SI{50}{Hz} undertrykkelsen kommer fra midlingen i software, ikke fra analogfilteret. En lavere analog knækfrekvens ville desuden være upraktisk, da den ville kræve aflodning af de eksisterende \SI{1}{nF}-kondensatorer med tilhørende risiko for termisk skade på PCB'en. Resterende DC og langsom drift fra ambient-lys reduceres efterfølgende via mørkesubtraktion i software, som beskrevet i \cref{sec:signalbehandling}.
 
-For det tredje fjerner filteret mulig højfrekvent støj der kan opstå i et travlt elektrisk miljø, som en sikring, og da der attenueres ned til 16\% for \SI{50}{Hz}, vil der ske yderligere attenuation med -40 dB per dekade via topologien fra det anden ordens Sallen-Key filter.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1\textwidth]{Pictures/Graphs/LPF_output.pdf}
-    \caption{LPF output ved 7.41 Hz multipleksing.}
-    \label{fig:LPF_output}
-\end{figure}
-
+Effekten af LPF-trinnet er illustreret i resultat afsnittet i figur \cref{fig:LPF_output}, hvor det glattere signal efter LPF sammenlignet med TIA-udgangen i figur \ref{fig:TIA_output} viser dæmpningen af bredspektret højfrekvent indhold.
 
 \paragraph{Højpas filter - HPF}
+Højpasfilteret blev designet og produceret, men blev ikke anvendt i den endelige SpO$_2$-analyse, da beregningen af $AC/DC$ kræver adgang til DC-komponenten. Filteret var oprindeligt tænkt til at dæmpe DC-offset og meget langsom drift.
 
-Højpasfilteret endte ikke med at blive brugt, da det var nødvendigt til at udregne R i ratio-of-ratios. 
-
-Det var originalt tænkt at blive brugt for at filtrere DC-offset spændingen genereret af de store modstande tidligere i kredsløbet.
-
-Dets komponentværdier var indstillet til:
-
-\begin{itemize}
-    \item 2x $330 \text{k}\Omega$
-    \item 2x $1 \ \mu \text{F}$
-\end{itemize}
-
-Hvilket giver en knækfrekvens på:
-
-\begin{equation}
-    f_{\text{knæk}} = \frac{1}{2\pi \times 330 \times 10^{3} \times 1 \times 10^{-6}} = 0.48 \ \text{Hz}
-\end{equation}
-
-Den designede knækfrekvens kunne fjerne meget lavfrekvent, DC-lignende eller faktisk DC støj, og samtidiget lade en puls på:
-
-$$
-\frac{1}{\frac{60}{29 \ \text{bpm}}}=0.48 \ \text{Hz}
-$$
-
-Trænge igennem til ADC'en
+Filteret var dimensioneret med to modstande på $330\,\text{k}\Omega$ og to kondensatorer på $1\,\mu\text{F}$, hvilket giver en knækfrekvens på
+\[
+    f_{\text{knæk}}=\frac{1}{2\pi RC}
+    =\frac{1}{2\pi\cdot 330\cdot 10^3\cdot 1\cdot 10^{-6}}
+    \approx 0.48\,\text{Hz}.
+\]
+Denne frekvens svarer til cirka 29 BPM. Ved knækfrekvensen dæmpes signalet med 3 dB, mens højere pulsfrekvenser passerer med mindre dæmpning.
 
 \paragraph{Ikke-inverterende forstærkning - Gain}
-
 Gain stadiet havde følgende komponentværdier:
 \begin{itemize}
-    \item $R_f = 39 \ k \Omega$
-    \item $R_g = 10 \ k \Omega$
+    \item  En modstand på $R_f = 39 \ k \Omega$
+    \item En modstand på $R_g = 10 \ k \Omega$
 \end{itemize}
 
 Som producerer en gain på:
@@ -227,211 +162,271 @@ Som producerer en gain på:
     \text{Gain} = 1 + \frac{R_f}{R_g} = 1 + \frac{39000}{10000} = 4.9
 \end{equation}
 
-Den ikke inverterende forstærkning fungerede som det sidste stadie inden dataopsamling, og flyttede signalet ind i et sundt område af ADC'ens dynamic range. 
+Den ikke inverterende forstærkning fungerede som det sidste stadie inden dataopsamling, og flyttede signalet ind i et område så ADC’ens dynamiske område blev udnyttet bedre.
 
 \subsection{Signalbehandling}
-% Separering af multiplexede signaler, filtrering, AC/DC, peak detection, puls.
-% Hold metode og resultat adskilt.
-
-Softwaren skal derfor adskille de tre tilstande, rense de
-adskilte signaler og udlede henholdsvis puls og iltmætning fra de
-relevante frekvensbånd.
+Signalbehandlingen havde tre formål: demultipleksering af LED-kanalerne, estimering af puls og beregning af $\frac{AC}{DC}$-forhold til SpO$_2$-estimat.
 
 \paragraph{Tidsdemultipleksering.}
-Hver cyklus deles i tre faser: 660\,nm tændt, 940\,nm tændt, og begge
-slukkede. Hver fase består af 40\,ms settling efterfulgt af 40\,ms
-måling, så én cyklus tager 240\,ms svarende til en effektiv prøvefrekvens
-på 4{,}17\,Hz pr.\ bølgelængde. Settling er nødvendig, fordi den analoge
-kædes filtre ikke kan følge LED-skiftene øjeblikkeligt, de 40\,ms
-målevindue svarer desuden til to perioder af 50\,Hz nettet, så netbrum
-midles ud allerede her. Den mørke fase trækkes fra de to LED-prøver, så
-ambient lys og mørkestrøm fjernes, og der opnås to mørkekorrigerede
-tidsserier $V_{660}(t)$ og $V_{940}(t)$.
+Hver cyklus blev opdelt i tre faser: \SI{660}{nm}-LED tændt, \SI{940}{nm}-LED tændt og begge LED'er slukket. Hver fase bestod af \SI{5}{ms} settling efterfulgt af et \SI{40}{ms} målevindue. Settlingperioden blev kasseret i analysen, mens prøverne i målevinduet blev midlet til en værdi for den pågældende fase. En komplet cyklus tog derfor \SI{135}{ms}, svarende til en effektiv kanalrate på \SI{7.41}{Hz}.
 
 \paragraph{Pulsestimat.}
-Pulsen udregnes på 940\,nm-signalet i et glidende vindue på 60\,s, så
-estimatet løbende følger en eventuel ændring i hjerterytmen. Inden for
-vinduet fjernes en lineær trend (en ret linje fittes og trækkes fra),
-hvorved langsom drift i baseline ikke forstyrrer detektionen. Det
-trendfjernede signal glattes med et 0{,}35\,s middelvindue, og
-\texttt{scipy.signal.find\_peaks} finder lokale toppe med en mindste
-afstand svarende til 140\,BPM og en prominens på 30\,\% af peak-to-peak.
-Prominensen er, hvor højt en top rager op over det laveste niveau før
-en endnu højere top, og forhindrer at små ripler tælles som selvstændige
-slag. Algoritmen kører på både toppe og dale, og det sæt med mindst
-spredning på interbeat-intervallerne (tiderne mellem efterfølgende slag)
-vælges. Pulsen rapporteres som $60/\tilde{T}_{\text{IBI}}$, og estimater
-med relativ spredning over 35\,\% eller uden for 40--140\,BPM kasseres.
+I livevisningen blev pulsen estimeret med et glidende vindue på \SI{60}{s}. Da de analyserede optagelser varede \SI{60}{s}, svarer den endelige pulsværdi dog reelt til et estimat over hele målevinduet. Inden for vinduet fjernes en lineær trend (en ret linje fittes og trækkes fra), hvorved langsom drift i baseline ikke forstyrrer detektionen. Det trendfjernede signal glattes med et 0.35\,s middelvindue, og \texttt{scipy.signal.find\_peaks} finder lokale toppe med en mindste afstand svarende til \SI{140}{BPM} og en prominens på 30\% af peak-to-peak. Prominensen er, hvor højt en top rager op over det laveste niveau før en endnu højere top, og forhindrer at små ripler tælles som selvstændige slag. Algoritmen kører på både toppe og dale, og det sæt med mindst spredning på interbeat-intervallerne (tiderne mellem efterfølgende slag) vælges. Pulsen rapporteres som $\frac{60}{\tilde{T}_{\text{IBI}}}$, og estimater med relativ spredning over 35\% eller uden for 40 til \SI{140}{BPM} kasseres.
 
 \paragraph{SpO\textsubscript{2}-estimat.}
-I et 30\,s vindue tages DC som signalets middelværdi, mens AC isoleres
-med et nulfase Butterworth-båndpas af anden orden i hjertebåndet
-0{,}5--2{,}0\,Hz. AC-amplituden estimeres robust som forskellen mellem
-95.- og 5.-percentilen, hvilket dæmper enkeltstående bevægelsesartefakter.
-Forholdet
-\[
-  R = \frac{AC_{660}/DC_{660}}{AC_{940}/DC_{940}}
-\]
-omsættes til iltmætning via en lineær kalibrering $\mathrm{SpO_2} = aR + b$,
-hvor $a$ og $b$ bestemmes mod et referencepulsoximeter (se afsnit om
-kalibrering). Værdier under tærskler for DC/AC eller uden for 50--100\,\%
-markeres som ugyldige.
-
-
+I et \SI{30}{sek} vindue tages DC som signalets middelværdi, mens AC isoleres
+med et nulfase Butterworth-båndpas af anden orden i hjertebåndet 0.5 til \SI{2}{Hz} (30 bpm til 120 bpm). AC-amplituden estimeres robust som forskellen mellem 95.- og 5.-percentilen, hvilket dæmper enkeltstående bevægelsesartefakter. Forholdet
+\begin{equation}
+\label{eq:ratio_of_ratios}
+  R = \frac{\frac{AC_{660}}{DC_{660}}}{\frac{AC_{940}}{DC_{940}}}
+\end{equation}
+omsættes til iltmætning via en lineær kalibrering $\mathrm{SpO_2} = a - bR$, hvor $a$ og $b$ bestemmes mod et kommercielt pulsoximeter anvendt som praktisk reference, kalibreringen beskrives i resultatafsnittet. Værdier med for lav DC, for lav AC-amplitude eller fysiologisk urealistisk SpO$_2$-estimat blev markeret som ugyldige.
 
 \subsection{Udledte parametre}
-% Hvilke parametre udtrækkes?
-% % rå signal
-% % filtreret PPG
-% % puls
-% % AC/DC
-% % R
-% % evt. relativ SpO2-trend
-%
-% Brug "relativt estimat" hvis absolut SpO2 er for usikkert.
+Fra de demultipleksede og mørkekorrigerede signaler blev følgende parametre udledt:
+\begin{itemize}
+    \item $V_{660}(t)$ og $V_{940}(t)$: mørkekorrigerede tidsserier for de to LED-kanaler.
+    \item $DC_{660}$ og $DC_{940}$: middelværdien af signalerne i analysevinduet.
+    \item $AC_{660}$ og $AC_{940}$: pulsatile amplituder estimeret efter båndpasfiltrering.
+    \item $R$: ratio-of-ratios beregnet som vist i ligning \ref{eq:ratio_of_ratios}
+    \item Puls: estimeret fra interbeat-intervaller i \SI{940}{nm}-kanalen.
+    \item SpO$_2$: proof-of-concept-estimat beregnet via en empirisk lineær kalibrering.
+\end{itemize}
 
 \section{Hyperspektral opstilling}
 \label{sec:hyperspectral_setup}
 
 \subsection{Formål}
-% Optisk vurdering af relativ transmission gennem finger ved udvalgte bølgelængder.
+Formålet med den hyperspektrale opstilling var at undersøge den relative detekterede intensitet gennem en finger ved udvalgte nær-infrarøde bølgelængder. Målingen blev ikke anvendt som et selvstændigt pulsoximeter, men som et optisk valideringsspor til at vurdere, hvilke bølgelængdeområder der gav brugbare signalniveauer under den givne transmissionsgeometri.
 
-Formålet med den hyperspektrale opstilling var at undersøge hvilket interval bølgelængder der havde den bedste relative intensitet gennem en finger ved udvalgte bølgelængder. 
+Da den målte intensitet afhænger af både vævstransmission, lyskildens spektrum, filterets transmission, linsernes transmission og kameraets kvanteeffektivitet, fortolkes resultaterne som relative målinger for den konkrete opstilling og ikke som absolutte vævstransmissioner.
 
 \subsection{Opstilling}
-% Beskriv kamera, lineær stage, variabelt filter, glowbar, fingerplacering.
-%
+Den hyperspektrale opstilling bestod af en bredbåndet Glo-bar som infrarød lyskilde, en fingerholder, et linsehus med tre akromatiske dubletter, et lineært variabelt filter (LVF), en lineær stage og et NIR-følsomt kamera. Kameraet var et UI-3240CP-NIR-GL, som har forhøjet følsomhed i det nær-infrarøde område sammenlignet med et almindeligt synligt kamera.
 
-Kameraet er et UI-3240CP-NIR-GL, som har en kvanteeffektivitet der specielt sensitiv overfor NIR-området. Den lineære stage sidder foran kameraet, som set i figur \ref{fig:hyperspekt_diagram}, dets opgave er at flytte LVF med nøjagtighed under en millimeter. 
+Glo-baren blev anvendt som transmissionslyskilde. Fingeren blev placeret i strålegangen mellem lyskilden og det optiske detektionssystem. Det transmitterede lys fra fingeren blev opsamlet af linseopstillingen og sendt videre mod LVF'et og kameraet. LVF'et fungerede som et positionsafhængigt båndpasfilter, hvor den transmitterede centerbølgelængde afhænger af filterets position. Ved at flytte LVF'et med den lineære stage kunne forskellige smalle spektrale bånd selekteres sekventielt.
 
-Inden dataopsamling, blev der brugt en kalibreringsgraf der mapper lineær stage position, og dermed position af LVF, til en bølgelængde som filtreres ind på kameralinsen. Den fungerer derfor som et bandpass filter af bølgelængder.
+Mellem fingerpositionen og LVF'et var et linsehus monteret med tre akromatiske dubletter. Den første linse var en akromatisk dublet med fokalllængde på 30 mm og diameter på 1 inch, mens de to efterfølgende linser havde fokallængder på henholdsvis 50 mm og 25 mm og diameter på 1/2 inch. Alle linser havde antirefleksbelægning(ARC) specificeret til området 400-1100 nm.
 
-Mellem fingerpositionen og det lineært variable filter var et linsehus monteret med tre akromatiske dubletter. Den første linse var en \SI{30}{mm} akromatisk dublet med en diameter på \SI{1}{inch}, mens de to efterfølgende linser var achromatiske dubletter med brændvidder på henholdsvis \SI{50}{mm} og \SI{25}{mm}, begge med diameter på \SI{1/2}{inches}. Alle tre linser havde antirefleksbelægning(ARC) specificeret til \SIrange{400}{1100}{nm}.
+Linsernes funktion var at opsamle og forme det transmitterede lys fra fingeren, så en brugbar del af lyset kunne føres videre gennem LVF'et og registreres på kameraet. Den store linse nærmest fingeren opsamlede en større del af det transmitterede lysfelt, mens de efterfølgende linser indgik i den videre afbildning mod filter og kamera.
 
-Linsernes samlede funktion i opstillingen var at opsamle, forme og fokusere det transmitterede lys fra fingeren videre mod det lineært variable filter og det hyperspektrale kamera. Den store linse nærmest fingerpositionen blev anvendt til at indsamle en større del af det transmitterede lysfelt, mens de to efterfølgende linser indgik i den videre behandling af lyset mod filter og kameraet.
-
-Lyset der passerer gennem fingeren stammer fra en glo-bar, som er en bredbåndet lyskilde hvis funktion er at primært udsende et stort interval af NIR-lys.
-
-Afstanden mellem hver delkomponent i opstillingen er ikke specificeret, dog er afstanden fra linsen og LVF så kort som mulig for at sikre fokallængden passer med kameraets position. 
+Afstandene mellem de enkelte optiske komponenter blev justeret praktisk for at opnå et klart og reproducerbart billede på kameraet. Da opstillingen ikke var designet som et fuldt radiometrisk kalibreret billeddannende system, blev analysen baseret på relativ intensitet i en fast ROI og efterfølgende spektral korrektion.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{Pictures/Other/Hyperspektral_diagram.png}
-    \caption{En Glo-Bar anvendes som bredbåndet infrarød lyskilde, og det transmitterede lys gennem fingeren fokuseres gennem et lineært variabelt filter (LVF) og registreres af et hyperspektralt kamera. Ved horisontal forskydning af LVF’et ændres det transmitterede bølgelængdeinterval, således at forskellige spektrale bånd kan måles sekventielt.}
+    \includegraphics[width=1\textwidth]{Pictures/Other/Hyperspektral_diagram.pdf}
+    \caption{Hyperspektral transmissionsopstilling. En Glo-bar anvendes som bredbåndet infrarød lyskilde, og det transmitterede lys gennem fingeren føres gennem linser, et lineært variabelt filter (LVF) og registreres af et NIR-følsomt kamera. Ved horisontal forskydning af LVF'et ændres det transmitterede spektrale bånd, således at forskellige bølgelængdeområder kan måles sekventielt.}
     \label{fig:hyperspekt_diagram}
 \end{figure}
 
-
-
 \subsection{Måleprocedure}
-% Hvilke bølgelængder?
-% Hvordan blev billeder taget?
-% Hvad blev holdt konstant?
-% Var der dark/reference?
-% Hvis ikke, skriv ærligt hvad der faktisk blev gjort.
-
-De bølgelængder der skulle valideres med det hyperspektrale setup var nærliggende \SI{810}{nm} og \SI{940}{nm}. Bemærk \SI{660}{nm} ikke er inkluderet, dette er pga. filteret ikke var designet til så lave bølgelængder. Der blev derfor testet med:
+Den hyperspektrale opstilling blev anvendt til at undersøge bølgelængder nær 810 nm og 940 nm. Bølgelængden 660 nm blev ikke inkluderet, da LVF'et ikke dækkede dette område. Følgende bølgelængder blev undersøgt:
 
 \begin{itemize}
-    \item \SI{800}{nm}
-    \item \SI{810}{nm}
-    \item \SI{820}{nm}
-    \item \SI{930}{nm}
-    \item \SI{940}{nm}
-    \item \SI{950}{nm}
+    \item 800 nm
+    \item 810 nm
+    \item 820 nm
+    \item 930 nm
+    \item 940 nm
+    \item 950 nm
 \end{itemize}
 
-Billeder af fingeren blev taget af kameraet sat op til en laptop med ThorCam software. Fingeren blev så vidt mulig i den samme position ved hver målte bølgelængde. Den størst mulige integrationstid på \SI{00}{ms} og holdt konstant henover alle billeder. Derudover, blev indstillingen for ADC-dybden sat til 10-bit, som tillader for intensiteten af hver pixel at måles fra 0-1023 værdier.
+For hver bølgelængde blev LVF'et flyttet til den tilsvarende position på den lineære stage ud fra en tidligere bestemt kalibreringskurve mellem stageposition og peak-bølgelængde. Billederne blev optaget med ThorCam-softwaren på en tilkoblet laptop. Integrationstid, kameraindstillinger og optisk geometri blev holdt konstante gennem måleserien for at gøre pixelintensiteterne sammenlignelige.
 
-Først, blev en mørk-reference måling taget. Loftlyset i lokalet og andre lyskilder i lokalet var slukket eller vendt væk fra kameraet. Derefter, var LVF flyttet via dets stage, til alle seks positioner der tillod de udvalgte bølgelængder falde på kameraets linse. 
+Før måleserien blev der optaget mørkebilleder med samme kameraindstillinger som fingerbillederne. Under målingerne blev loftbelysning og andre direkte lyskilder i lokalet slukket eller vendt væk fra opstillingen for at reducere bidrag fra omgivelseslys. Fingeren blev så vidt muligt holdt i samme position for alle bølgelængder, så ændringer i målt intensitet primært skyldtes ændret bølgelængde og ikke ændret målegeometri.
 
+Referencebilleder uden finger blev ikke anvendt til direkte normalisering, da intensiteten uden finger var væsentligt højere end med finger og kunne give mætning ved samme integrationstid. I stedet blev fingerbillederne mørkekorrigeret og derefter korrigeret med kendte spektrale bidrag fra Glo-bar, linser, LVF og kamera.
 
+\subsection{Opløsning og valg af ROI}
+\label{resolution_ROI}
+LVF'et har en endelig spektral båndbredde. Den iboende båndbredde for filteret var cirka 10 nm FWHM. Derudover bidrager den optiske afbildning til en mindre udtværing af bølgelængder, fordi et fokuseret lyspunkt på LVF'et dækker et lille interval af filterpositioner. For et fokuseret spot på cirka 0.19 mm og en LVF-gradient på 17.05 nm/mm bliver det spatiale bidrag
 
+\begin{equation}
+    \Delta \lambda_{\mathrm{spatial}}
+    =
+    0.19\,\mathrm{mm}
+    \cdot
+    17.05\,\frac{\mathrm{nm}}{\mathrm{mm}}
+    \approx
+    3.24\,\mathrm{nm}.
+\end{equation}
+Der kan desuden forekomme et mindre vinkelafhængigt bidrag, fordi LVF'ets transmissionsbånd afhænger af indfaldsvinklen. Dette bidrag afhænger af keglen af stråler ved filteret og blev derfor behandlet som en metodisk usikkerhed i størrelsesordenen af få nanometer.
 
+Da LVF'et har en bølgelængdegradient, kan et bredt ROI dække flere peak-bølgelængder på en gang. ROI'et blev derfor valgt smalt i den retning, hvor bølgelængden varierer mest, og højt i den lodrette retning. Denne strategi reducerer udtværing af bølgelængder, samtidig med at et tilstrækkeligt antal pixels bevares til beregning af pixelintensitet.
 
+\subsection{Billedanalyse og spektral korrektion}
+Formålet med billedanalysen var at estimere fingerens relative, spektralt korrigerede transmission ved de udvalgte bølgelængder.
 
-\subsection{Billedanalyse}
-% Beskriv ROI, intensitetsudtræk, normalisering og sammenligningsmål.
-% Brug ikke kun maksimal pixel.
-% Brug middelintensitet i ROI eller lignende.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Other/finger_930nm_roi_regioner.png}
+    \caption{Figuren viser to indtegnede ROIs, den første, brede region (520x400px) og den efterfølgende smalle region (47x360px).}
+    \label{fig:roi_zoom}
+\end{figure}
 
+For hver bølgelængde blev fingerbilledet og det tilhørende mørkebillede først læst ind. Mørkebillederne havde oprindeligt dimensionerne 1280 x 1024 pixels, mens fingerbillederne havde dimensionerne 1280 x 690 pixels. Mørkebillederne blev derfor centreret beskåret med 167 pixels fra top og bund, så mørke- og fingerbilleder fik samme dimensioner. Herefter kunne samme ROI-koordinater anvendes direkte i begge billeder.
 
+Den mørkekorrigerede pixelintensitet blev beregnet som
+
+\begin{equation}
+    I_{\mathrm{korr}}(x,y,\lambda)
+    =
+    I_{\mathrm{finger}}(x,y,\lambda)
+    -
+    I_{\mathrm{mørke}}(x,y,\lambda)
+\end{equation}
+
+For hver bølgelængde blev der udvalgt en fast ROI centralt på fingeren. ROI'et blev placeret væk fra fingerens kanter, da randregionerne var præget af Fresnelrefleksioner. Disse randbidrag blev ikke betragtet som repræsentative for transmission gennem fingerens væv.
+
+For hver bølgelængde blev der beregnet både median og gennemsnit af den mørkekorrigerede intensitet i ROI'et. Medianen blev anvendt som primær statistik, mens gennemsnittet blev anvendt som kontrol.\begin{equation}
+    I_{\mathrm{median}}(\lambda)
+    =
+    \operatorname{median}_{ROI}
+    \left[
+    I_{korr}(x,y,\lambda)
+    \right]
+\end{equation}
+\begin{equation}
+    I_{\mathrm{mean}}(\lambda)
+    =
+    \operatorname{mean}_{ROI}
+    \left[
+    I_{korr}(x,y,\lambda)
+    \right]
+\end{equation}
+
+Den målte intensitet kan beskrives som proportional med produktet af flere spektrale led:
+\begin{equation}
+    I_{\mathrm{målt}}(\lambda)
+    \propto
+    E_{\mathrm{glo-bar}}(\lambda)
+    \cdot
+    T_{\mathrm{finger}}(\lambda)
+    \cdot
+    T_{\mathrm{linser}}(\lambda)
+    \cdot
+    T_{\mathrm{filter}}(\lambda)
+    \cdot
+    QE_{\mathrm{kamera}}(\lambda)
+    \cdot
+    \lambda
+\end{equation}
+Faktoren $\lambda$ indgår, fordi Glo-barens spektrum er angivet i energi-enheder, mens kameraets quantum efficiency angiver sandsynligheden for ladningsbærergeneration per indfaldende foton. For samme optiske effekt er antallet af fotoner proportionalt med bølgelængden.
+
+Fingerens relative, spektralt korrigerede signal blev derfor estimeret som
+
+\begin{equation}
+    F_{\mathrm{korr}}(\lambda)
+    =
+    \frac{
+    I_{\mathrm{målt}}(\lambda)
+    }
+    {
+    E_{\mathrm{glo-bar}}(\lambda)
+    \cdot
+    T_{\mathrm{linse1}}(\lambda)
+    \cdot
+    T_{\mathrm{linse2}}(\lambda)
+    \cdot
+    T_{\mathrm{linse3}}(\lambda)
+    \cdot
+    T_{\mathrm{filter}}(\lambda)
+    \cdot
+    QE_{\mathrm{kamera}}(\lambda)
+    \cdot
+    \lambda
+    }
+\end{equation}
+Da den absolutte koblingseffektivitet og geometri ikke var kendt, blev signalet normaliseret til 940 nm:
+\begin{equation}
+    T_{\mathrm{finger,rel}}(\lambda)
+    =
+    \frac{
+    F_{\mathrm{korr}}(\lambda)
+    }
+    {
+    F_{\mathrm{korr}}(940\,\mathrm{nm})
+    }
+\end{equation}
+Denne størrelse beskriver den relative, spektralt korrigerede transmission gennem fingeren i den givne opstilling. Den skal derfor ikke fortolkes som en absolut vævstransmission, men som et sammenligningsmål mellem de undersøgte bølgelængdeområder.
+
+De spektrale korrektionsfaktorer for Glo-bar, linser, LVF og kameraets kvanteeffektivitet er samlet i appendiks~\ref{tab:hyperspectral_correction_values}. Disse værdier blev anvendt til beregning af den relative, spektralt korrigerede fingertransmission.
 
 \subsection{Begrænsninger}
-% Lav tidsopløsning, ikke pulsopløsning, afhængighed af geometri og kilde.
-% Kort men vigtigt.
-
-Begrænsningerne for den hyperspektrale opstilling er flerfoldet:
+Den hyperspektrale opstilling havde flere metodiske begrænsninger:
 
 \begin{itemize}
-    \item Lavtidsopløsning. med et enkelt snapshot i tid, kan man havde taget et billede ved systole, og fingerens blodårer er maksimalt udspilede, derved fås mindre intensitet selvom tranmissionen for bølgelængden er tilpas. Samme gør sig gældende for diastole.
+    \item Målingen var sekventiel og ikke synkroniseret til hjerteslaget. Billeder ved forskellige bølgelængder kan derfor være optaget ved forskellige faser af pulsen, hvilket kan påvirke den målte intensitet gennem ændret blodvolumen i fingeren.
 
-    \item Mange variable. Med forskellige sensitiviteter og transmissionskoefficienter for dele af det større setup er der derfor chance for flere fejlkilder kan ophobe sig.
+    \item Den spektrale korrektion bygger på databladsværdier og målte eller estimerede transmissionskonstanter for de enkelte optiske led. Usikkerheder i Glo-barens spektrum, linsetransmission, LVF-transmission og kameraets kvanteeffektivitet påvirker derfor den korrigerede relative transmission.
 
-    \item Det lineære variable filter. LVF'et havde en nedre grænse på \SI{800}{nm} til den øvre grænse på \SI{1100}{nm}, hvor filterets opløselighed var stærkest ved lavere bølgelængder end ved de længere bølgelængder, dette fremgår på datasheet for filteret i appendiks \ref{fig:LVF}.
+    \item LVF'et har en endelig spektral båndbredde. Den effektive båndbredde blev estimeret til omkring 11 nm og domineres af filterets iboende FWHM på cirka 10 nm. De rapporterede bølgelængder skal derfor forstås som nominelle centerbølgelængder for smalle spektrale bånd, ikke som ideelt monokromatiske målinger.
+
+    \item LVF'et dækkede ikke 660 nm. Den røde pulsoximetrikanal kunne derfor ikke undersøges med denne opstilling. Den hyperspektrale opstilling blev primært anvendt til at sammenligne nærliggende NIR-bølgelængder omkring 810 nm og 940 nm.
+
+    \item Vignettering, små ændringer i fingerplacering og ufuldstændig reproducerbarhed af ROI-positionen kan påvirke de målte intensiteter. Disse effekter blev reduceret ved at anvende en fast central ROI, mørkekorrektion og normalisering til 940 nm.
 \end{itemize}
 
 \section{Spektrometrisk karakterisering}
 \label{sec:spectrometer_characterization}
 
 \subsection{Formål}
-% Verificere de faktiske emissionsmaksima og spektralprofiler for LED'er og andre kilder.
+Formålet med den spektrometriske karakterisering var at verificere de faktiske spektrale egenskaber for de anvendte lyskilder. Spektrometeret blev primært anvendt til at bestemme peak-bølgelængde og spektral bredde for LED-kandidaterne, til at sammenligne de indkøbte LED’er med et kommercielt pulsoximeter og til at karakterisere Glo-barens spektrale fordeling som input til den hyperspektrale korrektion.
 
-Formålet ved spektrometeret var at verificere emissionsspektrum for LED'er (surface mount og through hole), måle relativ intensitet for glo-bar til brug i den hyperspektrale opsætning og karakterisere hvilke bølgelængder der transmitteres igennem en finger.
-
+Der blev desuden udført en orienterende transmissionsmåling gennem pegefingeren med en bredbåndskilde. Denne måling blev ikke anvendt som kvantitativ vævstransmission, da der ikke blev optaget en tilsvarende reference uden finger under samme geometri og integrationstid. Målingen blev derfor kun brugt kvalitativt til at vurdere, om der var målbart lys efter passage gennem fingeren.
 
 \subsection{Opstilling}
-% Spektrometer, fiberplacering, mørkemåling, integrationstid, afstand.
+Spektrometermålingerne blev udført med en fiberkoblet spektrometerprobe monteret i et stativ på det optiske bord. Proben blev holdt i en fast position under hver måleserie for at reducere variationer fra geometri og afstand. Ved måling af LED’er blev lyskilden placeret i en reproducerbar afstand fra proben, cirka 10 cm, og orienteret mod probens optiske akse.
+
+Ved måling af bredbåndskilder blev proben placeret, så spektrometeret opsamlede lyset fra kilden under en fast geometri. Ved den orienterende fingertransmissionsmåling blev pegefingeren placeret mellem bredbåndskilden og proben, så spektrometeret registrerede det lys, der passerede gennem fingeren.
+
+For hver måleserie blev der optaget et mørkespektrum med samme integrationstid som de tilhørende målinger. Mørkespektret blev trukket fra i den efterfølgende analyse.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{Pictures/Other/Spektrometer_diagram.png}
-    \caption{Spektrometer bruges som valideringsværktøj under hele projektet.}
+    \caption{Spektrometeropstilling anvendt til spektral karakterisering af LED’er, bredbåndskilder og en orienterende fingertransmissionsmåling. Spektrometeret blev primært anvendt som valideringsværktøj til at bestemme lyskildernes faktiske spektrale egenskaber.}
     \label{fig:spektro_diagram}
 \end{figure}
 
-
-
-
 \subsection{Måleprocedure}
-% Beskriv hvilke kilder der blev målt.
-% % 660 nm LED
-% % 810 nm LED
-% % 960/970 nm LED
-% % kommercielt pulsoximeter
-%
-% Skriv hvordan peaks blev bestemt.
 
-Der blev målt en række forskellige kilder:
+Følgende lyskilder og målesituationer blev karakteriseret:
 
 \begin{itemize}
-    \item \SI{660}{nm} through-hole LED
-    \item \SI{940}{nm} through-hole LED
-    \item \SI{810}{nm} surface-mount LED
-    \item \SI{970}{nm} surface-mount LED
-    \item Et kommercielt pulsoximeter fra Braun
+    \item 660 nm THT-LED
+    \item 940 nm THT-LED
+    \item 810 nm SMD-LED
+    \item 970 nm SMD-LED
+    \item kommercielt Braun-pulsoximeter
     \item Glo-bar
-    \item Transmissionsmåling af pegefinger fra halogenpære
+    \item orienterende transmissionsmåling gennem pegefinger med bredbåndskilde
 \end{itemize}
 
-Spektrometer proben var monteret på et stativ forankret til det optiske bord, de forskellige komponenter var holdt ~\SI{10}{cm} fra cosinus proben. Derefter var spektrum gem.
+For hver måling blev integrationstiden valgt, så spektret ikke var mættet. Da forskellige lyskilder havde forskellig intensitet, blev integrationstiden ikke nødvendigvis holdt ens på tværs af alle målinger. Spektrene blev derfor ikke brugt til direkte sammenligning af absolut intensitet, medmindre integrationstid og målegeometri var ens. Når spektrenes form skulle sammenlignes, blev de mørkekorrigerede spektre normaliseret til deres egen maksimale intensitet.
+
+Ved måling af det kommercielle pulsoximeter blev spektrometeret anvendt til at identificere de spektrale områder, som instrumentet udsendte lys i. Da pulsoximeteret tidsmultiplekser sine LED’er, blev målingen fortolket som en spektral karakterisering af de udsendte lyskilder og ikke som en tidsopløst måling.
+
+Glo-barens spektrum blev anvendt som en del af den spektrale korrektion i den hyperspektrale analyse. Da den målte Glo-bar-intensitet afhænger af både lyskildens spektrum, spektrometerets respons og målegeometrien, blev værdierne anvendt som en relativ spektral korrektion for den konkrete opstilling.
 
 \subsection{Dataanalyse}
-% Peak wavelength, FWHM, evt. smoothing.
-% Dette afsnit er meget vigtigt fordi det kobler til LED-spektral bredde.
 
-Ved indkøb af LED'er, var filtreret efter peak-bølgelængde, dette er den reklamerede bølgelængde der udsender med størst intensitet, og hvor resten af den spektrale bredde 
+For hver LED blev peak-bølgelængden bestemt som den bølgelængde, hvor det mørkekorrigerede spektrum havde maksimal intensitet. Spektralbredden blev bestemt ved full width at half maximum (FWHM), dvs. bredden af spektret ved halvdelen af maksimal intensitet.
 
+For at sammenligne LED-kandidaternes spektrale form blev hvert LED-spektrum normaliseret til sit maksimum:
 
-\section{Usikkerheder og metodiske begrænsninger}
-% Vigtigt.
-% Saml metodiske svagheder ét sted:
-% % få forsøgspersoner
-% % manglende klinisk kalibrering
-% % variation i fingertryk og geometri
-% % LED-bredden
-% % forskel mellem 930 og 940 nm
-% % begrænset reference
-%
-% Dette afsnit skal være ærligt og kontrolleret, ikke defensivt.
+\begin{equation}
+    I_{\mathrm{norm}}(\lambda)=
+    \frac{
+    I(\lambda)-I_{\mathrm{dark}}(\lambda)
+    }
+    {
+    \max\left(I(\lambda)-I_{\mathrm{dark}}(\lambda)\right)
+    }
+\end{equation}
 
+Denne normalisering fjerner forskelle i absolut intensitet forårsaget af afstand, vinkel, LED-effekt og integrationstid, men bevarer information om peak-bølgelængde og spektral bredde. De normaliserede spektre blev derfor anvendt til at verificere, om LED’erne lå tæt på de ønskede bølgelængder.
+
+For Glo-bar-målingen blev det mørkekorrigerede spektrum anvendt til at beskrive den relative spektrale fordeling af den bredbåndede lyskilde i det relevante bølgelængdeområde. Dette spektrum blev senere anvendt som et korrektionsled i den hyperspektrale analyse.
+
+Den orienterende fingertransmissionsmåling blev ikke anvendt til beregning af kvantitativ transmission. Uden en reference uden finger under samme geometri kan det målte spektrum ikke isolere fingerens transmission fra bredbåndskildens spektrum og spektrometerets spektrale respons. Målingen blev derfor kun brugt kvalitativt som en indikation af, at der kunne registreres lys efter passage gennem fingeren.

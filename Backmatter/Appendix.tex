@@ -58,6 +58,20 @@ Appendix er til ting man ikke mener er nødvendige til hovedrapporten, men stadi
 
 \begin{figure}[htbp]
     \centering
+    \includegraphics[width=1\textwidth]{Pictures/Datasheets/2N7000_onresistance.png}
+    \caption{2N7000 MOSFET gatespænding og tilsvarende ON-modstand og strømstyrke igennem drain.}
+    \label{fig:2N7000_onresistance}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Datasheets/2N7000_transfer_karakteristik.png}
+    \caption{2N7000 MOSFET transferkarakteristik.}
+    \label{fig:2N7000_transfer_karakteristik}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
     \includegraphics[width=1\textwidth]{Pictures/Datasheets/LVF.png}
     \caption{Relativ transmission i \% for det lineære variable filter (LF103924).}
     \label{fig:LVF}
@@ -97,3 +111,37 @@ Appendix er til ting man ikke mener er nødvendige til hovedrapporten, men stadi
     \caption{Spektrum af det kommercielle Braun pulsoximeter}
     \label{fig:Braun_pulsox}
 \end{figure}
+
+\begin{table}[!ht]
+\label{tab:hyperspectral_correction}
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+        ~ & 800nm & 810nm & 820nm & 930nm & 940nm & 950nm \\ \hline
+        Stage pos. & 5.880 mm & 5.284 mm & 4.688 mm & -1.871 mm & -2.467 mm & -3.063 mm \\ \hline
+        Hyperspekt. output $[\text{counts}/\text{s}]$ & $1052.6$ & $1157.9$ & $1263.2$ & $2000.0$ & $1789.5$ & $1263.2$ \\ \hline
+        Glo-bar $\left[\frac{\text{Watt}}{m^2}\right]$ & $1.6630$ & $1.8314$ & $2.0042$ & $4.8737$ & $5.2153$ & $5.5886$ \\ \hline
+        Linse 1 (AC254-030-AB) & $0.9893$ & $0.9893$ & $0.9893$ & $0.9892$ & $0.9892$ & $0.9892$ \\ \hline
+        Linse 2 (AC127-025-AB) & $0.9885$ & $0.9873$ & $0.9865$ & $0.9730$ & $0.9715$ & $0.9700$ \\ \hline
+        Linse 3 (AC127-050-AB) & $0.9885$ & $0.9875$ & $0.9866$ & $0.9728$ & $0.9715$ & $0.9700$ \\ \hline
+        Filter (CVBP-LF103924)& $0.83$ & $0.84$ & $0.85$ & $0.93$ & $0.925$ & $0.92$ \\ \hline
+        Kamera (UI-3240CP-NIR-GL) - QE& $0.48$ & $0.47$ & $0.45$ & $0.24$ & $0.22$ & $0.18$ \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{Pictures/Graphs/hpf_filter_bode.pdf}
+    \caption{Frekvenskarakteristik af HPF}
+    \label{fig:Braun_pulsox}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
