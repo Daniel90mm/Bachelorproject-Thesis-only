@@ -79,7 +79,28 @@ Hvis $T = \frac{N}{50 \ \text{Hz}}$ , hvor N er et positivt heltal svarende til 
 Dermed bliver de to cosinusled identiske, og middelværdien bliver nul uanset amplitude og fase.
 
 \subsection{Elektrisk karakterisering}
-I dette delafsnit vises plots med pulsoximeteret drevet ved \SI{7.41}{Hz}.
+I dette delafsnit vises blandt andet plots med pulsoximeteret drevet ved \SI{7.41}{Hz}.
+
+\paragraph{LED-driver kredsløb}
+LED-driver boardet blev designet med nedenstående komponenter:
+\begin{itemize}
+    \item To $R_{\text{limit}} = 470 \ \Omega$
+    \item To $R_{\text{Gate}} = 10 \ \text{k}\Omega$
+    \item To $R_{\text{pd}} = 100 \ \Omega$
+    \item To 2N7000 MOSFET transistorer
+    \item Et 9V batteri
+\end{itemize}
+
+MOSFET'en fungerer som en low-side switch, så spændingsfaldet over den er relativt lille ved disse strømme og kan negligeres. Ifølge databladene for de to LED'er, er de typisk drevne fremadspændinger:
+$$V_{F,940} = 1.35 \ V  \qquad V_{F,660} = 2 \ V$$
+Med disse komponentværdier drives de to LEDer ved:
+\begin{equation}
+    I_{660} = \frac{9V-2V}{470 \Omega} = 14.9\ \text{mA}
+\end{equation}
+\begin{equation}
+    I_{940} = \frac{9V-1.35V}{470 \Omega} = 16.3\ \text{mA}
+\end{equation}
+Det fulde LED-driverkredsløb kan ses i appendiks \ref{fig:led_driver_schematic}
 
 \paragraph{Transimpedance Amplifier - TIA}
 TIA'en fungerede som både en konvertering fra strøm til spænding og en initiel forstærkning af det indkommende signal. Forstærkningen bestemmes ud fra feedbackmodstanden, $R_f$. Desuden er tilsat en kondensator, $C_f$, i parallel til $R_f$ for at hjælpe med hurtigt skiftende diodestrøm. De er sat til:
@@ -122,14 +143,16 @@ Knækfrekvensen på \SI{159}{Hz} er bevidst placeret over PPG-signalets nyttige
 båndbredde, men lavt nok til at begrænse den samlede støjbåndbredde i signalkæden inden sampling. Filteret har to primære funktioner:
 
 \begin{enumerate}
-    \item \textbf{Anti-aliasing for AD3'ens sampling.} AD3'en sampler kontinuerligt under hver \SI{40}{ms} LED-fase ved \SI{20}{kHz}, og prøverne midles efterfølgende til en værdi per fase. LPF'en bidrager til at dæmpe højfrekvent indhold over Nyquist-frekvensen på \SI{10}{kHz} inden digitalisering. 
+    \item Anti-aliasing for AD3'ens sampling. AD3'en sampler kontinuerligt under hver \SI{40}{ms} LED-fase ved \SI{20}{kHz}, og prøverne midles efterfølgende til en værdi per fase. LPF'en bidrager til at dæmpe højfrekvent indhold over Nyquist-frekvensen på \SI{10}{kHz} inden digitalisering. 
 
 Med en knækfrekvens på \SI{159}{Hz} og en rolloff på \SI{-40}{dB/dekade} er dæmpningen ved \SI{10}{kHz} på størrelsesordenen $10^{-4}$, hvilket reducerer risikoen for aliasing af højfrekvent støj.
 
-    \item \textbf{Dæmpning af bredspektret højfrekvent støj.} Elektromagnetisk støj fra omkringliggende udstyr (skærme, strømforsyninger, switching elektronik) kan koble ind på JST-XH-kablingen og fotodiodens ledninger. Disse bidrag dæmpes effektivt af filteret.
+    \item Dæmpning af bredspektret højfrekvent støj. Elektromagnetisk støj fra omkringliggende udstyr (skærme, strømforsyninger, switching elektronik) kan koble ind på JST-XH-kablingen og fotodiodens ledninger. Disse bidrag dæmpes effektivt af filteret.
 \end{enumerate}
 
-Den efterfølgende midling af samples inden for hver \SI{40}{ms} LED-fase udgør et lavpasfilter. Det første nul ligger ved $\frac{1} {T_{\text{fase}}} = \SI{25}{Hz}$, og \SI{50}{Hz} falder nær det andet nul. Midlingen undertrykker derfor \SI{50}{Hz}-støj fra elnettet markant, hvilket forklarer hvorfor analog \SI{50}{Hz}-filtrering ikke er nødvendig i signalkæden. LPF'en ved \SI{159}{Hz} dæmper \SI{50}{Hz} med en faktor:
+Den efterfølgende midling af samples inden for hver \SI{40}{ms} LED-fase udgør et lavpasfilter. Det første nul ligger ved $\frac{1} {T_{\text{fase}}} = \SI{25}{Hz}$, og \SI{50}{Hz} falder nær det andet nul. Midlingen undertrykker derfor \SI{50}{Hz}-støj fra elnettet markant, hvilket forklarer hvorfor analog \SI{50}{Hz}-filtrering ikke er nødvendig i signalkæden. For at kvantificere LPF'ens attenuering af  \SI{50}{Hz} støj, startes med den generelle formel for 
+
+LPF'en ved \SI{159}{Hz} dæmper \SI{50}{Hz} med en faktor:
 \begin{equation}
     |H(\SI{50}{Hz})| = \frac{1}{\sqrt{1+\left(\frac{50}{159}\right)^4}}
     \approx 0.995
@@ -181,6 +204,9 @@ med et nulfase Butterworth-båndpas af anden orden i hjertebåndet 0.5 til \SI{2
   R = \frac{\frac{AC_{660}}{DC_{660}}}{\frac{AC_{940}}{DC_{940}}}
 \end{equation}
 omsættes til iltmætning via en lineær kalibrering $\mathrm{SpO_2} = a - bR$, hvor $a$ og $b$ bestemmes mod et kommercielt pulsoximeter anvendt som praktisk reference, kalibreringen beskrives i resultatafsnittet. Værdier med for lav DC, for lav AC-amplitude eller fysiologisk urealistisk SpO$_2$-estimat blev markeret som ugyldige.
+
+\paragraph{Softwareimplementering og brug af LLM-værktøjer.}
+Python-koden til styring, visualisering og signalbehandling blev udviklet med støtte fra LLM-værktøjer. Koden blev efterfølgende tilpasset til den konkrete måleopstilling og anvendt til demultipleksering, mørkesubtraktion, pulsestimering og SpO$_2$-estimering. De anvendte signalbehandlingsprincipper er beskrevet i dette afsnit, og outputtet blev vurderet ud fra målte signaler fra den analoge kæde. Brugen af LLM-værktøjer betyder dog, at kompleks kode krævede ekstra manuel gennemgang og test for at sikre, at implementeringen svarede til den tilsigtede metode.
 
 \subsection{Udledte parametre}
 Fra de demultipleksede og mørkekorrigerede signaler blev følgende parametre udledt:

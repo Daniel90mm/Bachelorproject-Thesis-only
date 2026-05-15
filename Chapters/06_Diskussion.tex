@@ -1,63 +1,64 @@
-
-%Evaluerer ens resultater man har fået. Hvor overbevist er man at de er gode? Hvad er fejlkilder? Hvordan reflekterer man ens egne målinger mod nogle man finder fra artikler f.eks.? Hvor anvendelig er data? Hvad kunne man havde gjort hvis man havde mere tid? Hvad nåede man ikke? Hvad gik godt, eller ikke godt? 
-
-%Man konkluderer overordnet på det man har lavet.
-
 \chapter{Diskussion}
-\label{chap:discussion}
+
+\section{Samlet vurdering af projektets resultater}
+Resultaterne viser, at det udviklede system kan måle et PPG-signal i transmissionsgeometri gennem en finger og udtrække pulsoximetrisk relevante parametre som puls og et proof-of-concept-estimat for SpO$_2$. Projektets centrale resultat er derfor, at den samlede kæde fra LED-emission, fotodetektion, analog signalbehandling og digital analyse fungerer som en samlet funktionsprototype.
+
+Systemet er dog ikke kalibreret mod arteriel iltmætning målt med blodgas, og SpO$_2$-estimatet er derfor forbundet med betydelig usikkerhed. Projektets styrke ligger i demonstrationen af måleprincippet og i koblingen mellem optisk teori, spektral karakterisering, hyperspektral validering og analog realisering.
 
 \section{Understøtter resultaterne bølgelængdevalget?}
-% Diskutér hvordan teori, spektrometer og hyperspektral måling samlet støtter valg af 660 og 930/940 nm.
-% Knyt også 810 nm til isosbestisk/reference-perspektivet.
+Valget af 660 nm og 940 nm blev oprindeligt baseret på det klassiske to-bølgelængdeprincip i pulsoximetri. Ved 660 nm er forskellen mellem Hb- og HbO$_2$-absorption tydelig, mens NIR-kanalen omkring 940 nm giver komplementær information og bedre transmission gennem væv. Resultaterne understøtter dette valg på flere niveauer, men viser samtidig, at de praktiske bølgelængder skal forstås som spektrale bånd og ikke som ideelt diskrete bølgelængder.
 
-Allerede etableret, er \SI{660}{nm} og \SI{940}{nm} standard valg af bølgelængder til pulsoximetri, dette er et standardvalg i industrien og understøttes desuden af transmissionsmålingen fra det hyperspektrale setup.
+Den spektrometriske karakterisering viste, at den røde LED havde et målt peak tæt på 660 nm, og at den røde kanal i det kommercielle Braun-pulsoximeter lå i samme område. Dette understøtter valget af den røde kanal i det udviklede system.  
 
-Ved gennemlysning af en finger via en standard halogenpære, som antages at have nær-sort legeme opførsel i sin emission under standard operation, opnås et spektrum som set i figur \ref{fig:Karakteriseret_finger}. Det kan ses at 
-
-
+940 nm LED'en havde derimod et målt peak omkring 952 nm, hvilket viser, at den praktiske NIR-kanal er forskudt i forhold til betegnelsen den var købt ud fra. Denne afvigelse er relevant for fortolkningen af ratio-of-ratios, da hæmoglobinernes ekstinktionskoefficienter varierer med bølgelængden.
 
 \section{Konsekvensen af LED-spektral bredde}
-% Meget vigtigt diskussionsafsnit.
-% Diskutér at standardmodellen ofte antager monokromatiske kilder, mens reelle LED'er har endelig FWHM.
-% Hvis du har lavet en effektiv epsilon-beregning, hører den hjemme her eller i resultater + diskussion.
-%
-% Her scorer du højt hos optikfolk.
+En idealiseret gennemgang af pulsoximetri beskriver ofte målingen som om lyskilderne er enkelte bølgelængder ved eksempelvis 660 nm og 940 nm. De spektrometriske målinger viste imidlertid, at LED’erne har endelig spektral bredde, med FWHM-værdier i størrelsesordenen 18-40 nm. Den optiske måling repræsenterer derfor ikke absorption ved en enkelt bølgelængde, men et vægtet bidrag over LED’ens emissionsspektrum.
+
+Dette har betydning for ratio-of-ratios-modellen. Absorptionen bestemmes af LED’ens emissionsspektrum, vævets bølgelængdeafhængige transmission, fotodiodens responsivitet og den efterfølgende signalbehandling. I et klinisk pulsoximeter håndteres denne kompleksitet gennem empirisk kalibrering. I dette projekt bidrager LED’ernes spektrale bredde derimod til usikkerheden i SpO$_2$-estimatet, fordi systemet ikke er klinisk kalibreret.
 
 \section{Spredning, optisk sti og modelantagelser}
-% Diskutér modified Beer-Lambert og ratio-of-ratios realistisk.
-% Skriv fx at scattering-led og effektiv sti-længde ikke er fuldt kendte, og at empirisk kalibrering derfor er nødvendig.
-% Diskutér kort bølgelængdeafhængig spredning mellem rød og NIR.
-%
-% Dette afsnit skal være fagligt modent men ikke overdrevent langt.
+Ratio-of-ratios-modellen bygger på en række forenklinger. I biologisk væv skyldes attenuation ikke kun absorption, men også spredning, og den effektive optiske vejlængde er længere end den geometriske afstand mellem LED og fotodiode. Den modificerede Beer-Lamberts lov beskriver dette ved at inkludere et spredningsled og en effektiv vejlængde, men disse størrelser er ikke kendt direkte i den praktiske måling.
+
+Pulsoximetri reducerer afhængigheden af ukendte statiske bidrag ved at udnytte den pulsatile ændring i arterielt blodvolumen. Dette fjerner dog ikke alle fejlkilder. Spredning er bølgelængdeafhængig, og den effektive optiske vejlængde kan derfor være forskellig ved 660 nm og 940 nm eller det faktiske peak på 952 nm. Det betyder, at ratio-of-ratios ikke kun afhænger af Hb- og HbO$_2$-absorption, men også af vævets spredning, fingergeometri og sensorens optiske kobling.
 
 \section{Hyperspektral og analog måling som komplementære systemer}
-% Meget vigtigt samlende afsnit.
-% Forklar:
-% % hyperspektral: høj spektral information, lav tidsopløsning
-% % analogt system: høj tidsopløsning, få bølgelængder
-% % derfor er de komplementære
-%
-% Dette afsnit binder hele projektet sammen.
+De hyperspektrale og analoge målinger havde forskellige roller i projektet. Det analoge system var designet til tidsopløst måling af PPG-signaler ved få udvalgte bølgelængder. Det gør systemet egnet til pulsdetektion og ratio-of-ratios-beregning, men giver kun information ved de implementerede LED-bølgelængder.
 
-\section{Vurdering af det analoge systems performance}
-% Diskutér styrker og svagheder ved dit fysiske system.
-% % modulært design
-% % stabilitet
-% % støj
-% % mekanik
-% % trykfølsomhed
-% % potentiale for live demonstration
+Den hyperspektrale opstilling gav derimod mulighed for at undersøge flere nær-infrarøde bølgelængdeområder og dermed vurdere, hvordan den relative transmission gennem fingeren varierede spektralt. Den havde dog ikke samme tidsopløsning som det analoge system og var ikke synkroniseret til hjerteslaget. Den hyperspektrale måling var derfor ikke et alternativt pulsoximeter, men et valideringsværktøj.
+
+\section{Vurdering af det analoge system}
+Det analoge system viste, at fotodiodens svage strøm kunne omsættes til et brugbart spændingssignal gennem TIA’en og viderebehandles gennem lavpasfilter og gain-trin. De elektroniske delmålinger viste, at multipleksstrukturen blev bevaret gennem signalkæden, og at signalniveauet efter gain-trinnet lå i et område, hvor ADC’ens dynamiske område blev udnyttet bedre.
+
+Den største elektroniske udfordring var støj, særligt omkring TIA’en, hvor fotodioden og den inverterende indgang udgør et følsomt knudepunkt. Den observerede 50 Hz-komponent viser, at opsætningen var følsom over for netrelateret interferens og omgivelsesstøj. Lavpasfilteret begrænsede højfrekvent støj, mens 50 Hz-undertrykkelsen primært blev håndteret gennem tidsvinduer og midling i software.
+
+En vigtig praktisk begrænsning var, at signalniveauerne fra de to optiske kanaler ikke var optimalt balancerede. TIA-outputtet lå omtrent omkring 0.9 V for 940 nm-kanalen og 0.5 V for 660 nm-kanalen. Forskellen er ikke nødvendigvis et problem i sig selv, da ratio-of-ratios anvender AC/DC-forhold, men ubalancerede niveauer per kanal kan gøre den ene kanal mere følsom over for støj, kvantisering og små fejl i AC-estimatet.
+
+En bedre balancering af LED-strømmene, eksempelvis ved at drive 660 nm-LED’en hårdere eller reducere 940 nm-LED’ens strøm, kunne derfor forbedre stabiliteten i SpO$_2$-estimatet.
+
+Den observerede 50 Hz-komponent viser desuden, at især området omkring fotodioden og TIA’ens inverterende indgang var følsomt over for elektrisk indkobling. En mulig forbedring ville være at reducere ledningslængderne til fotodioden, twiste fotodiodeforbindelserne og eventuelt afskærme dem med en jordet skærm. 
+
+Alternativt at nøgternt og direkte kombinere hylster og TIA på samme PCB for at dermed få den korteste fotodiode-til-TIA signalgang. Tilsvarende kunne kabelføring mellem moduler forbedres ved at twiste relevante signal- og returledere i JST-XH-forbindelserne. Dette ville reducere det areal, hvor elektromagnetisk støj kan koble ind i signalkæden.
+
+Det var desuden ikke altid entydigt, om ustabilitet i de endelige puls- og SpO$_2$-estimater skyldtes hardware eller software. Det analoge gain-output viste en tydelig multipleksstruktur, men de efterfølgende estimater kunne stadig fluktuere betydeligt. Dette peger på, at både hardwarekvalitet, kanalbalancering, demultipleksering, peak-detektion og AC/DC-estimering påvirker det endelige resultat. En mere systematisk debugging, hvor faste testsignaler indføres i softwarekæden, ville gøre det lettere at adskille hardwarefejl fra signalbehandlingsfejl.
 
 \section{Sammenligning med reference og projektets gyldighed}
-% Hvis du har kommerciel reference, diskutér bias, afvigelser og begrænsninger.
-% Hvis ikke, diskutér gyldigheden ud fra intern konsistens og fysisk plausibilitet.
+Det kommercielle Braun-pulsoximeter blev anvendt som praktisk reference, men ikke som klinisk ground truth. Sammenligningen var nyttig til at kontrollere, om det udviklede system gav fysiologisk plausible værdier, men den kan ikke erstatte en egentlig kalibrering mod arteriel iltmætning målt ved blodgas.
+
+Det opnåede SpO$_2$-estimat skal derfor vurderes ud fra intern konsistens og fysisk plausibilitet snarere end klinisk nøjagtighed. Systemet kunne registrere periodiske PPG-signaler, estimere puls og beregne ratio-of-ratios-baserede SpO$_2$-værdier i et realistisk område. Dette understøtter, at målekæden fungerer som prototype, men ikke at systemet opfylder kravene til medicinsk anvendelse.
+
+En yderligere begrænsning var, at dele af softwareimplementeringen blev udviklet med støtte fra LLM-værktøjer. Selvom metoden og signalbehandlingsprincipperne blev gennemgået og tilpasset til projektet, gjorde kodens omfang debugging vanskeligere. Dette øger behovet for systematiske valideringstests, eksempelvis med syntetiske signaler med kendt puls, kendt AC/DC-forhold og kendt støjindhold.
 
 \section{Forslag til forbedringer}
-% Her må du gerne nævne:
-% % bedre mekanisk probe
-% % bedre strømstyring
-% % mere robust referencekalibrering
-% % flere forsøgspersoner
-% % eventuel fremtidig Monte Carlo-modellering
-%
-% Monte Carlo bør stå her eller i perspektivering, ikke fylde hovedteksten.
+Den vigtigste forbedring ville være at øge systemets reproducerbarhed over flere målinger. I den nuværende prototype kunne én måling give en realistisk og stabil puls, mens SpO$_2$-estimatet varierede betydeligt mellem målekørsler. Dette tyder på, at systemet er følsomt over for fingerplacering, fingertryk, kanalbalancering, støj og signalbehandling. En fremtidig version bør derfor først fokusere på reproducerbarhed, før den optimeres mod absolut SpO$_2$-nøjagtighed.
+
+Den mekaniske probe bør forbedres, så fingertryk og placering kontrolleres bedre. En fjederbelastet eller justerbar fingerholder kunne reducere variationer i optisk kobling og gøre både DC- og AC-komponenten mere stabile mellem målinger. Dette ville især være vigtigt, fordi ratio-of-ratios er følsom over for små ændringer i AC/DC-forholdet mellem de to bølgelængder. Desuden passer proben ikke nødvendigvis alle fingergeometrier. Variable som størrelse, melanin
+
+Elektronisk kunne systemet forbedres ved at reducere ledningslængder omkring fotodioden og TIA’ens inverterende indgang, forbedre afskærmning og optimere PCB-layoutet omkring det knudepunkt. Fotodiodekablerne kunne eksempelvis twistes og afskærmes for at reducere 50 Hz-indkobling. LED-driveren bør desuden flyttes fra perfboard til PCB og gerne implementeres som en egentlig konstantstrømsdriver, så LED-intensiteten bliver mindre afhængig af batterispænding, seriemodstande og komponenttolerancer.
+
+Filterstrategien kunne også forbedres. En analog 50 Hz-notch kunne reducere netstøj før dataopsamling, men ville samtidig tilføje flere komponenter, tolerancer og mulig fasepåvirkning. Alternativt kunne mere filtrering flyttes til software, hvor knækfrekvenser og filtertyper nemt kan ændres uden hardwareændringer. Dette er især relevant for højpasfiltrering og notchfiltrering. En vis analog lavpasfiltrering er dog stadig nyttig før ADC’en, da den begrænser højfrekvent støj og reducerer risikoen for aliasing.
+
+En senere version kunne desuden flyttes til en mere kompakt SMD-baseret PCB-arkitektur. Dette ville reducere fysisk størrelse, ledningslængder og støjindkobling. Ulempen er, at komponentværdierne bliver mindre fleksible end i den nuværende prototype, hvor modstande kunne udskiftes under udviklingen. En SMD-version bør derfor først designes, når filterværdier, gain og LED-strømme er bedre fastlagt.
+
+På softwaresiden bør signalbehandlingen valideres mere systematisk. Det kunne gøres med syntetiske PPG-signaler, hvor puls, støj, AC/DC-forhold og kanalforhold er kendt på forhånd. Dermed kan det testes, om demultipleksering, peak-detektion og SpO$_2$-beregning fungerer korrekt uafhængigt af hardware. Dette ville gøre det lettere at afgøre, om ustabile estimater skyldes den analoge måling eller den digitale analyse.
+

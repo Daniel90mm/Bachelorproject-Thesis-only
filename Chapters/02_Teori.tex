@@ -726,8 +726,7 @@ For at digitalisere et analogt signal kræves en analog-til-digital konvertering
 
 Overtrædes dette, opstår aliasing, hvor høje frekvenser fejlaflæses som lave frekvenser og forurener det rekonstruerede signal.
 
-Det pulsatile PPG-signal følger hjertets frekvens, typisk \SIrange{0.5}{2}{Hz} svarende til 30 til 120 slag per minut. Systemet anvender tidsmultipleksing med tre tilstande (\SI{660}{nm}, \SI{940}{nm} og mørke), kørt med en samplingfrekvens, sat på baggrund af det brugte udstyr, f.eks. \SI{20}{kHz}. 
-Hver kanal samples dermed med $\frac{20000}{3} \approx 6666 \ \text{Hz}$, hvilket er langt over Nyquist-grænsen for PPG-signalet og giver god tidsopløsning af pulsformen.
+Det pulsatile PPG-signal følger hjertets frekvens, typisk \SIrange{0.5}{2}{Hz} svarende til 30 til 120 slag per minut. Systemet anvender tidsmultipleksing med tre tilstande (\SI{660}{nm}, \SI{940}{nm} og mørke), kørt med en samplingfrekvens, sat på baggrund af det brugte udstyr, f.eks. \SI{20}{kHz}. Hver kanal samples dermed med $\frac{20000}{3} \approx 6666 \ \text{Hz}$, hvilket er langt over Nyquist-grænsen for PPG-signalet og giver god tidsopløsning af pulsformen.
 
 \subsection{Filtrering}
 \label{sec:filtrering}
