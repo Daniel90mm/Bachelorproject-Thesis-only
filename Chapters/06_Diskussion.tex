@@ -37,25 +37,30 @@ Den hyperspektrale opstilling gav derimod mulighed for at undersøge flere nær-
 \section{Vurdering af det analoge system}
 Det analoge system viste, at fotodiodens svage strøm kunne omsættes til et brugbart spændingssignal gennem TIA'en og viderebehandles gennem lavpasfilter og gain-trin. De elektroniske delmålinger viste, at multipleksstrukturen blev bevaret gennem signalkæden, og at signalniveauet efter gain-trinnet lå i et område, hvor ADC'ens dynamiske område blev udnyttet bedre.
 
+\paragraph{\normalfont Støj og kanalbalancering.}
 Den største elektroniske udfordring var støj, særligt omkring TIA'en, hvor fotodioden og den inverterende indgang udgør et følsomt knudepunkt. Den observerede \SI{50}{Hz}-komponent viser, at opsætningen var følsom over for netrelateret interferens og omgivelsesstøj. Lavpasfilteret begrænsede højfrekvent støj, mens \SI{50}{Hz}-undertrykkelsen primært blev håndteret gennem tidsvinduer og midling i software.
 
 En vigtig praktisk begrænsning var, at signalniveauerne fra de to optiske kanaler ikke var optimalt balancerede. TIA-outputtet lå omtrent omkring \SI{0.9}{V} for \SI{940}{nm}-kanalen og \SI{0.5}{V} for \SI{660}{nm}-kanalen, svarende til fotostrømme i størrelsesordenen \SIrange{0.2}{0.4}{\micro\ampere}. Forskellen på cirka en faktor \num{1.8} mellem kanalerne er ikke  et problem i sig selv, da ratio-of-ratios dividerer forholdet, men ubalancerede niveauer per kanal kan gøre den svageste kanal mere følsom over for støj, kvantisering og små fejl i AC-estimatet.
 
 En bedre balancering af LED-strømmene, eksempelvis ved at drive \SI{660}{nm}-LED'en hårdere eller reducere \SI{940}{nm}-LED'ens strøm, kunne derfor forbedre stabiliteten i SpO$_2$-estimatet.
 
+\paragraph{\normalfont Elektrisk indkobling.}
 Den observerede \SI{50}{Hz}-komponent viser desuden, at især området omkring fotodioden og TIA'ens inverterende indgang var følsomt over for elektrisk indkobling. En mulig forbedring ville være at reducere ledningslængderne til fotodioden, twiste fotodiodeforbindelserne og eventuelt afskærme dem med en jordet skærm.
 
 En alternativ tilgang er at kombinere hylster og TIA på samme PCB, så fotodiode-til-TIA-signalgangen bliver så kort som muligt. Tilsvarende kunne kabelføring mellem moduler forbedres ved at twiste relevante signal- og returledere i JST-XH-forbindelserne. Dette ville reducere det areal, hvor elektromagnetisk støj kan koble ind i signalkæden.
 
+\paragraph{\normalfont Hardware og software.}
 Det var desuden ikke altid entydigt, om ustabilitet i de endelige puls- og SpO$_2$-estimater skyldtes hardware eller software. Det analoge gain-output viste en tydelig multipleksstruktur, men de efterfølgende estimater kunne stadig fluktuere betydeligt. Dette peger på, at både hardwarekvalitet, kanalbalancering, demultipleksering, peak-detektion og AC/DC-estimering påvirker det endelige resultat. En mere systematisk debugging, hvor faste testsignaler indføres i softwarekæden, ville gøre det lettere at adskille hardwarefejl fra signalbehandlingsfejl.
 
 \section{Sammenligning med reference og projektets gyldighed}
+\paragraph{\normalfont Klinisk gyldighed.}
 Det kommercielle Braun-pulsoximeter blev anvendt som praktisk reference, men ikke som klinisk "ground-truth". Sammenligningen var nyttig til at kontrollere, om det udviklede system gav fysiologisk plausible værdier, men den kan ikke erstatte en egentlig kalibrering mod arteriel iltmætning målt ved blodgas.
 
 Det opnåede SpO$_2$-estimat skal derfor vurderes ud fra intern bedømmelse snarere end klinisk nøjagtighed. Systemet kunne registrere periodiske PPG-signaler, estimere puls og beregne ratio-of-ratios-baserede SpO$_2$-værdier i et realistisk område. Dette understøtter, at målekæden fungerer som prototype, men ikke at systemet opfylder kravene til medicinsk anvendelse.
 
 Systemet estimerede i den viste analyseperiode pulsen til $(51.7 \pm 0.3)\,\mathrm{BPM}$ og SpO$_2$ til $(95.8 \pm 1.5)\,\%$. SpO$_2$-værdien ligger inden for det normale fysiologiske område ($>$\,95\,\%), men er lavere end den værdi på cirka 99\,\%, der typisk forventes for en rask forsøgsperson i hvile.
 
+\paragraph{\normalfont Bølgelængdeskift.}
 Effekten af LED-bølgelængdeskiftet kan kvantificeres direkte ud fra Prahl-data \cite{Prahl1998}. Den effektive ekstinktionskoefficient ved iltmætning $S$ er
 \begin{equation}
 \varepsilon_{\mathrm{eff}}(\lambda) = S \cdot \varepsilon_{\mathrm{HbO}_2}(\lambda) + (1-S) \cdot \varepsilon_{\mathrm{Hb}}(\lambda),
@@ -70,17 +75,21 @@ og forholdet mellem $\varepsilon_{\mathrm{eff}}$ ved de to LED-bølgelængder sk
 \end{equation}
 altså en ændring i $R$ på cirka $-3.5\,\%$. Under en simpel lineær kalibrering $\mathrm{SpO}_2 = a - bR$ med $b \approx 25$ \cite{Webster1997} svarer dette til en SpO$_2$-forskydning på under en halv procentpoint. Diskrepansen mellem det målte estimat og den forventede værdi tilskrives derfor primært den manglende kliniske kalibrering samt de systematiske bidrag fra bølgelængdeafhængig spredning, DPF-variation og variationer i den optiske kobling, ikke LED-bølgelængdeskiftet i sig selv.
 
+\paragraph{\normalfont Valideringsbehov.}
 En yderligere begrænsning var, at dele af softwareimplementeringen blev udviklet med støtte fra LLM-værktøjer. Selvom metoden og signalbehandlingsprincipperne blev gennemgået og tilpasset til projektet, gjorde kodens omfang manuel debugging vanskeligere. Dette øger behovet for systematiske valideringstests, eksempelvis med syntetiske signaler med kendt puls, kendt AC/DC-forhold og kendt støjindhold. Udover det, kunne et fantom, en kunstig vævsmodel, anvendes med faste iltniveauer, blodgennemstrømningsforhold og puls, dette er dog ude af scope for dette projekt.
 
 \section{Forslag til forbedringer}
+\paragraph{\normalfont Reproducerbarhed og mekanik.}
 Den vigtigste forbedring ville være at øge systemets reproducerbarhed over flere målinger. I den nuværende prototype kunne én måling give en realistisk og stabil puls, mens SpO$_2$-estimatet varierede betydeligt mellem målekørsler. Dette tyder på, at systemet er følsomt over for fingerplacering, fingertryk, kanalbalancering, støj og signalbehandling. En fremtidig version bør derfor først fokusere på reproducerbarhed, før den optimeres mod absolut SpO$_2$-nøjagtighed.
 
 Det mekaniske fingerhylster bør forbedres, så fingertryk og placering kontrolleres bedre. En fjederbelastet eller justerbar fingerholder kunne reducere variationer i optisk kobling og gøre både DC- og AC-komponenten mere stabile mellem målinger. Dette ville især være vigtigt, fordi ratio-of-ratios er følsom over for små ændringer i AC/DC-forholdet mellem de to bølgelængder. Desuden passer hylsteret ikke nødvendigvis alle fingergeometrier. Variable som fingerstørrelse, hudpigmentering (melanin), neglelak og perifer perfusion kan alle påvirke både DC- og AC-komponenten, jf.\ afsnit \ref{sec:fejlkilder}. Disse fejlkilder kunne adresseres ved enten mekanisk justerbarhed eller en flerbølgelængdeløsning.
 
+\paragraph{\normalfont Elektronik og forsyning.}
 Elektronisk kunne systemet forbedres ved at reducere ledningslængder omkring fotodioden og TIA'ens inverterende indgang, forbedre afskærmning og optimere PCB-layoutet omkring det knudepunkt. Fotodiodekablerne kunne eksempelvis twistes og afskærmes for at reducere \SI{50}{Hz}-indkobling. LED-driveren bør desuden flyttes fra perfboard til PCB og implementeres som en egentlig spændingstyret strømkilde, eksempelvis et op-amp-baseret transkonduktansstadie med MOSFET og sense-modstand. En sådan løsning ville gøre LED-strømmen bestemt af en referencespænding frem for primært af batterispænding, seriemodstande og komponenttolerancer, og ville derfor give bedre kanalbalancering mellem \SI{660}{nm}- og \SI{940}{nm}-LED'en.
 
 Forsyningsarkitekturen kunne også konsolideres. Prototypen anvendte separate \SI{9}{V}-batterier til den analoge signalkæde og LED-driveren, hvilket var praktisk under fejlfinding, men ikke ideelt for et samlet instrument. En fremtidig version bør bruge en fælles forsyningskilde med lokal regulering, filtrering og tydelig analog/digital jordføring, så switchingstrømme fra LED-driveren ikke kobles ind i TIA'en. Dette ville reducere praktisk kompleksitet og gøre systemet mere reproducerbart, samtidig med at de støjfølsomme analoge noder stadig kan isoleres elektrisk.
 
+\paragraph{\normalfont PCB, filtrering og signalbehandling.}
 Filterstrategien kunne også forbedres. Et analogt \SI{50}{Hz}-notch-filter kunne reducere netstøj før dataopsamling, men ville samtidig tilføje flere komponenter, tolerancer og mulig fasepåvirkning. Alternativt kunne mere filtrering flyttes til software, hvor knækfrekvenser og filtertyper nemt kan ændres uden hardwareændringer. Dette er især relevant for højpasfiltrering og notch-filtrering. En vis analog lavpasfiltrering er dog stadig nyttig før ADC'en, da den begrænser højfrekvent støj og reducerer risikoen for aliasering.
 
 En senere version kunne desuden flyttes til en mere kompakt SMD-baseret PCB-arkitektur. Dette ville reducere fysisk størrelse, ledningslængder og støjindkobling. Ulempen er, at komponentværdierne bliver mindre fleksible end i den nuværende prototype, hvor modstande kunne udskiftes under udviklingen. En SMD-version bør derfor først designes, når filterværdier, gain og LED-strømme er bedre fastlagt.
