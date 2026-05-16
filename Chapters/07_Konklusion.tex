@@ -1,21 +1,23 @@
-
-%Har man fået opfyldt sine visioner fra det sidste del af introduktionen?
-
 \chapter{Konklusion}
 \label{chap:conclusion}
 
 \section{Konklusion}
-% Besvar problemformuleringen direkte.
-% Svar punkt for punkt:
-% % Blev systemet designet og bygget?
-% % Kunne et brugbart PPG-signal måles?
-% % Understøttede optiske målinger bølgelængdevalget?
-% % Hvad er projektets vigtigste begrænsning?
+Projektet har designet, bygget og karakteriseret et analogt pulsoximeter til måling af perifer iltmætning i transmissionsgeometri. Systemet anvender tidsmultipleksede LED'er ved \SI{660}{nm} og \SI{940}{nm}, en Hamamatsu S1223 fotodiode, en analog signalkæde med transimpedansforstærker, andenordens Sallen-Key lavpasfilter og gain-stage, samt en signalbehandlingspipeline i Python baseret på ratio-of-ratios. Opstillingen er suppleret af en hyperspektral målestand og en spektrometrisk karakterisering af lyskilderne.
+
+Det analoge system reproducerede det forventede PPG-bølgeform på begge kanaler og estimerede pulsen til $(51.7 \pm 0.3)$BPM og et proof-of-concept-$\text{SpO}_2$ på $(95.8 \pm 1.5)$\%. Værdien ligger inden for det fysiologisk normale område, men systemet er ikke klinisk kalibreret mod blod-gas-målt $\text{SaO}_2$, og resultatet skal derfor fortolkes som en demonstration af målekæden snarere end en gyldighed på enkelte procentpoint.
+
+Den spektrometriske karakterisering viste, at \SI{660}{nm}-LED'en målte til \SI{664.99}{nm} (FWHM \SI{18.30}{nm}) og \SI{940}{nm}-LED'en til \SI{951.79}{nm} (FWHM \SI{27.25}{nm}). Den røde kanal lå tæt på databladet og samme område som et kommercielt Braun-pulsoximeter, mens \SI{940}{nm} var forskudt med knap \SI{12}{nm}. Forskellen bidrager til den systematiske usikkerhed på $\text{SpO}_2$ sammen med spredning og DPF-variation. Den hyperspektrale opstilling viste samtidig, at den relative transmission gennem fingeren var ca.\ \num{1.78} gange højere ved $(810 \pm 10)$~nm end ved $(940 \pm 10)$~nm, som er interessant, fordi \SI{800}{nm} samtidig er et isosbestisk punkt og dermed kan tjene som iltmætnings uafhængige reference.
+
+Projektets vigtigste begrænsninger er den manglende kliniske kalibrering, en ubalance mellem de to kanaler i den endelige opstilling, et fingerhylster der ikke passer alle geometrier, og en hyperspektral opstilling der ikke er synkroniseret med hjerteslaget. Den samlede konklusion er, at den valgte arkitektur fungerer som prototype, og at hyperspektral måling og spektrometrisk karakterisering er nyttige supplerende værktøjer ved design og fortolkning af et pulsoximetersystem.
+
 
 \section{Perspektivering}
-% Kort.
-% Hvad er næste naturlige skridt?
-% % bedre kalibrering
-% % større validering
-% % integreret slutinstrument
-% % evt. Monte Carlo som fremtidig modelstøtte
+Den mest oplagte næste milepæl er at få systemet til at måle konsekvent. I den nuværende prototype gav en enkelt måling en stabil puls, mens $\text{SpO}_2$-estimatet varierede betydeligt mellem målekørsler. Næste skridt er derfor at identificere og reducere de kilder til den variation, der kunne ligge i fingerplacering og balancering af TIA-output spænding, så systemet rapporterer reproducerbare værdier under ens betingelser, før det giver mening at tale om SpO$_2$ nøjagtighed.
+
+Mekanisk og elektronisk er der flere oplagte forbedringer, et fingerhylster der fastholder fingeren mere reproducerbart og passer flere geometrier, en samling af LED-driver, TIA og filterkæde på et fælles PCB med lokal jord, og en bedre balancering af LED-strømmene, så de to kanaler giver sammenlignelige TIA-niveauer.
+
+Bølgelængdemæssigt, er den mest interessante udvidelse en tredje kanal omkring \SI{800}{nm}. Det isosbestiske punkt giver en referencekanal, og kombineret med \SI{660}{nm} og \SI{940}{nm} kan en løsning med tre bølgelængder hjælpe med at adskille absorption fra spredning.
+
+Den hyperspektrale opstilling kunne også styrkes ved at supplere fingermålingerne med en fantommåling på et biologisk medie, for eksempel et kyllingebryst. En sådan måling ville have en kendt og reproducerbar geometri og kunne bruges som referencepunkt for, om opstillingen rent faktisk måler de relative spektrale forskelle, der forventes ud fra litteraturen.
+
+Modelmæssigt kunne projektets antagelser understøttes af to komplementære simuleringsværktøjer, en Monte Carlo-simulering af lystransport i en fingermodel ville gøre det muligt at estimere DPF og dens bølgelængdeafhængighed for geometrien, mens et ray tracing værktøj som Zemax kunne anvendes til at validere optikken mellem LED, finger og fotodiode i selve hylsteret og undersøge, hvordan geometrien ændrer det indsamlede lys. På softwaresiden bør pipelinen valideres mod syntetiske PPG-signaler med kendt puls, AC/DC-forhold og støjindhold, så fremtidige fejl kan tilskrives den analoge målekæde og ikke den digitale analyse. Det langsigtede mål er et samlet instrument, hvor de tre eksperimentelle spor i dette projekt erstattes af en reproducerbar måling.
