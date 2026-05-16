@@ -206,7 +206,7 @@ I livevisningen blev pulsen estimeret med et glidende vindue på \SI{60}{s}. Da 
 I et \SI{30}{s}-vindue tages DC som signalets middelværdi, mens AC isoleres
 med et nulfase Butterworth-båndpas af anden orden i hjertebåndet \SIrange{0.5}{2}{Hz} (\SIrange{30}{120}{BPM}). AC-amplituden estimeres robust som forskellen mellem 95.- og 5.-percentilen, hvilket dæmper enkeltstående bevægelsesartefakter. Forholdet
 \begin{equation}
-\label{eq:ratio_of_ratios}
+\label{eq:ratio_of_ratios_signalbehandling}
   R = \frac{\frac{AC_{660}}{DC_{660}}}{\frac{AC_{940}}{DC_{940}}}
 \end{equation}
 omsættes til iltmætning via en lineær kalibrering $\mathrm{SpO_2} = a - bR$, hvor $a$ og $b$ bestemmes mod et kommercielt pulsoximeter anvendt som praktisk reference, kalibreringen beskrives i resultatafsnittet. Værdier med for lav DC, for lav AC-amplitude eller fysiologisk urealistisk SpO$_2$-estimat blev markeret som ugyldige.
@@ -220,7 +220,7 @@ Fra de demultipleksede og mørkekorrigerede signaler blev følgende parametre ud
     \item $V_{660}(t)$ og $V_{940}(t)$: mørkekorrigerede tidsserier for de to LED-kanaler.
     \item $DC_{660}$ og $DC_{940}$: middelværdien af signalerne i analysevinduet.
     \item $AC_{660}$ og $AC_{940}$: pulsatile amplituder estimeret efter båndpasfiltrering.
-    \item $R$: ratio-of-ratios beregnet som vist i ligning \ref{eq:ratio_of_ratios}.
+    \item $R$: ratio-of-ratios beregnet som vist i ligning \ref{eq:ratio_of_ratios_signalbehandling}.
     \item Puls: estimeret fra interbeat-intervaller i \SI{940}{nm}-kanalen.
     \item SpO$_2$: proof-of-concept-estimat beregnet via en empirisk lineær kalibrering.
 \end{itemize}
