@@ -298,6 +298,8 @@ Formålet med billedanalysen var at estimere fingerens relative, spektralt korri
 
 For hver bølgelængde blev fingerbilledet og det tilhørende mørkebillede først læst ind. Mørkebillederne havde oprindeligt dimensionerne $1280 \times 1024$ pixels, mens fingerbillederne havde dimensionerne $1280 \times 690$ pixels. Mørkebillederne blev derfor beskåret centralt med 167 pixels fra top og bund, så mørke- og fingerbilleder fik samme dimensioner. Herefter kunne samme ROI-koordinater anvendes direkte i begge billeder.
 
+De analyserede billeder blev behandlet som 8-bit intensitetsbilleder, hvor hver pixelværdi ligger i intervallet 0--255. Intensitetsværdierne skal derfor forstås som kvantiserede kamera-counts og ikke som kontinuerte radiometriske målinger. Dette er især relevant ved lave signalniveauer, hvor et enkelt count kan udgøre en ikke-negligerbar relativ ændring.
+
 Den mørkekorrigerede pixelintensitet blev beregnet som
 
 \begin{equation}
@@ -397,6 +399,8 @@ Den hyperspektrale opstilling havde flere metodiske begrænsninger:
     \item LVF'et har en endelig spektral båndbredde. Den effektive båndbredde blev estimeret til omkring \SI{11}{nm} og domineres af filterets iboende FWHM på cirka \SI{10}{nm}. De rapporterede bølgelængder skal derfor forstås som nominelle centerbølgelængder for smalle spektrale bånd, ikke som ideelt monokromatiske målinger.
 
     \item LVF'et dækkede ikke \SI{660}{nm}. Den røde pulsoximetrikanal kunne derfor ikke undersøges med denne opstilling. Den hyperspektrale opstilling blev primært anvendt til at sammenligne nærliggende NIR-bølgelængder omkring \SI{810}{nm} og \SI{940}{nm}.
+
+    \item Billederne blev behandlet som 8-bit data med pixelværdier fra 0 til 255. Denne kvantisering begrænser evnen til at opløse små relative intensitetsændringer, især hvis signalet ligger lavt i dynamikområdet. Et pulsatilt PPG-bidrag på \SIrange{1}{5}{\percent} kan eksempelvis være mindre end ét count ved lave pixelværdier og dermed blive skjult af afrunding eller støj. En højere bitdybde, eksempelvis 10-bit med 0--1023 counts, ville give finere intensitetsopløsning og kunne være relevant, hvis den hyperspektrale opstilling skulle bruges til tidsopløst AC-analyse. I dette projekt blev opstillingen dog anvendt til relativ spektral sammenligning og ikke til puls-synkroniseret PPG-måling.
 
     \item Vignettering, små ændringer i fingerplacering og ufuldstændig reproducerbarhed af ROI-positionen kan påvirke de målte intensiteter. Disse effekter blev reduceret ved at anvende en fast central ROI, mørkekorrektion og normalisering til \SI{940}{nm}.
 \end{itemize}

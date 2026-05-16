@@ -83,13 +83,16 @@
 
 \begin{table}[!ht]
     \centering
-    \begin{tabular}{|l|l|l|l|l|l|}
-    \hline
-        LED & Nominel bølgelængde [nm] & Målt peak [nm] & Afvigelse [nm] & FWHM [nm] & Maks intensitet [counts] \\ \hline
-        660 nm & 660 & 664.99 & 4.99 & 18.30 & 44.83 \\ \hline
-        810 nm & 810 & 806.73 & -3.27 & 20.98 & 43.59 \\ \hline
-        940 nm & 940 & 951.79 & 11.79 & 27.25 & 38.79 \\ \hline
-        970 nm & 970 & 965.58 & -4.42 & 40.00 & 34.37 \\ \hline
+    \small
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        LED & Nominel [nm] & Peak [nm] & Afvigelse [nm] & FWHM [nm] & Maks. int. [counts] \\
+        \midrule
+        \SI{660}{nm} & 660 & 664.99 & 4.99 & 18.30 & 44.83 \\
+        \SI{810}{nm} & 810 & 806.73 & -3.27 & 20.98 & 43.59 \\
+        \SI{940}{nm} & 940 & 951.79 & 11.79 & 27.25 & 38.79 \\
+        \SI{970}{nm} & 970 & 965.58 & -4.42 & 40.00 & 34.37 \\
+        \bottomrule
     \end{tabular}
     \caption{Tabel over LED peaks og deres afvigelser.}
     \label{tab:LED_bølgelængder}
@@ -111,19 +114,20 @@
 
 \begin{table}[!ht]
     \centering
-    \begin{tabular}{|l|l|l|l|l|l|l|}
-    \hline
-        ~ & 800nm & 810nm & 820nm & 930nm & 940nm & 950nm \\ \hline
-        Stage pos. & 5.880 mm & 5.284 mm & 4.688 mm & -1.871 mm & -2.467 mm & -3.063 mm \\ \hline
-        Hyperspekt. output $[\text{counts}/\text{s}]$ & $1052.6$ & $1157.9$ & $1263.2$ & $2000.0$ & $1789.5$ & $1263.2$ \\ \hline
-        Glo-bar $\left[\frac{\text{Watt}}{m^2}\right]$ & $1.6630$ & $1.8314$ & $2.0042$ & $4.8737$ & $5.2153$ & $5.5886$ \\ \hline
-        Linse 1 (AC254-030-AB) & $0.9893$ & $0.9893$ & $0.9893$ & $0.9892$ & $0.9892$ & $0.9892$ \\ \hline
-        Linse 2 (AC127-025-AB) & $0.9885$ & $0.9873$ & $0.9865$ & $0.9730$ & $0.9715$ & $0.9700$ \\ \hline
-        Linse 3 (AC127-050-AB) & $0.9885$ & $0.9875$ & $0.9866$ & $0.9728$ & $0.9715$ & $0.9700$ \\ \hline
-        Filter (CVBP-LF103924)& $0.83$ & $0.84$ & $0.85$ & $0.93$ & $0.925$ & $0.92$ \\ \hline
-        Kamera (UI-3240CP-NIR-GL) - QE& $0.48$ & $0.47$ & $0.45$ & $0.24$ & $0.22$ & $0.18$ \\ \hline
+    \scriptsize
+    \begin{tabular}{@{}lrrrrrrrr@{}}
+        \toprule
+        $\lambda$ & Stage [mm] & Output [counts/s] & Glo-bar [W/m$^2$] & L1 & L2 & L3 & LVF & QE \\
+        \midrule
+        \SI{800}{nm} & 5.880 & 1052.6 & 1.6630 & 0.9893 & 0.9885 & 0.9885 & 0.830 & 0.48 \\
+        \SI{810}{nm} & 5.284 & 1157.9 & 1.8314 & 0.9893 & 0.9873 & 0.9875 & 0.840 & 0.47 \\
+        \SI{820}{nm} & 4.688 & 1263.2 & 2.0042 & 0.9893 & 0.9865 & 0.9866 & 0.850 & 0.45 \\
+        \SI{930}{nm} & -1.871 & 2000.0 & 4.8737 & 0.9892 & 0.9730 & 0.9728 & 0.930 & 0.24 \\
+        \SI{940}{nm} & -2.467 & 1789.5 & 5.2153 & 0.9892 & 0.9715 & 0.9715 & 0.925 & 0.22 \\
+        \SI{950}{nm} & -3.063 & 1263.2 & 5.5886 & 0.9892 & 0.9700 & 0.9700 & 0.920 & 0.18 \\
+        \bottomrule
     \end{tabular}
-    \caption{Spektrale korrektionsfaktorer anvendt til hyperspektral korrektion.}
+    \caption{Spektrale korrektionsfaktorer anvendt til hyperspektral korrektion. L1--L3 betegner de tre linsetransmissioner, LVF betegner filtertransmissionen, og QE betegner kameraets kvanteeffektivitet.}
     \label{tab:hyperspectral_correction}
 \end{table}
 
@@ -140,7 +144,6 @@
     \caption{LED driver skema}
     \label{fig:led_driver_schematic}
 \end{figure}
-
 
 
 
