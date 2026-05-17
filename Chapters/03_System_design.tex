@@ -9,6 +9,8 @@ Valget af bølgelængder blev desuden understøttet af komponenttilgængelighed.
 
 Efter det indledende designvalg blev bølgelængderne undersøgt yderligere ved hjælp af både spektrometriske og hyperspektrale målinger. Disse målinger blev ikke anvendt til at vælge de første kandidatbølgelængder, men til at verificere lyskildernes faktiske spektrale placering og til at vurdere den relative transmission gennem fingervæv ved udvalgte bølgelængder.
 
+Denne verificering er vigtig, fordi LED'ers faktiske peak-bølgelængde kan afvige fra den bølgelængde, der er angivet i databladet. Litteraturen beskriver både LED-afvigelser på op til omtrent $\pm\SI{15}{nm}$ og væsentlige afvigelser fra de klassiske \SI{660}{nm}- og \SI{940}{nm}-områder i praktiske pulsoximetre \cite[s.~35]{Webster1997} \cite{Ruberry2025}.
+
 \paragraph{Spektrometer.}
 Et spektrometer anvender dispersion, typisk via et diffraktionsgitter, til at adskille indkommende lys i dets spektrale komponenter. Herved kan intensiteten som funktion af bølgelængde bestemmes.
 
@@ -86,13 +88,15 @@ Derudover er PLA og PETG elektrisk isolerende materialer. Det reducerer risikoen
 
 \subsection{Praktiske designhensyn}
 
-\paragraph{Omgivelseslys.} Hylsteret blev designet til at reducere indkobling af omgivelseslys i fotodioden. 
+\paragraph{Omgivelseslys og optisk shunting.} Hylsteret blev designet til at reducere indkobling af omgivelseslys i fotodioden. Litteraturen anbefaler, at pulsoximeterprober udføres i sort, uigennemsigtigt materiale eller indkapsles i et uigennemsigtigt hus, så uønskede lysveje begrænses \cite[s.~185]{Webster1997}. Et relateret problem er optisk shunting, hvor lys kan nå detektoren uden at have passeret den tilsigtede vævsvej \cite{Ruberry2025}.
 
 \paragraph{Pulsoxi-hylster.} Som set i figur \ref{fig:3D design finger hylster} er der specielt designet plads til fotodioden og de to LED'er. De specifikke mål er hentet fra hvert datablad og itereret over med de faktiske mål for komponenterne.
 
 Komponenterne blev fastgjort mekanisk, så limen ikke lå i den optiske strålegang eller skabte elektrisk kontakt mellem benene.
 
 Der blev desuden indarbejdet en fingerformet rille i både top- og bundsektionen for at forbedre fingerens placering og reproducerbarheden af målegeometrien. Geometrien blev lavet ud fra en repræsentativ fingerstørrelse og er derfor ikke nødvendigvis optimal for alle brugere.
+
+Under samling blev fingerhylsterets geometri justeret, da direkte kontakt mellem fingerblommen og S1223-fotodioden gav et stort støjsignal ud af TIA'en. Ved at hæve hylstergeometrien lokalt og øge afstanden mellem fingerblomme og fotodiode forsvandt den observerede støj. Afstanden mellem væv og fotodiode blev derfor behandlet som et praktisk designhensyn, ikke kun som en geometrisk placering af de optiske komponenter.
 
 \paragraph{JST-forbindelser.} JST-XH-forbindelser blev anvendt for at gøre modulerne aftagelige og for at lette fejlfinding, ombygning og udskiftning af delkredsløb. Med JST-kabler kan man selv bestemme længden af kablerne. Forbindelserne sidder godt fast med en simpel låsemekanisme, og de er billige.
 
@@ -114,16 +118,18 @@ For at vurdere om 2N7000 var egnet som switch, blev datasheetets transfer charac
 
 Gate-threshold-spændingen blev ikke brugt som eneste designkriterium, da den kun angiver hvornår transistoren begynder at lede, ikke hvornår den fungerer som en god switch. I stedet blev MOSFET'ens spændingsfald behandlet som et praktisk tab i LED-strømligningen, svarende til leddet $V_{DS(\text{on})}$ i ligning \ref{eq:led_current}. Da LED-strømmen samtidig begrænses af en seriemodstand, vil mindre variationer i MOSFET'ens on-resistance primært give en mindre ændring i den faktiske LED-strøm.
 
-MOSFET'ens switching-tid ligger i ns-området og er dermed væsentligt kortere end de anvendte målevinduer i tidsmultipleksingen. Switchinghastigheden blev derfor ikke vurderet som den begrænsende faktor i systemet; den praktiske begrænsning lå i stedet i analog settling og den valgte tidsmultipleksing.
+MOSFET'ens switching-tid ligger i ns-området og er dermed væsentligt kortere end de anvendte målevinduer i tidsmultipleksingen. Switchinghastigheden blev derfor ikke vurderet som den begrænsende faktor i systemet. Den praktiske begrænsning lå i stedet i analog settling og den valgte tidsmultipleksing.
 
 
 \subsection{Transimpedansforstærker - TIA}
 
-TIA'en er baseret på en OP27G, som er en lavstøjs præcisions operationsforstærker. TIA'en er vist i figur \ref{fig:PD_ingen_bias_TIA}, og er også vist i PCB-skemaet i figur \ref{fig:TIA_LP} i appendiks.
+TIA'en er baseret på en OP27G, som er en lavstøjs præcisionsoperationsforstærker. TIA'en er vist i figur \ref{fig:PD_ingen_bias_TIA}, og er også vist i PCB-skemaet i figur \ref{fig:TIA_LP} i appendiks.
 
-I feedback-stien fra $V_{out}$ til operationsforstærkerens inverterende indgang $-in$ er der en modstand, betegnet med $R_f$ der sætter transimpedansen, dvs. omsætningen fra fotostrøm til udgangsspænding, og en kondensator parallelt forbundet med $R_f$, kaldet for $C_f$ som sørger for signalstabilitet. 
+OP27G er ikke en FET-input-opamp. Dermed følger designet ikke den typiske anbefaling om FET-input i meget højimpedante fotodiode-TIA'er, hvor lav input-biasstrøm er en fordel \cite[s.~81]{Webster1997}. Komponenten blev anvendt, fordi den var tilgængelig i projektet og gav et brugbart proof-of-concept-signal.
 
-Den parallelkoblede feedbackkondensator $C_f$ anvendes til at forbedre stabiliteten i TIA'en, særligt i samspillet mellem fotodiodens kapacitans og operationsforstærkerens dynamik. De valgte komponentværdier blev bestemt ud fra litteratur og iterativt design \cite{analog_tia_stabilize}:
+I feedback-stien fra $V_{out}$ til operationsforstærkerens inverterende indgang $-in$ er der en modstand, betegnet med $R_f$, der sætter transimpedansen, dvs. omsætningen fra fotostrøm til udgangsspænding, og en kondensator parallelt forbundet med $R_f$, kaldet for $C_f$, som bidrager til signalstabilitet. 
+
+Den parallelkoblede feedbackkondensator $C_f$ anvendes til at forbedre stabiliteten i TIA'en, særligt i samspillet mellem fotodiodens kapacitans og operationsforstærkerens dynamik. En større feedbackkapacitans kan reducere gain-peaking, men sænker samtidig båndbredden \cite[s.~81--82]{Webster1997}. De valgte komponentværdier blev derfor bestemt ud fra litteratur og iterativt design \cite{analog_tia_stabilize}:
 
 \begin{itemize}
     \item $R_f = \SI{2.2}{\mega\ohm}$

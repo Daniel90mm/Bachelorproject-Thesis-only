@@ -42,7 +42,7 @@ Målingerne blev udført siddende, loftbelysning slukket og så stille som mulig
 
 Derefter blev systemet kørt i \SI{10}{s} før dataopsamling for at lade LED-driver, analogkæde og softwaresekvens stabilisere sig. Til sidst blev der udført en minutlang måling med en multipleksingsfrekvens på \SI{7.41}{Hz}.
 
-\paragraph{Frekvensvalg.} Da man ønsker at måle et heltals multiplum af \SI{20}{ms}, kan man f.eks. vælge at måle hver af de tre faser, som vist i tabel \ref{tab:maalinger}, med tiden \SI{40}{ms}.
+\paragraph{Frekvensvalg.} For at midle en ren \SI{50}{Hz}-komponent mod nul uafhængigt af fase skal målevinduet dække et helt antal netperioder. Ved \SI{50}{Hz} er perioden \SI{20}{ms}, og et vindue på \SI{40}{ms} svarer derfor til to hele perioder.
 
 Hver målecyklus bestod af tre faser: \SI{660}{nm}-LED tændt, \SI{940}{nm}-LED tændt og begge LED'er slukket. Hver fase bestod af en settlingperiode på \SI{5}{ms} efterfulgt af et målevindue på \SI{40}{ms}. En komplet cyklus varede derfor
 \begin{equation}
@@ -63,7 +63,9 @@ og da Nyquist-frekvensen er:
 \end{equation}
 dækkes \SI{2}{Hz} komfortabelt.
 
-Frekvensen var desuden valgt ud fra antagelsen at for en ren sinusformet \SI{50}{Hz}-komponent vil midlingen ideelt give nul middelværdi, man kan derfor fjerne støjen i software uden for stor byrde af lavpasfilteret, mere om lavpasfilterløsningen nedenfor.
+Frekvensen var desuden valgt ud fra antagelsen om, at en ren sinusformet \SI{50}{Hz}-komponent får nul middelværdi, når middelværdien tages over et helt antal perioder. Dette gælder ikke generelt for \SI{10}{ms} eller \SI{5}{ms}, da disse vinduer kun dækker henholdsvis en halv og en kvart periode og derfor stadig afhænger af den ukendte fase.
+
+Denne kanalrate er markant lavere end i mange kommercielle pulsoximetre, hvor LED-skift ofte ligger i størrelsesordenen flere hundrede hertz \cite[s.~61]{Webster1997}. I dette projekt blev den lavere frekvens valgt som et bevidst prototypekompromis. De lange \SI{40}{ms}-målevinduer gav midling over et heltalligt antal \SI{50}{Hz}-perioder og dermed robust undertrykkelse af netstøj, men reducerede samtidig den tidslige opløsning og gjorde målingen mere følsom over for bevægelse eller fysiologiske ændringer mellem kanalerne.
 
 Løsningen for attenuering af \SI{50}{Hz} støjen bygger som sagt på antagelsen om, at støjen kan modelleres som en sinusformet forstyrrelse med ukendt fase $\varphi$. Middelværdien over et tidsvindue $T$ er:
 
@@ -396,7 +398,7 @@ Den hyperspektrale opstilling havde flere metodiske begrænsninger:
 
     \item Den spektrale korrektion bygger på databladsværdier og målte eller estimerede transmissionskonstanter for de enkelte optiske led. Usikkerheder i Glo-barens spektrum, linsetransmission, LVF-transmission og kameraets kvanteeffektivitet påvirker derfor den korrigerede relative transmission.
 
-    \item LVF'et har en endelig spektral båndbredde. Den effektive båndbredde blev estimeret til omkring \SI{11}{nm} og domineres af filterets iboende FWHM på cirka \SI{10}{nm}. De rapporterede bølgelængder skal derfor forstås som nominelle centerbølgelængder for smalle spektrale bånd, ikke som ideelt monokromatiske målinger.
+    \item LVF'et har en endelig spektral båndbredde. Den effektive båndbredde blev estimeret til omkring \SI{11}{nm} og domineres af filterets iboende FWHM på cirka \SI{10}{nm}. De rapporterede bølgelængder skal derfor forstås som angivne centerbølgelængder for smalle spektrale bånd, ikke som ideelt monokromatiske målinger.
 
     \item LVF'et dækkede ikke \SI{660}{nm}. Den røde pulsoximetrikanal kunne derfor ikke undersøges med denne opstilling. Den hyperspektrale opstilling blev primært anvendt til at sammenligne nærliggende NIR-bølgelængder omkring \SI{810}{nm} og \SI{940}{nm}.
 

@@ -2,7 +2,9 @@
 \label{chap:teori}
 
 \section{Pulsoximetri}
-Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder af lys, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, betegnes resultatet $\text{SpO}_2$, og repræsenterer ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt.
+Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder af lys, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, betegnes resultatet $\text{SpO}_2$, og repræsenterer ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt \cite{Webster1997,Nitzan2014}.
+
+Hæmoglobin er det iltbærende protein i de røde blodlegemer. Hvert hæmoglobinmolekyle indeholder fire hæmgrupper, som hver kan binde ét iltmolekyle reversibelt. Når ilt er bundet, betegnes molekylet oxyhæmoglobin ($\text{HbO}_2$), mens hæmoglobin uden bundet ilt betegnes deoxyhæmoglobin eller uiltet hæmoglobin ($\text{Hb}$). Det er forskellen i disse to formers optiske absorption, der gør pulsoximetri mulig \cite{Webster1997,Nitzan2014}.
 
 \subsection{Kliniske ilt-parametre}
 Herunder er en oversigt over de vigtigste kliniske iltparametre \cite{Pltz1998,Nitzan2014, Webster1997, Mesquida2013}:
@@ -56,7 +58,7 @@ fotoplethysmogram (PPG) \cite{Allen2007}.
 
 Ved måling af lystransmission gennem en finger observeres et periodisk signal der følger hjertets cyklus. Under systole, som er hjertemuskulaturens kontraktion, udvides arterierne og blodvolumen i fingeren forøges, hvilket øger absorptionen og reducerer den transmitterede intensitet. Under diastole, som er fasen med hjertemuskulaturens afslapning, falder blodvolumen og intensiteten stiger igen.
 
-Som set i figur \ref{fig:ppg_signal} \cite{YossefHay2018}, kan PPG signalet opdeles i en DC komponent og en AC komponent. DC komponenten repræsenterer den konstante absorption fra venøst blod, væv, knogle og ikke pulsatilt arterielt og venøst blod. AC komponenten repræsenterer den pulsatile ændring i arterielt blodvolumen og udgør typisk kun 1 til 5\% af det samlede signal \cite{Ruberry2025}. Det pulsatile (AC) signal er signalet som PPG måler på.
+Som set i figur \ref{fig:ppg_signal} \cite{YossefHay2018}, kan PPG signalet opdeles i en DC komponent og en AC komponent. DC komponenten repræsenterer den konstante absorption fra venøst blod, væv, knogle og ikke pulsatilt arterielt og venøst blod. AC komponenten repræsenterer den pulsatile ændring i arterielt blodvolumen og udgør typisk kun få procent af det samlede signal, omkring 1--2\% i klassiske beskrivelser \cite[s.~47]{Webster1997}. Det pulsatile (AC) signal er signalet som PPG måler på.
 
 \begin{figure}[htbp]
      \centering
@@ -165,7 +167,7 @@ bølgelængder over \SI{1000}{nm} \cite[Fig.~(10.3)]{Tuchin2015}.
     \label{fig:coeff_vs_wavelength}
 \end{figure}
 
-Ved et isosbestisk punkt (eksempelvis ca.\ \SI{800}{nm}) er absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ identiske: $\varepsilon_{\text{HbO}_2}(\SI{800}{nm}) = \varepsilon_{\text{Hb}}(\SI{800}{nm})$. Dette punkt er klinisk relevant, da en måling her er uafhængig af iltmætningen og derfor kan anvendes som referencekanal, selvom det ikke kan bruges til at skelne mellem $\text{HbO}_2$ og $\text{Hb}$.
+Ved et isosbestisk punkt (eksempelvis ca.\ \SI{800}{nm}) er absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ identiske: $\varepsilon_{\text{HbO}_2}(\SI{800}{nm}) = \varepsilon_{\text{Hb}}(\SI{800}{nm})$ \cite{Prahl1998}. En måling her er derfor uafhængig af iltmætningen i den simple Hb/HbO$_2$-model og kan i dette projekt betragtes som en mulig referencekanal, selvom den ikke kan bruges til at skelne mellem $\text{HbO}_2$ og $\text{Hb}$.
 
 \subsection{Spredning i væv}
 \label{subsec:spredning}
@@ -283,9 +285,9 @@ For at isolere $\text{S}$ fra ligning \ref{eq:mbbl_so2} skal parametrene $G$, $C
     \label{fig:målekonfigurationer}
 \end{figure}
 
-Pulsoximetri kan udføres i to optiske konfigurationer (figur \ref{fig:målekonfigurationer}). Ved transmissionsmåling placeres lyskilde og detektor på modsatte sider af vævet, typisk fingerspids, øreflip eller hos spædbørn, fod eller tå. Lyset gennemtrænger vævet, og detektoren registrerer den transmitterede intensitet.
+Pulsoximetri kan udføres i to optiske konfigurationer (figur \ref{fig:målekonfigurationer}). Ved transmissionsmåling placeres lyskilde og detektor på modsatte sider af vævet, typisk fingerspids, øreflip eller hos spædbørn, fod eller tå. Lyset gennemtrænger vævet, og detektoren registrerer den transmitterede intensitet \cite[S.~87--88]{Webster1997}.
 
-Ved refleksionsmåling placeres lyskilde og detektor på samme side, og detektoren registrerer det tilbagespredte lys. Pulsoximeteret placeres normalt på brystet, panden eller håndleddet, hvilket gør konfigurationen mere fleksibel og velegnet til flere  placeringer på kroppen.
+Ved refleksionsmåling placeres lyskilde og detektor på samme side, og detektoren registrerer det tilbagespredte lys. Pulsoximeteret placeres normalt på brystet, panden eller håndleddet, hvilket gør konfigurationen mere fleksibel og velegnet til flere  placeringer på kroppen \cite[S.~87--88]{Webster1997}.
 
 \section{Pulsoximetrisk måleprincip}
 \label{sec:pulseox_princip}
@@ -332,7 +334,7 @@ hvor $a$ og $b$ er empirisk bestemte konstanter, som f.eks. kan kalibreres ud fr
 
 \subsection{Tidsmultipleksing}
 
-Tidsmultipleksing er en teknik til at dele en enkelt målekanal mellem flere signalkilder ved at tildele hver kilde et bestemt tidsinterval, hvor kun den pågældende kilde er aktiv. Opsætningen af det analoge pulsoximeter bygger på princippet om Tidsmultipleksing, og tillader brug af de to LED'er med det præcist samme kredsløb, uden at blande signalerne sammen.
+Tidsmultipleksing er en teknik til at dele en enkelt målekanal mellem flere signalkilder ved at tildele hver kilde et bestemt tidsinterval, hvor kun den pågældende kilde er aktiv. Opsætningen af det analoge pulsoximeter bygger på princippet om tidsmultipleksing, og tillader brug af de to LED'er med det præcist samme kredsløb, uden at blande signalerne sammen \cite[s.~126--129]{Webster1997}.
 
 Hvis både \SI{940}{nm} og \SI{660}{nm} LED'erne var tændt på samme tid, ville det ikke være muligt for fotodioden at adskille det røde eller infrarøde signal, da fluxbidraget på det fotosensitive areal ville være en sum af de to LED'ernes signaler. Derfor, kender man ikke forskellen mellem de to signaler, kan man ikke beregne $R$ i ratio of ratios, og dermed ikke finde en tilstrækkelig tilnærmelse af $\text{SpO}_2$.
 
@@ -550,7 +552,7 @@ Ved at læse et datasheet for en LED, kan man få nyttig information som peak-b�
     $$
     \text{Rise time} \approx \text{Fall time}    
     $$
-    Så en typisk datasheet værdi for en rise time vil være omkring de 10 til \SI{100}{ns}. Denne værdi bidrager til en øvre grænse for hvor hurtigt man derfor kan multiplekse sine signaler, f.eks. for et pulsoximeter. Men er sandsynligvis ikke den begrænsende faktor.
+    Typiske databladsværdier for LED-skiftetider ligger på en tidsskala, der er væsentligt kortere end de målevinduer, der anvendes i dette projekt. Skiftetiden bidrager derfor til en øvre grænse for, hvor hurtigt man kan multiplekse sine signaler, men er sandsynligvis ikke den begrænsende faktor i denne opstilling.
 \end{itemize}
 
 Højere kvalitets LED'er har også et eller flere lag mellem n-type og p-type, kaldet for "quantum wells" eller "multiple quantum wells" (MQW), disse forbedrer effektiviteten af en LED, og tillader for højere strømstyrke end gængse LEDer.
@@ -684,7 +686,7 @@ Terminalkapacitansen påvirker TIA’ens stabilitet og båndbredde. En større k
 
 \section{Hyperspektral måling}
 
-Hyperspektral billeddannelse registrerer en intensitet som funktion af to rumlige koordinater og bølgelængde, dvs. en datakube $I(x,y,\lambda)$.
+Hyperspektral billeddannelse registrerer en intensitet som funktion af to rumlige koordinater og bølgelængde, dvs. en datakube $I(x,y,\lambda)$ \cite{Tuchin2015}.
 
     \subsection{Princip}
     Princippet bag hyperspektral måling, bygger på at materialer har bølgelængdeafhængig absorption og spredning. Ved at måle $I(x,y,\lambda)$ kan man derfor undersøge, hvordan transmissionen varierer spektralt og rumligt.
@@ -717,7 +719,7 @@ For at digitalisere et analogt signal kræves en analog-til-digital konvertering
 
 Overtrædes dette, opstår aliasing, hvor høje frekvenser fejlaflæses som lave frekvenser og forurener det rekonstruerede signal.
 
-Det pulsatile PPG-signal følger hjertets frekvens, typisk \SIrange{0.5}{2}{Hz} svarende til 30 til 120 slag per minut. Systemet anvender tidsmultipleksing med tre tilstande (\SI{660}{nm}, \SI{940}{nm} og mørke), kørt med en samplingfrekvens, sat på baggrund af det brugte udstyr, f.eks. \SI{20}{kHz}. Hver kanal samples dermed med $\frac{20000}{3} \approx 6666 \ \text{Hz}$, hvilket er langt over Nyquist-grænsen for PPG-signalet og giver god tidsopløsning af pulsformen.
+Det pulsatile PPG-signal følger hjertets frekvens, typisk \SIrange{0.5}{2}{Hz} svarende til 30 til 120 slag per minut \cite{Allen2007,Ruberry2025}. Systemet anvender tidsmultipleksing med tre tilstande (\SI{660}{nm}, \SI{940}{nm} og mørke), kørt med en samplingfrekvens, sat på baggrund af det brugte udstyr, f.eks. \SI{20}{kHz}. Hver kanal samples dermed med $\frac{20000}{3} \approx 6666 \ \text{Hz}$, hvilket er langt over Nyquist-grænsen for PPG-signalet og giver god tidsopløsning af pulsformen.
 
 \subsection{Filtrering}
 \label{sec:filtrering}
@@ -776,7 +778,7 @@ Perfusionsindekset (PI) er forholdet mellem AC- og DC-komponenterne i PPG-signal
     PI = \frac{AC}{DC} \cdot 100\%
     \label{eq:perfusion_index}
 \end{equation}
-Et lavt PI indebærer, at den pulsatile komponent er lille i forhold til den konstante absorption. Dette opstår ved perifær vasokonstriktion, f.eks. ved kulde, hypovolæmi, dvs. reduceret cirkulerende blodvolumen eller hypotension, hvor blodtilførslen til ekstremiteterne reduceres. Resultatet er et svagt og støjdomineret AC-signal, der giver et dårligt SNR og øger usikkerheden på den estimerede SpO$_2$.
+Et lavt PI indebærer, at den pulsatile komponent er lille i forhold til den konstante absorption. Dette opstår ved perifær vasokonstriktion, f.eks. ved kulde, hypovolæmi, dvs. reduceret cirkulerende blodvolumen eller hypotension, hvor blodtilførslen til ekstremiteterne reduceres. Resultatet er et svagt og støjdomineret AC-signal, der giver et dårligt SNR og øger usikkerheden på den estimerede SpO$_2$ \cite{Webster1997,Ruberry2025}.
 
   \subsection{Omgivelseslys og elektromagnetisk støj}
 
@@ -786,22 +788,22 @@ Da PPG-signalets AC-komponent er lille, kan indkoblet elektrisk støj blive samm
   
   \subsection{Hudpigmentering og neglelak}
 
-Melanin absorberer især i det synlige område og kan derfor påvirke den røde kanal mere end den infrarøde. Neglelak kan absorbere eller sprede lys afhængigt af farve og materiale og kan dermed ændre både DC-niveau og ratio-of-ratios \cite{Pologe2025}.
+Melanin absorberer især i det synlige område og kan derfor påvirke den røde kanal mere end den infrarøde. Neglelak kan absorbere eller sprede lys afhængigt af farve og materiale og kan dermed ændre både DC-niveau og ratio-of-ratios \cite[s.~19]{Webster1997} \cite{Pologe2025}.
 
   
   \subsection{Dyshæmoglobiner}
 
-Det klassiske to-bølgelængdeprincip antager, at hæmoglobin udelukkende eksisterer i enten iltet ($\text{HbO}_2$) eller uiltet ($\text{Hb}$) form. I praksis forekommer andre hæmoglobinformer, kaldet dyshæmoglobiner, som interfererer med målingen.
+Det klassiske to-bølgelængdeprincip antager, at hæmoglobin udelukkende eksisterer i enten iltet ($\text{HbO}_2$) eller uiltet ($\text{Hb}$) form. I praksis forekommer andre hæmoglobinformer, kaldet dyshæmoglobiner, som interfererer med målingen \cite{Webster1997,Ruberry2025}.
 
-Kulilteforgiftning medfører dannelse af carboxyhæmoglobin (HbCO), som har en absorptionsprofil der ligner $\text{HbO}_2$ nær \SI{660}{nm}. Et pulsoximeter vil fejlaflæse HbCO som oxyhæmoglobin og dermed overestimere SpO$_2$, hvilket er klinisk kritisk.
+Kulilteforgiftning medfører dannelse af carboxyhæmoglobin (HbCO), som har en absorptionsprofil der ligner $\text{HbO}_2$ nær \SI{660}{nm}. Et pulsoximeter vil fejlaflæse HbCO som oxyhæmoglobin og dermed overestimere SpO$_2$, hvilket er klinisk kritisk \cite{Ruberry2025}.
 
-Methæmoglobin (MetHb) har ved høje koncentrationer en tendens til at drive $R$ mod 1, svarende til SpO$_2$ $\approx$ 85\,\%, uanset den faktiske iltmætning.
+Methæmoglobin (MetHb) har ved høje koncentrationer en tendens til at drive $R$ mod 1, svarende til SpO$_2$ $\approx$ 85\,\%, uanset den faktiske iltmætning \cite{Ruberry2025}.
 
-Disse fejlkilder kan ikke kvantificeres pålideligt med et klassisk to-bølgelængdesystem og kræver co-oximetri med flere bølgelængder for at kvantificere de individuelle hæmoglobinformer.
+Disse fejlkilder kan ikke kvantificeres pålideligt med et klassisk to-bølgelængdesystem og kræver co-oximetri med flere bølgelængder for at kvantificere de individuelle hæmoglobinformer \cite{Webster1997,Ruberry2025}.
   
   \subsection{Temperaturafhængighed af LED og fotodiode}
 
-Temperaturen påvirker både lyskildens og detektorens egenskaber. For LED'er forskydes emissionsmaksimum mod længere bølgelængder med stigende temperatur, typisk \SIrange{0.1}{0.3}{nm/K} for AlGaInP-baserede røde LED'er. En temperaturstigning på \SI{30}{K} kan dermed forskyde emissionsmaksimumet med op til \SI{9}{nm}, hvilket ændrer de effektive ekstinktionskoefficienter og introducerer en systematisk fejl i $R$.
+Temperaturen påvirker både lyskildens og detektorens egenskaber. For LED'er kan emissionsmaksimum forskydes mod længere bølgelængder med stigende junction-temperatur, i størrelsesordenen \SIrange{0.35}{0.6}{\nano\meter\per\celsius}. En større temperaturændring kan derfor ændre de effektive ekstinktionskoefficienter og introducere en systematisk fejl i $R$ \cite[s.~66]{Webster1997}.
 
 Fotodiodens mørkestrøm fordobles approksimativt for hver \SI{10}{K} temperaturstigning. Ved stuetemperatur er bidraget typisk negligibelt sammenlignet med fotostrømmen, men ved lav belysning eller høj omgivelsestemperatur kan mørkestrømmen påvirke det målte DC-niveau.
 

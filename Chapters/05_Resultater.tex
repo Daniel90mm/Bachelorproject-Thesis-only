@@ -4,7 +4,7 @@
 \section{Spektral karakterisering af lyskilder}
 Tabel \ref{tab:LED_karakteristikker} og figur \ref{fig:Karakteriserede_leder} viser den spektrale karakterisering af de undersøgte LED'er.
 
-De målte peak-bølgelængder lå generelt tæt på peak-værdierne angivet i databladene, men med tydelige afvigelser for enkelte komponenter. Den nominelle \SI{660}{nm}-LED blev målt til \SI{664.99}{nm}, mens den nominelle \SI{940}{nm}-LED blev målt til \SI{951.79}{nm}. Den største afvigelse blev således observeret for den \SI{940}{nm}-LED. Samtidig viser målingerne, at LED'ernes spektrale bredde varierer betydeligt, idet \SI{660}{nm}-LED'en havde den smalleste emissionsbredde med FWHM på \SI{18.30}{nm}, mens \SI{970}{nm}-LED'en havde den bredeste med FWHM på \SI{40.00}{nm}.
+De målte peak-bølgelængder lå generelt tæt på peak-værdierne angivet i databladene, men med tydelige afvigelser for enkelte komponenter. LED'en angivet som \SI{660}{nm} i databladet blev målt til \SI{664.99}{nm}, mens LED'en angivet som \SI{940}{nm} blev målt til \SI{951.79}{nm}. Den største afvigelse blev således observeret for \SI{940}{nm}-LED'en. Samtidig viser målingerne, at LED'ernes spektrale bredde varierer betydeligt, idet \SI{660}{nm}-LED'en havde den smalleste emissionsbredde med FWHM på \SI{18.30}{nm}, mens \SI{970}{nm}-LED'en havde den bredeste med FWHM på \SI{40.00}{nm}.
 
 Resultaterne bekræfter, at de valgte lyskilder opererer i de ønskede spektralområder, men viser også, at den faktiske emission ikke nødvendigvis er identisk med den bølgelængde, der er angivet i databladet. Dette er relevant for den videre fortolkning af både de hyperspektrale målinger og det analoge pulsoximeters bølgelængdevalg, fordi hæmoglobinernes absorptionskoefficienter varierer kraftigt med bølgelængden. Den effektive måling afhænger derfor ikke kun af LED-betegnelsen, men af LED'ens faktiske spektrale emission. I figur \ref{fig:coeff_vs_wavelength} er absorptionskoefficienterne vist i log-skala, hvor det ses, at ekstinktionskoefficienten varierer kraftigt som funktion af bølgelængden.
 
@@ -48,7 +48,7 @@ Figur \ref{fig:Karakteriseret_finger} viser det målte transmissionsspektrum gen
     \label{fig:braun}
 \end{figure}
 
-Figur \ref{fig:braun} viser den spektrale karakterisering af et kommercielt Braun-pulsoximeter. Det målte emissionsmaksimum for den registrerede kanal lå ved \SI{663.5}{nm} med en FWHM på \SI{15.9}{nm}. Denne værdi ligger tæt på både den nominelle røde pulsoximeterkanal omkring \SI{660}{nm} og den målte værdi for projektets egen røde LED. Resultatet understøtter derfor, at den valgte røde kanal i det udviklede system ligger i samme spektrale område som en kommerciel reference.
+Figur \ref{fig:braun} viser den spektrale karakterisering af et kommercielt Braun-pulsoximeter. Det målte emissionsmaksimum for den registrerede kanal lå ved \SI{663.5}{nm} med en FWHM på \SI{15.9}{nm}. Denne værdi ligger tæt på både den klassiske røde pulsoximeterkanal omkring \SI{660}{nm} og den målte værdi for projektets egen røde LED. Resultatet understøtter derfor, at den valgte røde kanal i det udviklede system ligger i samme spektrale område som en kommerciel reference.
 
 \section{Hyperspektrale resultater}
 \begin{figure}
@@ -77,7 +77,7 @@ Relativ transmission & 1.74 & 1.78 & 1.76 & 1.16 & 1.00 & 0.93 \\
 \end{tabular}
 \end{table}
 
-Under dataopsamling kan det antages at forsøgspersonen havde en normal perifer arteriel iltmætning, SpO$_2$ $\approx 99\%$, det vil sige at det gennemstrømmende blod overvejende bestod af oxyhæmoglobin (HbO$_2$). En sammenligning af HbO$_2$'s ekstinktionskoefficienter, set i figur \ref{fig:coeff_vs_wavelength} med tabellen ovenover, fortæller en lignende historie.
+Under dataopsamling kan det antages, at forsøgspersonen havde normal perifer arteriel iltmætning, dvs.\ at det gennemstrømmende blod overvejende bestod af oxyhæmoglobin (HbO$_2$). En sammenligning af HbO$_2$'s ekstinktionskoefficienter, set i figur \ref{fig:coeff_vs_wavelength} med tabellen ovenover, fortæller en lignende historie.
 
 Spændet $(810 \pm 10)\,\mathrm{nm}$ har ekstinktionskoefficienter der er mindre end $(940 \pm 10)\,\mathrm{nm}$. Det vil sige lys ved $(810 \pm 10)\,\mathrm{nm}$ har bedre gennemtrængelighed i vævet end ved $(940 \pm 10)\,\mathrm{nm}$, denne konklusion bekræftes ud fra forsøgstabellen i tabel \ref{tab:hyperspectral_relative_transmission}, der ses større transmission ved $(810 \pm 10)\,\mathrm{nm}$ end ved $(940 \pm 10)\,\mathrm{nm}$.
 
@@ -136,7 +136,7 @@ Resultatet demonstrerer, at systemet kan registrere et PPG-signal i fingertransm
 
 
 \section{Opsummering af centrale fund}
-Samlet viste resultaterne, at de valgte LED'er opererede i de ønskede spektralområder, men med målbare forskelle mellem nominelle og faktiske peak-bølgelængder. Den største afvigelse blev observeret for den nominelle \SI{940}{nm}-LED, som blev målt til \SI{951.79}{nm}.
+Samlet viste resultaterne, at de valgte LED'er opererede i de ønskede spektralområder, men med målbare forskelle mellem databladets angivne og de målte peak-bølgelængder. Den største afvigelse blev observeret for \SI{940}{nm}-LED'en, som blev målt til \SI{951.79}{nm}.
 
 De hyperspektrale målinger viste, at den relative, spektralt korrigerede transmission afhænger af bølgelængde og ROI-valg, men at den overordnede tendens var robust på tværs af de anvendte ROI-statistikker. Målingerne understøtter dermed brugen af hyperspektral billeddannelse som et supplerende optisk valideringsværktøj for NIR-området.
 
