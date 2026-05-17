@@ -105,9 +105,9 @@ Under samling blev fingerhylsterets geometri justeret, da direkte kontakt mellem
 
 \subsection{LED-driver}
 
-LED-driverstadiet blev adskilt fra resten af signalkæden for at reducere kobling af switching-transienter ind i det følsomme analoge målekredsløb og for at levere tilstrækkelig strøm til LED'erne. AD3'ens bølgeformningsudgang kan levere op til \SI{40}{mA} før hardware-cutoff, se figur \ref{fig:ad3_datasheet} i appendiks, hvilket er utilstrækkeligt til f.eks. \SI{940}{nm}-LED'en, der kan drives med strømme op mod \SI{50}{mA}. Bølgeformningsudgangene blev derfor udelukkende anvendt som styresignaler, mens selve LED-strømmen blev leveret fra et separat \SI{9}{V}-batteri. For at definere MOSFET'ens gate-source-spænding blev AD3'ens GND og batteriets GND forbundet.
+LED-driverstadiet blev adskilt fra resten af signalkæden for at reducere kobling af switching-transienter ind i det følsomme analoge målekredsløb og for at levere LED-strømmen fra en separat forsyning. AD3'ens digitale udgange blev anvendt via pattern generatoren, så LED'erne kunne pulseres i en fast sekvens. De digitale udgange er beregnet til logiksignaler og har en begrænset udgangsstrøm, se figur \ref{fig:ad3_datasheet} i appendiks. De blev derfor kun anvendt som styresignaler til MOSFET-gatene, mens selve LED-strømmen blev leveret fra et separat \SI{9}{V}-batteri. For at definere MOSFET'ens gate-source-spænding blev AD3'ens GND og batteriets GND forbundet.
 
-Hver LED drives gennem en 2N7000 N-kanal MOSFET konfigureret som en low-side switch. Wavegen-signalet fra AD3'en, \SIrange{0}{3.3}{V}, styrer MOSFET'ens gate, mens drain er forbundet til LED-katoden via en udskiftelig  strømbegrænsende seriemodstand $R_{LED}$ og source til GND. LED-anoden tilsluttes den positive terminal på \SI{9}{V}-batteriet. LED-strømmen kan approksimeres som
+Hver LED drives gennem en 2N7000 N-kanal MOSFET konfigureret som en low-side switch. Det digitale styresignal fra AD3'en, \SIrange{0}{3.3}{V}, styrer MOSFET'ens gate, mens drain er forbundet til LED-katoden via en udskiftelig strømbegrænsende seriemodstand $R_{LED}$ og source til GND. LED-anoden tilsluttes den positive terminal på \SI{9}{V}-batteriet. LED-strømmen kan approksimeres som
 \begin{equation}
     I_{LED} = \frac{V_{CC} - V_f - V_{DS(\text{on})}}{R_{LED}},
     \label{eq:led_current}
@@ -129,19 +129,19 @@ OP27G er ikke en FET-input-opamp. Dermed følger designet ikke den typiske anbef
 
 I feedback-stien fra $V_{out}$ til operationsforstærkerens inverterende indgang $-in$ er der en modstand, betegnet med $R_f$, der sætter transimpedansen, dvs. omsætningen fra fotostrøm til udgangsspænding, og en kondensator parallelt forbundet med $R_f$, kaldet for $C_f$, som bidrager til signalstabilitet. 
 
-Den parallelkoblede feedbackkondensator $C_f$ anvendes til at forbedre stabiliteten i TIA'en, særligt i samspillet mellem fotodiodens kapacitans og operationsforstærkerens dynamik. En større feedbackkapacitans kan reducere gain-peaking, men sænker samtidig båndbredden \cite[s.~81--82]{Webster1997}. De valgte komponentværdier blev derfor bestemt ud fra litteratur og iterativt design \cite{analog_tia_stabilize}:
+Den parallelkoblede feedbackkondensator $C_f$ anvendes til at forbedre stabiliteten i TIA'en, særligt i samspillet mellem fotodiodens kapacitans og operationsforstærkerens dynamik. En større feedbackkapacitans kan dæmpe uønsket ringning og støjforstærkning, men sænker samtidig båndbredden \cite[s.~81--82]{Webster1997}. I pulsoximetri er dette et acceptabelt kompromis, så længe båndbredden stadig er høj nok til det pulsatile PPG-signal og til settling efter LED-skift. De valgte komponentværdier blev derfor bestemt ud fra litteratur og iterativt design \cite{analog_tia_stabilize}:
 
 \begin{itemize}
-    \item $R_f = \SI{2.2}{\mega\ohm}$
+    \item $R_f = \SI{2.21}{\mega\ohm}$, målt værdi
     \item $C_f = \SI{10}{\pico\farad}$
 \end{itemize}
 
-TIA'ens fundamentale formel for output spænding er derfor:
+Med fortegnskonventionen fra teoriafsnittet, hvor $I_{\mathrm{PD}}$ defineres positiv ind i summeknuden ved den inverterende indgang, er TIA-relationen:
 
 \begin{equation}
-    V_{out} = - I_{pd} R_f
+    V_{out} = -I_{\mathrm{PD}} R_f
 \end{equation}
-hvor minustegnet indikerer en inverterende konfiguration fra fotodiode til operationsforstærker.
+I den konkrete fotodiodeorientering bliver $I_{\mathrm{PD}}$ negativ ved belysning, hvilket giver positiv udgangsspænding. For strømberegninger i metodeafsnittet anvendes størrelsen af fotostrømmen, da den relevante størrelse er signalniveauet.
 
 \subsection{Fra perfboard til PCB}
 

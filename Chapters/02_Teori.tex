@@ -538,7 +538,7 @@ Et LED-datablad angiver typisk peak-bølgelængde, spektral bredde, fremadspænd
     \item Fremadspænding \\ \\
     Fremadspændingen $V_f$ er den spænding, der typisk falder over LED'en ved en given fremadstrøm. LED'en drives normalt med en ønsket strøm, mens den resulterende spænding over junctionen er $V_f$.
 
-    Fremadspændingen $V_f$ varierer mellem bølgelængder. En IR-LED kan eksempelvis have en fremadspænding omkring \SI{1.3}{V}, mens en blå LED kan ligge omkring \SI{3.3}{V}. Forskellen skyldes primært halvledermaterialets båndgab. Materiale og dotering bestemmer samtidig LED'ens centerbølgelængde og spektrale bredde \cite[slide~28]{Jakobsen2025LightSources}.
+    Fremadspændingen $V_f$ varierer mellem bølgelængder. En IR-LED kan eksempelvis have en fremadspænding omkring \SI{1.3}{V}, mens en blå LED kan ligge omkring \SI{3.3}{V}. Forskellen skyldes primært halvledermaterialets båndgab. Materiale og dotering bestemmer samtidig LED'ens peak-bølgelængde og spektrale bredde \cite[slide~28]{Jakobsen2025LightSources}.
 
     En LED drives typisk ved at tvinge en bestemt strøm gennem komponenten ved hjælp af en strømbegrænsning, f.eks. en seriemodstand.
 
@@ -609,15 +609,11 @@ Når lys rammer i eller nær depletion region i fotodioden, dannes elektron-hul 
 
 Operationsforstærkeren regulerer sin udgangsspænding således, at spændingsforskellen mellem de to indgange bliver approksimativt nul, dvs. $V_- \approx V_+$. Da den ikke-inverterende indgang er jordet, holdes den inverterende indgang derfor også tæt på \SI{0}{V} (virtuel jord). Når fotodioden trækker strøm ud af summeknuden, øger operationsforstærkeren $V_{out}$, så der sendes en tilsvarende kompenserende strøm gennem feedback-modstanden $R_f$ ind i summeknuden. Herved opretholdes $V_- \approx0$, samtidig med at fotostrømmen omsættes til en udgangsspænding. 
 
-Fotostrømmen betegnes her $I_{\mathrm{ph}}$ og defineres som konventionel strøm fra katode mod anode. I den anvendte orientering betyder det, at strøm trækkes ud af summeknuden ved op-ampens inverterende indgang. Hvis inputstrømmen til TIA'en defineres som positiv ind i summeknuden, fås derfor $I_{\mathrm{in}}=-I_{\mathrm{ph}}$. TIA'ens standardrelation er:
+Til TIA-ligningen defineres $I_{\mathrm{PD}}$ som den algebraiske fotodiodestrøm med positiv reference ind i summeknuden ved op-ampens inverterende indgang. I den viste fotodiodeorientering er den fysiske lysgenererede strømretning modsat denne reference, da strømmen løber fra summeknuden gennem fotodioden til GND. Ved belysning bliver $I_{\mathrm{PD}}$ derfor negativ. TIA'ens standardrelation er:
 \begin{equation}
-    V_{out}=-I_{\mathrm{in}}R_f
+    V_{out}=-I_{\mathrm{PD}}R_f
 \end{equation}
-og dermed bliver:
-\begin{equation}
-    V_{out}=I_{\mathrm{ph}}R_f .
-\end{equation}
- Denne proces er illustreret i figur \ref{fig:PD_ingen_bias_TIA}.
+For den viste orientering giver den negative $I_{\mathrm{PD}}$ derfor en positiv udgangsspænding ved stigende indfaldende lysintensitet. Pilene i figur \ref{fig:PD_ingen_bias_TIA} viser den fysiske strømvej fra op-ampens output gennem feedbackmodstanden, videre gennem fotodioden og til GND.
 
 Ved valg af fotodiode er særligt det aktive areal, responsiviteten, mørkestrømmen og terminalkapacitansen relevante parametre.
 
@@ -692,7 +688,7 @@ Hyperspektral billeddannelse registrerer en intensitet som funktion af to rumlig
     Princippet bag hyperspektral måling, bygger på at materialer har bølgelængdeafhængig absorption og spredning. Ved at måle $I(x,y,\lambda)$ kan man derfor undersøge, hvordan transmissionen varierer spektralt og rumligt.
 
     \subsection{Komponenter}
-    I dette projekt blev hyperspektral information opnået sekventielt. En bredbåndet Glo-bar belyste fingeren, hvorefter det transmitterede lys blev ført gennem et lineært variabelt filter. Ved at flytte filteret med en lineær stage blev forskellige smalle spektrale bånd udvalgt og registreret med kameraet.
+    I dette projekt blev hyperspektral information opnået ved at måle et spektralt bånd ad gangen. En bredbåndet Glo-bar belyste fingeren, hvorefter det transmitterede lys blev ført gennem et lineært variabelt filter. Ved at flytte filteret med en lineær stage blev forskellige smalle spektrale bånd udvalgt og registreret med kameraet.
     
     \subsection{Sammenhæng med pulsoximetri}
     I dette projekt anvendes den hyperspektrale opstilling ikke som et fuldt pulsoximeter, men som et optisk valideringsværktøj til at undersøge den relative transmission gennem fingeren ved udvalgte bølgelængder.
