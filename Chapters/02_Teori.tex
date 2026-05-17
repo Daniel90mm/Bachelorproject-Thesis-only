@@ -4,7 +4,7 @@
 \section{Pulsoximetri}
 Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder af lys, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, betegnes resultatet $\text{SpO}_2$, og repræsenterer ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt \cite{Webster1997,Nitzan2014}.
 
-Hæmoglobin er det iltbærende protein i de røde blodlegemer. Hvert hæmoglobinmolekyle indeholder fire hæmgrupper, som hver kan binde et iltmolekyle reversibelt. Når ilt er bundet, betegnes molekylet oxyhæmoglobin ($\text{HbO}_2$), mens hæmoglobin uden bundet ilt betegnes deoxyhæmoglobin eller uiltet hæmoglobin ($\text{Hb}$). Det er forskellen i disse to formers optiske absorption, der gør pulsoximetri mulig \cite{Webster1997,Nitzan2014}.
+Hæmoglobin er det iltbærende protein i de røde blodlegemer. Hvert hæmoglobinmolekyle indeholder fire hæmgrupper, som hver kan binde et iltmolekyle reversibelt. Når ilt er bundet, betegnes molekylet oxyhæmoglobin ($\text{HbO}_2$), mens hæmoglobin uden bundet ilt betegnes deoxyhæmoglobin eller uiltet hæmoglobin ($\text{Hb}$). Det er forskellen i disse to formers absorption af lys, der gør pulsoximetri mulig \cite{Webster1997,Nitzan2014}.
 
 \subsection{Kliniske ilt-parametre}
 Herunder er en oversigt over de vigtigste kliniske iltparametre \cite{Pltz1998,Nitzan2014,Webster1997,YossefHay2018}:
@@ -49,7 +49,7 @@ Herunder er en oversigt over de vigtigste kliniske iltparametre \cite{Pltz1998,N
 \end{description}
 
 Blandt disse parametre betragtes $\text{SaO}_2$ som guldstandarden, idet den bestemmes præcist via blodgasanalyse. Blodgasanalyser kræver imidlertid en arteriel blodprøve med en kanyle ind i en arterie og er derfor invasive. \\ 
-$\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader kontinuerlig måling og er tilgængeligt til en lav pris i flere forbruger- og kliniske produkter. Hos kritisk syge voksne patienter kan forskellen mellem $\text{SpO}_2$ og $\text{SaO}_2$ dog være flere procentpoint, hvilket understreger at pulsoximetri ikke er identisk med blodgasbestemt arteriel iltmætning \cite[s.~2]{YossefHay2018}. Den reducerede præcision opvejes af de praktiske fordele ved metoden, dog har begge produkter hver deres plads under udredning og overvågning af sundhed hos mennesker i hjem og hospital.
+$\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader kontinuerlig måling og er tilgængeligt til en lav pris i flere forbruger og kliniske produkter. Hos kritisk syge voksne patienter kan forskellen mellem $\text{SpO}_2$ og $\text{SaO}_2$ dog være flere procentpoint, hvilket understreger at pulsoximetri ikke er identisk med blodgasbestemt arteriel iltmætning \cite[s.~2]{YossefHay2018}. Den reducerede præcision opvejes af de praktiske fordele ved metoden, dog har begge produkter hver deres plads under udredning og overvågning af sundhed hos mennesker i hjem og hospital.
 
 \subsection{Det fotoplethysmografiske signal}
 
@@ -67,13 +67,8 @@ Som set i figur \ref{fig:ppg_signal} \cite{YossefHay2018}, kan PPG signalet opde
      \label{fig:ppg_signal}
 \end{figure}
 
-
-
-
-
-
 \section{Beer-Bouguer-Lamberts lov}
-Pulsoximetriske målinger bygger på Beer-Bouguer-Lamberts lov (herefter BBL), som beskriver attenuering af lys gennem et absorberende og homogent, ikke spredende, medium \cite{Tuchin2015,Pedrotti2017}. Loven kan formuleres på to ækvivalente måder.
+Pulsoximetriske målinger bygger på Beer-Bouguer-Lamberts lov (herefter BBL), som beskriver attenuering af lys gennem et absorberende og homogent, ikke spredende, medie \cite{Tuchin2015,Pedrotti2017}. Loven kan formuleres på to ækvivalente måder.
 
 \subsection{Intensitetsformulering}
 
@@ -130,7 +125,7 @@ I væv er denne antagelse ikke opfyldt, da spredning bidrager væsentligt til at
 \label{sec:optik_vaev}
 
 \subsection{Attenuation}
-Attenuation beskriver tabet af lysintensitet gennem et medium. Den kan forklares af to mekanismer: absorption, hvor fotoner destrueres ved energioverdragelse til molekyler, og spredning, hvor fotoner omdirigeres fra deres oprindelige udbredelsesretning. 
+Attenuation beskriver tabet af lysintensitet gennem et medie. Den kan forklares af to mekanismer: absorption, hvor fotoner destrueres ved energioverdragelse til molekyler, og spredning, hvor fotoner omdirigeres fra deres oprindelige udbredelsesretning. 
 
 Den totale attenuationskoefficient er:
 \begin{equation}
@@ -169,35 +164,35 @@ Ved overgangen mellem luft og væv opstår der desuden Fresnel-refleksion, fordi
     \label{fig:coeff_vs_wavelength}
 \end{figure}
 
-Ved et isosbestisk punkt (eksempelvis ca.\ \SI{800}{nm}) er absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ identiske: $\varepsilon_{\text{HbO}_2}(\SI{800}{nm}) = \varepsilon_{\text{Hb}}(\SI{800}{nm})$ \cite{Prahl1998}. En måling her er derfor uafhængig af iltmætningen i den simple Hb/HbO$_2$-model og kan i dette projekt betragtes som en mulig referencekanal, selvom den ikke kan bruges til at skelne mellem $\text{HbO}_2$ og $\text{Hb}$.
+Ved et isosbestisk punkt (eksempelvis ca.\ \SI{800}{nm}) er absorptionskoefficienterne for $\text{HbO}_2$ og $\text{Hb}$ identiske: $\varepsilon_{\text{HbO}_2}(\SI{800}{nm}) = \varepsilon_{\text{Hb}}(\SI{800}{nm})$ \cite{Prahl1998}. En måling her er derfor uafhængig af iltmætningen i den simple Hb/HbO$_2$-model og kan i dette projekt betragtes som en mulig reference, selvom den ikke kan bruges til at skelne mellem $\text{HbO}_2$ og $\text{Hb}$.
 
 \subsection{Spredning i væv}
 \label{subsec:spredning}
 Spredning i biologisk væv stammer fra strukturer over et bredt størrelsesinterval: fra molekylær skala op til celleorganeller, røde blodlegemer og kollagenfibre. Det afgørende parameter er forholdet mellem partikelstørrelse og bølgelængde.
 
-\paragraph{Rayleigh-spredning} dominerer når partiklerne er væsentligt mindre end bølgelængden. Hæmoglobinmolekylet har en diameter på ca.\ \SI{5}{nm} \cite{Erickson2009}, 100 til 150 gange mindre end de klassisk anvendte bølgelængder (\SI{660}{nm} og \SI{940}{nm}) \cite{Webster1997}, og kan derfor beskrives ved Rayleigh-tilnærmelsen. Spredningens intensitet er proportional med $\lambda^{-4}$ \cite{Pedrotti2017}:
+\paragraph{Rayleigh-spredning} dominerer når partiklerne er væsentligt mindre end bølgelængden. Hæmoglobinmolekylet har en diameter på ca.\ \SI{5}{nm} \cite{Erickson2009}, 100 til 200 gange mindre end de klassisk anvendte bølgelængder (\SI{660}{nm} og \SI{940}{nm}) \cite{Webster1997}, og kan derfor beskrives ved Rayleigh-tilnærmelsen. Spredningens intensitet er proportional med $\lambda^{-4}$ \cite{Pedrotti2017}:
 \begin{equation}
-    P_{\text{Rayleigh}} \propto \frac{1}{\lambda^4}
+    I_{\text{Rayleigh}} \propto \frac{1}{\lambda^4}
     \label{eq:rayleigh_prop}
 \end{equation}
 Forholdet mellem Rayleigh-spredning ved de to klassiske 
 bølgelængder bliver:
 \begin{equation}
     \frac{I_{660}}{I_{940}} = 
-    \left(\frac{940}{660}\right)^4 \approx 3.94
+    \left(\frac{940}{660}\right)^4 \approx 4.11
     \label{eq:rayleigh_ratio}
 \end{equation}
 Rødt lys ved \SI{660}{nm} spredes altså ca.\ fire gange mere 
-end NIR-lys ved \SI{940}{nm} fra rene Rayleigh-spredere. Dette forhold er et idealiseret eksempel og beskriver ikke den samlede vævsspredning, som i praksis domineres af større spredere.
+end NIR-lys ved \SI{940}{nm} fra rene Rayleigh-spredere. Dette forhold er et idealiseret eksempel og beskriver ikke den samlede vævsspredning, som i praksis domineres af større of forskellige spredere.
 
-\paragraph{Mie-spredning} dominerer når partikelstørrelsen er sammenlignelig med eller større end bølgelængden, dette er relevant for celleorganeller, røde blodlegemer ($\sim$\SI{7}{\micro\meter}) og kollagenfibre \cite{DiezSilva2010} \cite[s.~4-6]{Tuchin2015}. Mie-spredning har en svagere bølgelængdeafhængighed end Rayleigh og er desuden overvejende fremadrettet, i modsætning til den tilnærmelsesvist symmetriske Rayleigh-spredning \cite[s. 13]{Tuchin2015}.
+\paragraph{Mie-spredning} dominerer når partikelstørrelsen er sammenlignelig med eller større end bølgelængden, dette er relevant for celleorganeller, røde blodlegemer ($\sim$\SI{7}{\micro\meter}) og kollagenfibre \cite{DiezSilva2010} \cite[s.~4-6]{Tuchin2015}. Mie-spredning har en svagere bølgelængdeafhængighed end Rayleigh og er desuden overvejende fremadrettet, i modsætning til den tilnærmelsesvist isotropisk ($g=0$) Rayleigh-spredning \cite[s. 13]{Tuchin2015}.
 
 \paragraph{Anisotropi.} Da de dominerende spredere i biologisk væv (celleorganeller, røde blodlegemer og kollagenfibre) alle falder i Mie-regimet, er vævsspredning som helhed ikke isotrop. Anisotropien kvantificeres med faktoren \cite[s.~13]{Tuchin2015}:
 \begin{equation}
     g = \langle \cos \theta \rangle
     \label{eq:anisotropy}
 \end{equation}
-hvor $\langle \cdot \rangle$ betegner forventningsværdien over 
+hvor $\langle \cdot \rangle$ betegner gennemsnittet over 
 alle spredningshændelser, og $\theta$ er spredningsvinklen 
 i forhold til indfaldsretningen. Værdien $g = 0$ svarer til isotropisk spredning, $g = 1$ til fuld fremadspredning og $g = -1$ til fuld tilbagespredning \cite[s.~13]{Tuchin2015}. Dette kan visualiseres i figur \ref{fig:anisotropi}:
 
@@ -342,7 +337,7 @@ Hvis både \SI{940}{nm} og \SI{660}{nm} LED'erne var tændt på samme tid, ville
 
 Ud over LED-målingerne inkluderes en tredje måling, hvor begge LED'er er slukkede. Denne "mørkemåling" registrerer bidrag der altså ikke stammer fra de to LED'er som f.eks. fotodiodens mørkestrøm, DC offset, \SI{50}{Hz} støj og andre støjkilder. Ved at trække mørkemålingen fra de to LED-målinger isoleres den lysafhængige komponent fra hver bølgelængde.
 
-Skemaet af målinger vil derfor se sådan ud:
+Målingerne køres i cyklus i rækkefølgen: \SI{940}{nm}, \SI{660}{nm}, mørkemåling. Tabel \ref{tab:maalinger} viser en komplet målecyklus.
 
 \begin{table}[h]
 \centering
@@ -359,7 +354,6 @@ Måling 3 & Slukket & Slukket \\
 \end{tabular}
 \end{table}
 
-Målingerne køres i cyklus i rækkefølgen: \SI{940}{nm}, \SI{660}{nm}, mørkemåling. Tabel \ref{tab:maalinger} ovenover viser en komplet målecyklus.
 
 \section{Halvlederfysik}
 \label{sec:halvleder}
@@ -407,7 +401,7 @@ foton-energi og bølgelængde er:
 \label{eq:bølgelængde_energi}
     E = \frac{hc}{\lambda},
 \end{equation}
-hvor $h = \SI{6.626e-34}{J\cdot s}$ er Plancks konstant og $c$ er lysets hastighed. Med $E$ angivet i eV og $\lambda$ i nm approksimeres udtrykket bekvemt som:
+hvor $h = \SI{6.626e-34}{J\cdot s}$ er Plancks konstant og $c$ er lysets hastighed. Med $E$ angivet i eV og $\lambda$ i nm approksimeres udtrykket som:
 \begin{equation}
     E[\text{eV}] \approx \frac{1240}{\lambda [\text{nm}]}
 \end{equation}
@@ -429,7 +423,7 @@ svarende cirka til den røde LED anvendt i dette projekt. Tabel \ref{tab:faststo
 Materiale & {$E_g$ [eV]} & Type & Typisk anvendelse \\
 \midrule
 Germanium (Ge)  & 0.67 & Indirekte & NIR-fotodiode \\
-Silicium (Si)   & 1.12 & Indirekte & Fotodiode, elektronik \\
+Silicium (Si)   & 1.12 & Indirekte & Fotodiode, anden elektronik \\
 GaAs            & 1.42 & Direkte   & NIR LED, laser \\
 AlGaInP         & 1.9  & Direkte   & Rød LED (\SI{660}{nm}) \\
 GaN             & 3.4  & Direkte   & Blå/UV LED \\
@@ -476,11 +470,11 @@ Denne distinktion forklarer komponentvalget i pulsoximetri: LEDerne er fremstill
 
 De elektriske og optiske egenskaber af en halvleder kan ændres markant ved kontrolleret introduktion af urenheder, kaldet doteringsstoffer. Doping ændrer koncentrationen af ladningsbærere i materialet og er fundamentet for stort set alle halvlederkomponenter.
 
-Doteringsstoffer der bidrager med et overskud af valenselektroner kaldes \emph{donorer}. For silicium (gruppe 14) anvendes typisk donorer fra gruppe 15, f.eks. fosfor eller arsen, der har en ekstra valenselektron sammenlignet med silicium. Den resulterende halvleder kaldes en n-type halvleder og har et overskud af frie elektroner.
+Doteringsstoffer der bidrager med et overskud af valenselektroner kaldes donorer. For silicium (gruppe 14) anvendes typisk donorer fra gruppe 15, f.eks. fosfor eller arsen, der har en ekstra valenselektron sammenlignet med silicium. Den resulterende halvleder kaldes en n-type halvleder og har et overskud af frie elektroner.
 
 Doteringsstoffer der mangler en valenselektron kaldes acceptorer. Typiske acceptorer for silicium kommer fra gruppe 13, f.eks. bor eller gallium. Den resulterende halvleder kaldes en p-type halvleder og har et overskud af huller.
 
-Når en n-type og en p-type halvleder bringes i kontakt, dannes en \emph{pn-overgang}, som er den fundamentale byggesten i både LEDer og fotodioder. Ved kontaktfladen diffunderer elektroner fra n-siden til p-siden og rekombinerer med huller, og omvendt. 
+Når en n-type og en p-type halvleder bringes i kontakt, dannes en pn-overgang, som er den fundamentale byggesten i både LEDer og fotodioder. Ved kontaktfladen diffunderer elektroner fra n-siden til p-siden og rekombinerer med huller, og omvendt. 
 
 Resultatet er en zone uden frie ladningsbærere, kaldet depletionsregionen, hvor der opbygges et internt elektrisk felt der modvirker yderligere diffusion. I termisk ligevægt balancerer dette felt diffusionen, og der løber ingen netto-strøm gennem overgangen.
 
@@ -560,7 +554,7 @@ Ved at læse et datasheet for en LED, kan man få nyttig information som peak-b�
 Højere kvalitets LED'er har også et eller flere lag mellem n-type og p-type, kaldet for "quantum wells" eller "multiple quantum wells" (MQW), disse forbedrer effektiviteten af en LED, og tillader for højere strømstyrke end gængse LEDer.
 
 \section{Radiometri}
-Radiometri beskriver kvantificering af elektromagnetisk stråling i fysiske enheder. Centrale radiometriske størrelser omfatter radiant flux, irradiance, radiance og radiant exitance \cite[s.~423]{Pedrotti2017}. I dette projekt er særligt radiant flux, irradians og responsivitet relevante. Radiant flux $\Phi_e$ beskriver den samlede optiske effekt i watt. Irradians $E_e$ beskriver den optiske effekt per areal på en overflade:
+Radiometri beskriver kvantificering af elektromagnetisk stråling i fysiske enheder. Centrale radiometriske størrelser omfatter radiant flux, irradians, radians og radiant exitans \cite[s.~423]{Pedrotti2017}. I dette projekt er særligt radiant flux, irradians og responsivitet relevante. Radiant flux $\Phi_e$ beskriver den samlede optiske effekt i watt. Irradians $E_e$ beskriver den optiske effekt per areal på en overflade:
 \begin{equation}
     E_e=\frac{\Phi_e}{A}.
 \end{equation}
@@ -779,7 +773,7 @@ Bevægelse ændrer den optiske kobling mellem LED, finger og fotodiode. Det kan 
 
 Perfusionsindekset (PI) er forholdet mellem AC- og DC-komponenterne i PPG-signalet, og angives ofte i procent:
 \begin{equation}
-    PI = \frac{AC}{DC} \cdot 100\%
+    \text{PI} = \frac{AC}{DC} \cdot 100\%
     \label{eq:perfusion_index}
 \end{equation}
 Et lavt PI indebærer, at den pulsatile komponent er lille i forhold til den konstante absorption. Dette opstår ved perifær vasokonstriktion, f.eks. ved kulde, hypovolæmi, dvs. reduceret cirkulerende blodvolumen eller hypotension, hvor blodtilførslen til ekstremiteterne reduceres. Resultatet er et svagt og støjdomineret AC-signal, der giver et dårligt SNR og øger usikkerheden på den estimerede SpO$_2$ \cite{Webster1997,Ruberry2025}.
@@ -807,11 +801,8 @@ Disse fejlkilder kan ikke kvantificeres pålideligt med et klassisk to-bølgelæ
   
   \subsection{Temperaturafhængighed af LED og fotodiode}
 
-Temperaturen påvirker både lyskildens og detektorens egenskaber. For LED'er kan emissionsmaksimum forskydes mod længere bølgelængder med stigende junction-temperatur, i størrelsesordenen \SIrange{0.35}{0.6}{\nano\meter\per\celsius}. En større temperaturændring kan derfor ændre de effektive ekstinktionskoefficienter og introducere en systematisk fejl i $R$ \cite[s.~66]{Webster1997}.
+Temperaturen påvirker både lyskildens og detektorens egenskaber. For LED'er kan emissionsmaksimum forskydes mod længere bølgelængder med stigende junction-temperatur, i størrelsesordenen \SI{0.35}{nm} til {0.6}{nm} per celsius. En større temperaturændring kan derfor ændre de effektive ekstinktionskoefficienter og introducere en systematisk fejl i $R$ \cite[s.~66]{Webster1997}.
 
-Fotodiodens mørkestrøm fordobles approksimativt for hver \SI{10}{K} temperaturstigning. Ved stuetemperatur er bidraget typisk negligibelt sammenlignet med fotostrømmen, men ved lav belysning eller høj omgivelsestemperatur kan mørkestrømmen påvirke det målte DC-niveau.
-
-  
   \subsection{Komponenttolerancer}
 
 Passive komponenter som modstande og kondensatorer leveres med en specificeret tolerance, typisk $\pm$1\,\% til $\pm$10\,\% for standardkomponenter. 
