@@ -169,9 +169,9 @@ Magnituden ved en given frekvens kan beregnes som:
     \frac{1}{\sqrt{\left[1 - (2\pi f R C)^2\right]^2 + \left[2(2\pi f R C)\right]^2}}
 \end{equation}
 
-Ved \SI{50}{Hz} fås $|H(\SI{50}{Hz})| \approx 0.91$, dvs.\ en dæmpning på ca.\ \SI{0.8}{dB}. Lavpasfilteret undertrykker derfor kun \SI{50}{Hz}-støj marginalt. Den dominerende attenuering kommer fra software-midlingen over heltallige perioder af nettet, jf.\ ligning \ref{eq:midling_50Hz_integral} til \ref{eq:midling_50Hz_cos}.
+Ved \SI{50}{Hz} fås $|H(\SI{50}{Hz})| \approx 0.91$, dvs.\ en reducering til 91\% af den oprindelige amplitude. Lavpasfilteret undertrykker derfor kun \SI{50}{Hz}-støj marginalt. Den dominerende attenuering kommer fra software-midlingen over heltallige perioder af nettet, jf.\ ligning \ref{eq:midling_50Hz_integral} til \ref{eq:midling_50Hz_cos}.
 
-En lavere analog knækfrekvens ville desuden være upraktisk, da den ville kræve aflodning af de eksisterende \SI{1}{nF}-kondensatorer med tilhørende risiko for termisk skade på PCB'en. Resterende DC og langsom drift fra ambient-lys reduceres efterfølgende via mørkesubtraktion i software, som beskrevet i afsnit \ref{sec:signalbehandling}.
+En lavere analog knækfrekvens ville desuden være upraktisk, da den ville kræve aflodning af de eksisterende \SI{1}{nF}-kondensatorer med tilhørende risiko for termisk skade på PCB'en. Resterende DC og langsom drift fra baggrundsbelysning reduceres efterfølgende via mørkesubtraktion i software, som beskrevet i afsnit \ref{sec:signalbehandling}.
 
 Effekten af LPF-trinnet er illustreret i resultatafsnittet, figur \ref{fig:LPF_output}, hvor det glattere signal efter LPF sammenlignet med TIA-udgangen i figur \ref{fig:TIA_output} viser dæmpningen af bredspektret højfrekvent indhold.
 
@@ -212,12 +212,12 @@ I livevisningen blev pulsen estimeret med et glidende vindue på \SI{60}{s}. Da 
 
 \paragraph{SpO\textsubscript{2}-estimat.}
 I et \SI{30}{s}-vindue tages DC som signalets middelværdi, mens AC isoleres
-med et nulfase Butterworth-båndpas af anden orden i hjertebåndet \SIrange{0.5}{2}{Hz} (\SIrange{30}{120}{BPM}). AC-amplituden estimeres robust som forskellen mellem 95.- og 5.-percentilen, hvilket dæmper enkeltstående bevægelsesartefakter. Forholdet
+med et nulfase Butterworth-båndpas af anden orden i hjertebåndet \SIrange{0.5}{2}{Hz} (\SIrange{30}{120}{BPM}). AC-amplituden estimeres robust som forskellen mellem 95.- og 5.-percentilen, hvilket dæmper enkelte bevægelsesartefakter. Forholdet
 \begin{equation}
 \label{eq:ratio_of_ratios_signalbehandling}
   R = \frac{\frac{AC_{660}}{DC_{660}}}{\frac{AC_{940}}{DC_{940}}}
 \end{equation}
-omsættes til iltmætning via en lineær kalibrering $\mathrm{SpO_2} = a - bR$, hvor $a$ og $b$ bestemmes mod et kommercielt pulsoximeter anvendt som praktisk reference, kalibreringen beskrives i resultatafsnittet. Værdier med for lav DC, for lav AC-amplitude eller fysiologisk urealistisk SpO$_2$-estimat blev markeret som ugyldige.
+omsættes til iltmætning via en lineær kalibrering $\mathrm{SpO_2} = a - bR$, hvor $a$ og $b$ bestemmes mod et kommercielt pulsoximeter anvendt som praktisk reference. Værdier med for lav DC, for lav AC-amplitude eller fysiologisk urealistisk SpO$_2$-estimat blev markeret som ugyldige.
 
 \paragraph{Softwareimplementering og brug af LLM-værktøjer.}
 Python-koden til styring, visualisering og signalbehandling blev udviklet med støtte fra LLM-værktøjer. Koden blev efterfølgende tilpasset til den konkrete måleopstilling og anvendt til demultipleksering, mørkesubtraktion, pulsestimering og SpO$_2$-estimering. De anvendte signalbehandlingsprincipper er beskrevet i dette afsnit, og outputtet blev vurderet ud fra målte signaler fra den analoge kæde. Brugen af LLM-værktøjer betyder dog, at kompleks kode krævede ekstra manuel gennemgang og test for at sikre, at implementeringen svarede til den tilsigtede metode.
@@ -244,18 +244,16 @@ Da den målte intensitet afhænger af både vævstransmission, lyskildens spektr
 \subsection{Opstilling}
 Den hyperspektrale opstilling bestod af en bredbåndet Glo-bar som infrarød lyskilde, en fingerholder, et linsehus med tre akromatiske dubletter, et lineært variabelt filter (LVF), en lineær stage og et NIR-følsomt kamera. Kameraet var et UI-3240CP-NIR-GL, som har forhøjet følsomhed i det nær-infrarøde område sammenlignet med et almindeligt synligt kamera.
 
-Glo-baren blev anvendt som transmissionslyskilde. Fingeren blev placeret i strålegangen mellem lyskilden og det optiske detektionssystem. Det transmitterede lys fra fingeren blev opsamlet af linseopstillingen og sendt videre mod LVF'et og kameraet. LVF'et fungerede som et positionsafhængigt båndpasfilter, hvor den transmitterede centerbølgelængde afhænger af filterets position. Ved at flytte LVF'et med den lineære stage kunne forskellige smalle spektrale bånd selekteres sekventielt.
+Glo-baren blev anvendt som transmissionslyskilde. Fingeren blev placeret i strålegangen mellem lyskilden og det optiske detektionssystem. Det transmitterede lys fra fingeren blev opsamlet af linseopstillingen og sendt videre mod LVF'et og kameraet. LVF'et fungerede som et positionsafhængigt båndpasfilter, hvor den transmitterede peak-bølgelængde afhænger af filterets position. Ved at flytte LVF'et med den lineære stage kunne forskellige smalle spektrale bånd vælges.
 
 Mellem fingerpositionen og LVF'et var et linsehus monteret med tre akromatiske dubletter. Den første linse var en akromatisk dublet med fokallængde på \SI{30}{mm} og diameter på 1 inch, mens de to efterfølgende linser havde fokallængder på henholdsvis \SI{50}{mm} og \SI{25}{mm} og diameter på 1/2 inch. Alle linser havde antirefleksbelægning (ARC) specificeret til området \SIrange{400}{1100}{nm}.
 
-Linsernes funktion var at opsamle og forme det transmitterede lys fra fingeren, så en brugbar del af lyset kunne føres videre gennem LVF'et og registreres på kameraet. Den store linse nærmest fingeren opsamlede en større del af det transmitterede lysfelt, mens de efterfølgende linser indgik i den videre afbildning mod filter og kamera.
-
-Afstandene mellem de enkelte optiske komponenter blev justeret praktisk for at opnå et klart og reproducerbart billede på kameraet. Da opstillingen ikke var designet som et fuldt radiometrisk kalibreret billeddannende system, blev analysen baseret på relativ intensitet i en fast ROI og efterfølgende spektral korrektion.
+Linsernes funktion var at opsamle og forme det transmitterede lys fra fingeren, så en brugbar del af lyset kunne føres videre gennem LVF'et og registreres på kameraet. 
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{Pictures/Other/Hyperspektral_diagram.pdf}
-    \caption{Hyperspektral transmissionsopstilling. En Glo-bar anvendes som bredbåndet infrarød lyskilde, og det transmitterede lys gennem fingeren føres gennem linser, et lineært variabelt filter (LVF) og registreres af et NIR-følsomt kamera. Ved horisontal forskydning af LVF'et ændres det transmitterede spektrale bånd, således at forskellige bølgelængdeområder kan måles sekventielt.}
+    \caption{Hyperspektral transmissionsopstilling. En Glo-bar anvendes som bredbåndet infrarød lyskilde, og det transmitterede lys gennem fingeren føres gennem linser, et lineært variabelt filter (LVF) og registreres af et NIR-følsomt kamera. Ved horisontal forskydning af LVF'et ændres det transmitterede spektrale bånd, således at forskellige bølgelængdeområder kan måles individuelt.}
     \label{fig:hyperspekt_diagram}
 \end{figure}
 
@@ -275,7 +273,7 @@ For hver bølgelængde blev LVF'et flyttet til den tilsvarende position på den 
 
 Før måleserien blev der optaget mørkebilleder med samme kameraindstillinger som fingerbillederne. Under målingerne blev loftbelysning og andre direkte lyskilder i lokalet slukket eller vendt væk fra opstillingen for at reducere bidrag fra omgivelseslys. Fingeren blev så vidt muligt holdt i samme position for alle bølgelængder, så ændringer i målt intensitet primært skyldtes ændret bølgelængde og ikke ændret målegeometri.
 
-Referencebilleder uden finger blev ikke anvendt til direkte normalisering, da intensiteten uden finger var væsentligt højere end med finger og kunne give mætning ved samme integrationstid. I stedet blev fingerbillederne mørkekorrigeret og derefter korrigeret med kendte spektrale bidrag fra Glo-bar, linser, LVF og kamera.
+Referencebilleder uden finger blev ikke anvendt til direkte normalisering, da intensiteten uden finger var væsentligt højere end med finger og kunne give mætning ved samme integrationstid. I stedet blev fingerbillederne mørkekorrigeret og derefter korrigeret med kendte bølgelængde specifikke bidrag fra Glo-bar, linser, LVF og kamera.
 
 \subsection{Opløsning og valg af ROI}
 \label{resolution_ROI}
@@ -290,9 +288,9 @@ LVF'et har en endelig spektral båndbredde. Den iboende båndbredde for filteret
     \approx
     \SI{3.24}{nm}.
 \end{equation}
-Der kan desuden forekomme et mindre vinkelafhængigt bidrag, fordi LVF'ets transmissionsbånd afhænger af indfaldsvinklen. Dette bidrag afhænger af keglen af stråler ved filteret og blev derfor behandlet som en metodisk usikkerhed i størrelsesordenen af få nanometer.
+Der kan desuden forekomme et mindre vinkelafhængigt bidrag, fordi LVF'ets transmissionsbånd afhænger af indfaldsvinklen. Dette bidrag afhænger af keglen af stråler ved filteret og blev derfor behandlet som en usikkerhed i størrelsesordenen af få nanometer.
 
-Da LVF'et har en bølgelængdegradient, kan et bredt ROI dække flere peak-bølgelængder på en gang. ROI'et blev derfor valgt smalt i den retning, hvor bølgelængden varierer mest, og højt i den lodrette retning. Denne strategi reducerer udtværing af bølgelængder, samtidig med at et tilstrækkeligt antal pixels bevares til beregning af pixelintensitet.
+Da LVF'et har en bølgelængdegradient, kan et bredt ROI dække flere peak-bølgelængder på en gang. ROI'et blev derfor valgt smalt i den retning, hvor bølgelængden varierer mest, og højt i den lodrette retning. Derved reduceres sammenblanding af bølgelængder, samtidig med at et tilstrækkeligt antal pixels bevares til beregning af pixelintensitet.
 
 \subsection{Billedanalyse og spektral korrektion}
 Formålet med billedanalysen var at estimere fingerens relative, spektralt korrigerede transmission ved de udvalgte bølgelængder.
@@ -306,7 +304,7 @@ Formålet med billedanalysen var at estimere fingerens relative, spektralt korri
 
 For hver bølgelængde blev fingerbilledet og det tilhørende mørkebillede først læst ind. Mørkebillederne havde oprindeligt dimensionerne $1280 \times 1024$ pixels, mens fingerbillederne havde dimensionerne $1280 \times 690$ pixels. Mørkebillederne blev derfor beskåret centralt med 167 pixels fra top og bund, så mørke- og fingerbilleder fik samme dimensioner. Herefter kunne samme ROI-koordinater anvendes direkte i begge billeder.
 
-De analyserede billeder blev behandlet som 8-bit intensitetsbilleder, hvor hver pixelværdi ligger i intervallet 0--255. Intensitetsværdierne skal derfor forstås som kvantiserede kamera-counts og ikke som kontinuerte radiometriske målinger. Dette er især relevant ved lave signalniveauer, hvor et enkelt count kan udgøre en ikke-negligerbar relativ ændring.
+De analyserede billeder blev behandlet som 8-bit intensitetsbilleder, hvor hver pixelværdi ligger i intervallet 0--255. Intensitetsværdierne skal derfor forstås som kamera counts og ikke som rå intensiteter. Det er især relevant ved lave signalniveauer,  hvor et enkelt count kan udgøre en ikke betydelig ændring.
 
 Den mørkekorrigerede pixelintensitet blev beregnet som
 
@@ -318,9 +316,9 @@ Den mørkekorrigerede pixelintensitet blev beregnet som
     I_{\mathrm{mørke}}(x,y,\lambda)
 \end{equation}
 
-For hver bølgelængde blev der udvalgt en fast ROI centralt på fingeren. ROI'et blev placeret væk fra fingerens kanter, da randregionerne var præget af Fresnelrefleksioner. Disse randbidrag blev ikke betragtet som repræsentative for transmission gennem fingerens væv.
+For hver bølgelængde blev der udvalgt en fast ROI centralt på fingeren. ROI'et blev placeret væk fra fingerens kanter, da randregionerne var påvirket af Fresnelrefleksioner. 
 
-For hver bølgelængde blev der beregnet både median og gennemsnit af den mørkekorrigerede intensitet i ROI'et. Medianen blev anvendt som primær statistik, mens gennemsnittet blev anvendt som kontrol.
+For hver bølgelængde blev der beregnet både median og gennemsnit af den mørkekorrigerede intensitet i ROI'et. 
 
 \begin{equation}
     I_{\mathrm{median}}(\lambda)
@@ -381,7 +379,8 @@ Fingerens relative, spektralt korrigerede signal blev derfor estimeret som
     \lambda
     }
 \end{equation}
-Da den absolutte koblingseffektivitet og geometri ikke var kendt, blev signalet normaliseret til \SI{940}{nm}:
+
+Signalet normaliseret til \SI{940}{nm}:
 \begin{equation}
     T_{\mathrm{finger,rel}}(\lambda)
     =
@@ -392,9 +391,9 @@ Da den absolutte koblingseffektivitet og geometri ikke var kendt, blev signalet 
     F_{\mathrm{korr}}(940\,\mathrm{nm})
     }
 \end{equation}
-Denne størrelse beskriver den relative, spektralt korrigerede transmission gennem fingeren i den givne opstilling. Den skal derfor ikke fortolkes som en absolut vævstransmission, men som et sammenligningsmål mellem de undersøgte bølgelængdeområder.
+Denne størrelse beskriver den relative og korrigerede transmission gennem fingeren i den givne opstilling. Den skal derfor ikke fortolkes som en absolut vævstransmission, men som et sammenligningsmål mellem de undersøgte bølgelængdeområder.
 
-De spektrale korrektionsfaktorer for Glo-bar, linser, LVF og kameraets kvanteeffektivitet er samlet i tabel \ref{tab:hyperspectral_correction} i appendiks. Disse værdier blev anvendt til beregning af den relative, spektralt korrigerede fingertransmission.
+De spektrale korrektionsfaktorer for Glo-bar, linser, LVF og kameraets kvanteeffektivitet er samlet i tabel \ref{tab:hyperspectral_correction} i appendiks. Disse værdier blev anvendt til beregning af den relative, korrigerede fingertransmission.
 
 \subsection{Begrænsninger}
 Den hyperspektrale opstilling havde flere metodiske begrænsninger:

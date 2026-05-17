@@ -96,7 +96,7 @@ Komponenterne blev fastgjort mekanisk, så limen ikke lå i den optiske stråleg
 
 Der blev desuden indarbejdet en fingerformet rille i både top- og bundsektionen for at forbedre fingerens placering og reproducerbarheden af målegeometrien. Geometrien blev lavet ud fra en repræsentativ fingerstørrelse og er derfor ikke nødvendigvis optimal for alle brugere.
 
-Under samling blev fingerhylsterets geometri justeret, da direkte kontakt mellem fingerblommen og S1223-fotodioden gav et stort støjsignal ud af TIA'en. Ved at hæve hylstergeometrien lokalt og øge afstanden mellem fingerblomme og fotodiode forsvandt den observerede støj. Afstanden mellem væv og fotodiode blev derfor behandlet som et praktisk designhensyn, ikke kun som en geometrisk placering af de optiske komponenter.
+Under samling blev fingerhylsterets geometri justeret, da direkte kontakt mellem fingerblommen og S1223-fotodioden gav et stort støjsignal ud af TIA'en. Ved at hæve hylstergeometrien lokalt og øge afstanden mellem fingerblomme og fotodiode forsvandt den observerede støj.
 
 \paragraph{JST-forbindelser.} JST-XH-forbindelser blev anvendt for at gøre modulerne aftagelige og for at lette fejlfinding, ombygning og udskiftning af delkredsløb. Med JST-kabler kan man selv bestemme længden af kablerne. Forbindelserne sidder godt fast med en simpel låsemekanisme, og de er billige.
 
@@ -114,7 +114,7 @@ Hver LED drives gennem en 2N7000 N-kanal MOSFET konfigureret som en low-side swi
 \end{equation}
 hvor $V_f$ er LED'ens fremadspænding, og $V_{DS(\text{on})}$ er spændingsfaldet over MOSFET'en i ledende tilstand. Dette spændingsfald afhænger af gate-source-spændingen $V_{GS}$ og den valgte LED-strøm, og blev derfor behandlet som et praktisk tab.
 
-For at vurdere om 2N7000 var egnet som switch, blev datasheetets transfer characteristic og on-resistance-karakteristik anvendt, se figur \ref{fig:2N7000_transfer_karakteristik} og figur \ref{fig:2N7000_onresistance} i appendiks. Transfer-karakteristikken viser sammenhængen mellem gate-source-spænding $V_{GS}$ og drain-strøm $I_D$, mens on-resistance-karakteristikken viser MOSFET'ens modstand i ledende tilstand, $R_{DS(\text{on})}$. Graferne blev brugt som en praktisk kontrol af, at transistoren kunne lede strømme i den ønskede størrelsesorden ved et gate-signal på \SI{3.3}{V}.
+For at vurdere om 2N7000 var egnet som switch, blev datasheetets transfer-karakteristik og on-resistance-karakteristik anvendt, se figur \ref{fig:2N7000_transfer_karakteristik} og figur \ref{fig:2N7000_onresistance} i appendiks. Transfer-karakteristikken viser sammenhængen mellem gate-source-spænding $V_{GS}$ og drain-strøm $I_D$, mens on-resistance-karakteristikken viser MOSFET'ens modstand i ledende tilstand, $R_{DS(\text{on})}$. Graferne blev brugt som en praktisk kontrol af, at transistoren kunne lede strømme i den ønskede størrelsesorden ved et gate-signal på \SI{3.3}{V}.
 
 Gate-threshold-spændingen blev ikke brugt som eneste designkriterium, da den kun angiver hvornår transistoren begynder at lede, ikke hvornår den fungerer som en god switch. I stedet blev MOSFET'ens spændingsfald behandlet som et praktisk tab i LED-strømligningen, svarende til leddet $V_{DS(\text{on})}$ i ligning \ref{eq:led_current}. Da LED-strømmen samtidig begrænses af en seriemodstand, vil mindre variationer i MOSFET'ens on-resistance primært give en mindre ændring i den faktiske LED-strøm.
 
@@ -147,7 +147,7 @@ hvor minustegnet indikerer en inverterende konfiguration fra fotodiode til opera
 
 Overgangen fra perfboard til printet kredsløb blev motiveret af både sikkerheds- og robusthedshensyn. Under test af perfboard-prototypen opstod der en kortslutning mellem de to batteriforsyninger via det ledende optiske bord. Hændelsen beskadigede en operationsforstærker og batteritilslutninger, hvilket viste, at den manuelle prototypeløsning for den analoge signalkæde var sårbar over for fejl og blev derfor fravalgt i videre udvikling.
 
-Perfboard-løsningen gjorde det desuden tidskrævende at foretage ændringer, da aflodning og ombygning ofte var besværligt og kunne belaste komponenterne termisk. En dedikeret PCB-løsning gav derfor både en mere robust elektrisk opbygning, en mere reproducerbar geometri og en mere overskuelig platform for videre test og fejlfinding.
+Perfboard-løsningen gjorde det desuden tidskrævende at foretage ændringer, da aflodning og ombygning ofte var besværligt og kunne belaste komponenterne termisk. En dedikeret PCB-løsning gav derfor både en mere robust elektrisk opbygning, en mere reproducerbar opbygning og en mere overskuelig platform for videre test og fejlfinding.
 
 Figur \ref{fig:perf_vs_pcb} illustrerer forskellen mellem den tidlige perfboard-prototype og den senere PCB-baserede løsning.
 
