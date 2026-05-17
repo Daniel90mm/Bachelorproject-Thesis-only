@@ -418,12 +418,12 @@ Den hyperspektrale opstilling havde flere metodiske forbehold, som påvirker for
 \subsection{Formål}
 Formålet med den spektrometriske karakterisering var at verificere de faktiske spektrale egenskaber for de anvendte lyskilder. Spektrometeret, et QE65000 fra Ocean Optics, blev primært anvendt til at bestemme peak-bølgelængde og spektral bredde for LED-kandidaterne, til at sammenligne de indkøbte LED'er med et kommercielt pulsoximeter og til at karakterisere Glo-barens spektrale fordeling som input til den hyperspektrale korrektion.
 
-Der blev desuden udført en orienterende transmissionsmåling gennem pegefingeren med en bredbåndskilde. Denne måling blev ikke anvendt som kvantitativ vævstransmission, da der ikke blev optaget en tilsvarende reference uden finger under samme geometri og integrationstid. Målingen blev derfor kun brugt kvalitativt til at vurdere, om der var målbart lys efter passage gennem fingeren.
+Der blev desuden udført en transmissionsmåling gennem pegefingeren med en bredbåndskilde. Denne måling blev ikke anvendt som kvantitativ vævstransmission, da der ikke blev optaget en tilsvarende reference uden finger under samme geometri og integrationstid. Målingen blev derfor kun brugt kvalitativt til at vurdere, om der var målbart lys efter passage gennem fingeren.
 
 \subsection{Opstilling}
-Spektrometermålingerne blev udført med en fiberkoblet spektrometerprobe monteret i et stativ på det optiske bord. Proben blev holdt i en fast position under hver måleserie for at reducere variationer fra geometri og afstand. Ved måling af LED'er blev lyskilden placeret i en reproducerbar afstand fra proben, cirka \SI{10}{cm}, og orienteret mod probens optiske akse.
+Spektrometermålingerne blev udført med en fiberkoblet spektrometerprobe monteret i et stativ på det optiske bord. Proben blev holdt i en fast position under hver måleserie for at reducere variationer fra geometri og afstand.
 
-Ved måling af bredbåndskilder blev proben placeret, så spektrometeret opsamlede lyset fra kilden under en fast geometri. Ved den orienterende fingertransmissionsmåling blev pegefingeren placeret mellem bredbåndskilden og proben, så spektrometeret registrerede det lys, der passerede gennem fingeren.
+Ved måling af bredbåndskilder blev proben placeret, så spektrometeret opsamlede lyset fra kilden under en fast geometri. Ved fingertransmissionsmålingen blev pegefingeren placeret mellem bredbåndskilden og proben, så spektrometeret registrerede det lys, der passerede gennem fingeren.
 
 For hver måleserie blev der optaget et mørkespektrum med samme integrationstid som de tilhørende målinger. Mørkespektret blev trukket fra i den efterfølgende analyse.
 
@@ -445,33 +445,7 @@ Følgende lyskilder og målesituationer blev karakteriseret:
     \item \SI{970}{nm} SMD-LED
     \item kommercielt Braun-pulsoximeter
     \item Glo-bar
-    \item orienterende transmissionsmåling gennem pegefinger med bredbåndskilde
+    \item transmissionsmåling gennem pegefinger med halogenpære
 \end{itemize}
 
-For hver måling blev integrationstiden valgt, så spektret ikke var mættet. Da forskellige lyskilder havde forskellig intensitet, blev integrationstiden ikke nødvendigvis holdt ens på tværs af alle målinger. Spektrene blev derfor ikke brugt til direkte sammenligning af absolut intensitet, medmindre integrationstid og målegeometri var ens. Når spektrenes form skulle sammenlignes, blev de mørkekorrigerede spektre normaliseret til deres egen maksimale intensitet.
-
-Ved måling af det kommercielle pulsoximeter blev spektrometeret anvendt til at identificere de spektrale områder, som instrumentet udsendte lys i. Da pulsoximeteret tidsmultiplekser sine LED'er, blev målingen fortolket som en spektral karakterisering af de udsendte lyskilder og ikke som en tidsopløst måling.
-
-Glo-barens spektrum blev anvendt som en del af den spektrale korrektion i den hyperspektrale analyse. Da den målte Glo-bar-intensitet afhænger af både lyskildens spektrum, spektrometerets respons og målegeometrien, blev værdierne anvendt som en relativ spektral korrektion for den konkrete opstilling.
-
-\subsection{Dataanalyse}
-
-For hver LED blev peak-bølgelængden bestemt som den bølgelængde, hvor det mørkekorrigerede spektrum havde maksimal intensitet. Spektralbredden blev bestemt ved full width at half maximum (FWHM), dvs. bredden af spektret ved halvdelen af maksimal intensitet.
-
-For at sammenligne LED-kandidaternes spektrale form blev hvert LED-spektrum normaliseret til sit maksimum:
-
-\begin{equation}
-    I_{\mathrm{norm}}(\lambda)=
-    \frac{
-    I(\lambda)-I_{\mathrm{dark}}(\lambda)
-    }
-    {
-    \max\left(I(\lambda)-I_{\mathrm{dark}}(\lambda)\right)
-    }
-\end{equation}
-
-Denne normalisering fjerner forskelle i absolut intensitet forårsaget af afstand, vinkel, LED-effekt og integrationstid, men bevarer information om peak-bølgelængde og spektral bredde. De normaliserede spektre blev derfor anvendt til at verificere, om LED'erne lå tæt på de ønskede bølgelængder.
-
-For Glo-bar-målingen blev det mørkekorrigerede spektrum anvendt til at beskrive den relative spektrale fordeling af den bredbåndede lyskilde i det relevante bølgelængdeområde. Dette spektrum blev senere anvendt som et korrektionsled i den hyperspektrale analyse.
-
-Den orienterende fingertransmissionsmåling blev ikke anvendt til beregning af kvantitativ transmission. Uden en reference uden finger under samme geometri kan det målte spektrum ikke isolere fingerens transmission fra bredbåndskildens spektrum og spektrometerets spektrale respons. Målingen blev derfor kun brugt kvalitativt som en indikation af, at der kunne registreres lys efter passage gennem fingeren.
+For hver måling blev integrationstiden valgt, så spektret ikke var mættet. Da forskellige lyskilder havde forskellig intensitet, blev integrationstiden ikke nødvendigvis holdt ens på tværs af alle målinger. Når spektrenes form skulle sammenlignes, blev de mørkekorrigerede spektre normaliseret til deres egen maksimale intensitet. En sammenligningsfigur kan ses i figur \ref{fig:Karakteriserede_leder}
