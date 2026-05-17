@@ -757,11 +757,6 @@ genererer termisk støj med en spektral støjspænding:
 \end{equation}
 hvor $k_B$ er Boltzmanns konstant og $T$ er temperaturen i kelvin. En høj $R_f$ giver stort gain men øger også den termiske støj.
 
-%\paragraph{%$1/f$-støj.} Operationsforstærkere og halvlederen i fotodioden udviser støj med en spektral tæthed der stiger ved lave frekvenser. For OP27G er $1/f$-knækfrekvensen lav (ca. \SI{2.7}{Hz}), og bidraget er derved minimalt i PPG-frekvensbåndet.
-
-%\paragraph{Omgivelseslys og 50 Hz-støj.} Elektrisk belysning moduleret ved \SI{50}{Hz} (og harmoniske) udgør en ekstern støjkilde, der kan koble ind i signalkæden. Tidsmultipleksing med subtraktion af mørkemåling undertrykker dette bidrag effektivt, da mørkemålingen registrerer omgivelseslys og mørkestrøm og trækkes fra LED-målingerne.
-
-
 \section{Fejlkilder}
 \label{sec:fejlkilder}
 
@@ -805,7 +800,7 @@ Disse fejlkilder kan ikke kvantificeres pålideligt med et klassisk to-bølgelæ
   
   \subsection{Temperaturafhængighed af LED og fotodiode}
 
-Temperaturen påvirker både lyskildens og detektorens egenskaber. For LED'er kan emissionsmaksimum forskydes mod længere bølgelængder med stigende junction-temperatur, i størrelsesordenen \SI{0.35}{nm} til {0.6}{nm} per celsius. En større temperaturændring kan derfor ændre de effektive ekstinktionskoefficienter og introducere en systematisk fejl i $R$ \cite[s.~66]{Webster1997}.
+Temperaturen påvirker både lyskildens og detektorens egenskaber. For LED'er kan emissionsmaksimum forskydes mod længere bølgelængder med stigende junction-temperatur, i størrelsesordenen \SI{0.35}{nm} til \SI{0.6}{nm} per celsius. En større temperaturændring kan derfor ændre de effektive ekstinktionskoefficienter og introducere en systematisk fejl i $R$ \cite[s.~66]{Webster1997}.
 
   \subsection{Komponenttolerancer}
 

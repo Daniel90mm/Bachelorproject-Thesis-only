@@ -83,7 +83,7 @@ Hvis $T = \frac{N}{\SI{50}{Hz}}$, hvor $N$ er et positivt heltal svarende til et
 Dermed bliver de to cosinusled identiske, og middelværdien bliver nul uanset amplitude og fase.
 
 \subsection{Elektrisk karakterisering}
-I dette delafsnit vises blandt andet plots med pulsoximeteret drevet ved \SI{7.41}{Hz}.
+I dette delafsnit vises blandt andet plots med pulsoximeteret kørt med en effektiv målefrekvens på \SI{7.41}{Hz}.
 
 \paragraph{LED-driverkredsløb.}
 LED-driverboardet blev designet med nedenstående komponenter:
@@ -211,8 +211,8 @@ Den målte sekvens blev opdelt efter de tre faser beskrevet i måleprotokollen. 
 Pulsen blev estimeret over et \SI{60}{s}-vindue. Før detektion blev langsom baseline-drift fjernet, så pulsudsvingene stod tydeligere frem. Derefter blev lokale toppe og dale i PPG-signalet fundet, og tidsafstanden mellem efterfølgende pulsslag blev brugt til at beregne pulsen. Hvis de fundne slag gav et ustabilt estimat eller lå uden for det forventede interval \SIrange{40}{140}{BPM}, blev estimatet markeret som ugyldigt.
 
 \paragraph{SpO\textsubscript{2}-estimat.}
-I et \SI{30}{s}-vindue tages DC som signalets middelværdi, mens AC isoleres
-med et nulfase Butterworth-båndpas af anden orden i hjertebåndet \SIrange{0.5}{2}{Hz} (\SIrange{30}{120}{BPM}). AC-amplituden estimeres robust som forskellen mellem 95.- og 5.-percentilen, hvilket dæmper enkelte bevægelsesartefakter. Forholdet
+I et \SI{60}{s}-vindue tages DC som signalets middelværdi, mens AC isoleres
+med et nulfase Butterworth-båndpas af anden orden i hjertebåndet \SIrange{0.67}{2}{Hz} (\SIrange{40}{120}{BPM}). AC-amplituden estimeres robust som forskellen mellem 95.- og 5.-percentilen, hvilket dæmper enkelte bevægelsesartefakter. Forholdet
 \begin{equation}
 \label{eq:ratio_of_ratios_signalbehandling}
   R = \frac{\frac{AC_{660}}{DC_{660}}}{\frac{AC_{940}}{DC_{940}}}
