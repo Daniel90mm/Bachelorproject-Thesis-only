@@ -154,7 +154,7 @@ Med en knækfrekvens omkring \SI{100}{Hz} og en hældning på \SI{-40}{dB/dekade
     \item Dæmpning af bredspektret højfrekvent støj. Elektromagnetisk støj fra omkringliggende udstyr (skærme, strømforsyninger, switching-elektronik) kan koble ind på JST-XH-kablingen og fotodiodens ledninger. Disse bidrag dæmpes effektivt af filteret.
 \end{enumerate}
 
-Den efterfølgende midling af samples inden for hver \SI{40}{ms}-LED-fase reducerer bidrag fra periodisk netstøj, fordi målevinduet dækker to hele perioder af en \SI{50}{Hz}-komponent. Dermed bliver middelværdien af en ideel sinusformet \SI{50}{Hz}-forstyrrelse nul uafhængigt af fase, som vist i ligning \ref{eq:midling_50Hz_integral} til \ref{eq:midling_50Hz_cos}. Midlingen forklarer derfor, hvorfor der ikke blev tilføjet et separat analogt \SI{50}{Hz}-filter i signalkæden.
+Den efterfølgende midling af samples inden for hver \SI{40}{ms}-LED-fase er den samme middelværdidannelse, som ligger til grund for frekvensvalget i måleprotokollen.
 
 Filteret er et andenordens Sallen-Key lavpasfilter i unity-gain-konfiguration ($K=1$) med $R_1=R_2=R$ og $C_1=C_2=C$. For denne konfiguration bliver kvalitetsfaktoren $Q = 1/(3-K) = 0.5$ \parencite{Karki2002}. Filteret er dermed overdæmpet i forhold til en Butterworth-respons ($Q = 1/\sqrt{2} \approx 0.707$), hvilket giver et blødere knæk. Når knækfrekvensen defineres som \SI{-3}{dB}-punktet, fås:
 \begin{equation}
@@ -205,7 +205,7 @@ Den ikke-inverterende forstærkning fungerede som det sidste stadie inden dataop
 Signalbehandlingen havde tre formål: demultipleksering af LED-målingerne, estimering af puls og beregning af $\frac{AC}{DC}$-forhold til SpO$_2$-estimat.
 
 \paragraph{Tidsdemultipleksering.}
-Hver cyklus blev opdelt i tre faser: \SI{660}{nm}-LED tændt, \SI{940}{nm}-LED tændt og begge LED'er slukket. Hver fase bestod af \SI{5}{ms} settling efterfulgt af et \SI{40}{ms}-målevindue. Settlingperioden blev kasseret i analysen, mens prøverne i målevinduet blev midlet til en værdi for den pågældende fase. En komplet cyklus tog derfor \SI{135}{ms}, svarende til en effektiv målefrekvens på \SI{7.41}{Hz}.
+Den målte sekvens blev opdelt efter de tre faser beskrevet i måleprotokollen. Settlingperioden blev kasseret i analysen, mens prøverne i hvert målevindue blev midlet til en værdi for den pågældende fase.
 
 \paragraph{Pulsestimat.}
 Pulsen blev estimeret over et \SI{60}{s}-vindue. Før detektion blev langsom baseline-drift fjernet, så pulsudsvingene stod tydeligere frem. Derefter blev lokale toppe og dale i PPG-signalet fundet, og tidsafstanden mellem efterfølgende pulsslag blev brugt til at beregne pulsen. Hvis de fundne slag gav et ustabilt estimat eller lå uden for det forventede interval \SIrange{40}{140}{BPM}, blev estimatet markeret som ugyldigt.
