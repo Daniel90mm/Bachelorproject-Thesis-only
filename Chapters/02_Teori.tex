@@ -178,7 +178,7 @@ Spredning i biologisk væv stammer fra strukturer over et bredt størrelsesinter
 Forholdet mellem Rayleigh-spredning ved de to klassiske 
 bølgelængder bliver:
 \begin{equation}
-    \frac{I_{660}}{I_{940}} = 
+    \frac{I_{\text{Rayleigh}}(660\,\mathrm{nm})}{I_{\text{Rayleigh}}(940\,\mathrm{nm})} = 
     \left(\frac{940}{660}\right)^4 \approx 4.11
     \label{eq:rayleigh_ratio}
 \end{equation}
@@ -241,10 +241,10 @@ eller ækvivalent:
 \end{equation}
 Hvor: \\ 
 $l$ er den effektive optiske vejlængde\\ 
-$G$ er et dimensionsløst led, der samler bidrag fra spredning og målegeometri\\
+$G$ er et dimensionsløst, ikke-absorberende tabsled, der samler bidrag fra spredning, optisk kobling og målegeometri\\
 $\varepsilon C l$ er bidraget fra absorption.
 
-Ved transmissionsmåling kan $G$ fortolkes som et samlet tabsled forbundet med fotoner, der som følge af spredning og geometri ikke når detektoren. $G$ er et geometrisk tab der afhænger af spredningsgeometrien og måleopsætningen, og er ikke en simpel funktion af anisotropifaktoren $g$ alene.
+Ved transmissionsmåling kan $G$ fortolkes som den del af attenuationen, der skyldes fotoner, som ikke registreres af detektoren selvom de ikke nødvendigvis er absorberet af hæmoglobin. Det kan eksempelvis skyldes at fotoner spredes ud af detektorens optiske accept, tab i den mekaniske geometri eller ændret kobling mellem LED, finger og fotodiode. $G$ afhænger derfor af hele måleopsætningen og er ikke en simpel funktion af anisotropifaktoren $g$ alene.
 
 Da fotoner spredes undervejs, er den effektive optiske vejlængde $l$ længere end den geometriske afstand $d$. Forholdet beskrives af den differentielle vejlængdefaktor (DPF):
 \begin{equation}
@@ -290,7 +290,7 @@ Ved refleksionsmåling placeres lyskilde og detektor på samme side, og detektor
 \label{sec:pulseox_princip}
 
 \subsection{Reduktion af ukendte parametre}
-Ved at betragte forholdet mellem intensiteterne ved systole og diastole kan afhængigheden af flere ukendte parametre reduceres. Intensiteterne udtrykkes via ligning \ref{eq:mbbl} \cite[s.126--129]{Webster1997}. Her anvendes $\varepsilon = \varepsilon(\lambda, S)$ som defineret i ligning \ref{eq:epsilon_mix}. $S$ antages konstant mellem systole og diastole, det er blodvolumen, ikke iltmætningen, der varierer med pulsen:
+Ved at betragte forholdet mellem intensiteterne ved systole og diastole kan afhængigheden af flere ukendte parametre reduceres. Intensiteterne udtrykkes via ligning \ref{eq:mbbl} \cite[s.126--129]{Webster1997}. Her anvendes $\varepsilon = \varepsilon(\lambda, S)$ som defineret i ligning \ref{eq:epsilon_mix}. Over en enkelt pulsperiode antages $S$ konstant mellem systole og diastole, da det er blodvolumen og ikke iltmætningen, der giver den pulsatile variation i PPG-signalet. Fysiologiske ændringer i iltmætning kan naturligvis forekomme over længere tid, men de optræder ikke som en instantan funktion af selve pulsslaget og kan desuden observeres forsinket i perifere målinger \cite[s.~7]{YossefHay2018}:
 \begin{equation}
     I_D = I_0 e^{-G_D - \varepsilon C_D l_D}
     \label{eq:i_diastole}
@@ -343,13 +343,13 @@ Målingerne køres i cyklus i rækkefølgen: \SI{940}{nm}, \SI{660}{nm}, mørkem
 \centering
 \caption{Oversigt over en komplet målecyklus}
 \label{tab:maalinger}
-\begin{tabular}{lll}
+\begin{tabular}{lccc}
 \toprule
-Måling & 940 nm LED& 660 nm LED\\
+Måling & 940 nm LED & 660 nm LED & Mørkemåling\\
 \midrule
-Måling 1 & Tændt & Slukket \\
-Måling 2 & Slukket & Tændt \\
-Måling 3 & Slukket & Slukket \\
+Måling 1 & Tændt & Slukket & Nej \\
+Måling 2 & Slukket & Tændt & Nej \\
+Måling 3 & Slukket & Slukket & Ja \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -410,22 +410,27 @@ Som eksempel: AlGaInP er en kvaternær halvleder med båndgabsenergi $E_g \appro
 \begin{equation}
     \lambda = \frac{1240}{1.9} \approx 652.6\ \text{nm},
 \end{equation}
-svarende cirka til den røde LED anvendt i dette projekt. Tabel \ref{tab:faststoffer} viser båndgab og typiske anvendelser for relevante materialer.
+svarende cirka til den røde LED anvendt i dette projekt. For MQW-baserede LED'er er den relevante overgangsenergi bestemt af både materialesammensætning og kvantebrøndstruktur, og kan derfor ikke altid angives som en simpel bulk-materialekonstant. Den anvendte \SI{940}{nm} GaAlAs MQW-LED svarer dog til en effektiv fotonenergi på
+\begin{equation}
+    E_{940} \approx \frac{1240}{940} \approx \SI{1.32}{eV}.
+\end{equation}
+Tabel \ref{tab:faststoffer} viser båndgab og typiske anvendelser for relevante materialer.
 
 \begin{table}[h]
 \centering
 \caption{Båndgabsenergier for udvalgte halvledermaterialer ved 
-\SI{300}{K}, samt deres typiske anvendelse. Værdier fra 
-\cite[Tabel~16.3-1]{Saleh2007}.}
+\SI{300}{K}, samt typiske anvendelser. Materialeværdierne er fra 
+\cite[Tabel~16.3-1]{Saleh2007}. For \SI{940}{nm} GaAlAs MQW-LED'en angives den effektive fotonenergi beregnet fra emissionsbølgelængden.}
 \label{tab:faststoffer}
 \begin{tabular}{@{}lSll@{}}
 \toprule
-Materiale & {$E_g$ [eV]} & Type & Typisk anvendelse \\
+Materiale & {$E$ [eV]} & Type & Typisk anvendelse \\
 \midrule
 Germanium (Ge)  & 0.67 & Indirekte & NIR-fotodiode \\
 Silicium (Si)   & 1.12 & Indirekte & Fotodiode, anden elektronik \\
 GaAs            & 1.42 & Direkte   & NIR LED, laser \\
 AlGaInP         & 1.9  & Direkte   & Rød LED (\SI{660}{nm}) \\
+GaAlAs MQW      & 1.32 & Direkte   & IR LED (\SI{940}{nm}) \\
 GaN             & 3.4  & Direkte   & Blå/UV LED \\
 \bottomrule
 \end{tabular}
@@ -462,7 +467,7 @@ Denne distinktion forklarer komponentvalget i pulsoximetri: LEDerne er fremstill
          \label{fig:indirekte_bandgap}
      \end{subfigure}
      \caption{$E$-$k$-diagrammer for henholdsvis et materiale med 
-     direkte (a) og indirekte (b) båndgab.}
+     direkte (a) og indirekte (b) båndgab. Figuren er justeret efter undervisningsmateriale \cite[slide~28]{Jakobsen2025LightSources}.}
      \label{fig:direct_indirect_bandgap}
 \end{figure}
 
@@ -526,32 +531,29 @@ Når pn-overgangen er i termisk ligevægt, balancerer det indbyggede elektriske 
     \label{fig:PN_junction_forward_bias}
 \end{figure}
 
-Ved at læse et datasheet for en LED, kan man få nyttig information som peak-bølgelængde, spektral bredde, fremadspænding, radiant flux, rise time og fall time og en række andre parametre der relaterer sig til støjniveau, præcision og optiske parametre. Der gennemgås de vigtigeste parametre relevant til dette projekt:
+Et LED-datablad angiver typisk peak-bølgelængde, spektral bredde, fremadspænding, optisk udstråling, stige- og faldtid samt flere elektriske og optiske grænseværdier. De radiometriske størrelser behandles samlet i næste afsnit, mens de vigtigste elektriske databladspunkter for dette projekt opsummeres her:
 
 
 \begin{itemize}
     \item Fremadspænding \\ \\
-    Fremadspændingen $V_f$ er den spænding, der typisk falder over LED'en ved en given forward current. LED'en drives normalt med en ønsket forward current, mens den resulterende spænding over junctionen er $V_f$.
+    Fremadspændingen $V_f$ er den spænding, der typisk falder over LED'en ved en given fremadstrøm. LED'en drives normalt med en ønsket strøm, mens den resulterende spænding over junctionen er $V_f$.
 
-    Fremadspændingen $V_f$ varierer mellem bølgelængder, og fremadspændingen er vidt forskellig om man vil drive en IR-LED som har en fremadspænding på $\approx$ \SI{1.3}{V}, mens at en blå LED kan have en fremadspænding på $\approx$ \SI{3.3}{V}. Forskelle i fremadspænding skyldes primært halvledermaterialets båndgab og dermed det valgte materiale. Hvor forskellige halvledere skal dopes til at få de elektriske egenskaber, som giver den bølgelængde der udsendes.
+    Fremadspændingen $V_f$ varierer mellem bølgelængder. En IR-LED kan eksempelvis have en fremadspænding omkring \SI{1.3}{V}, mens en blå LED kan ligge omkring \SI{3.3}{V}. Forskellen skyldes primært halvledermaterialets båndgab. Materiale og dotering bestemmer samtidig LED'ens centerbølgelængde og spektrale bredde \cite[slide~28]{Jakobsen2025LightSources}.
 
     En LED drives typisk ved at tvinge en bestemt strøm gennem komponenten ved hjælp af en strømbegrænsning, f.eks. en seriemodstand.
 
-    \item Radiant intensitet \\ \\
-    Radiant intensity angiver den udsendte optiske effekt per rumvinkel i en given retning og er derfor relevant, når man vil estimere, hvor meget lys der når en detektor placeret i en bestemt geometri. Denne parameter vises på grafer og som en del af de nøgletal i næsten ethvert datasheet for LEDer.
+    \item Rise- og falltime \\
 
-    \item Rise time / Fall time \\
-
-    En LED er opbygget af to modsat dopede halvledere (n-type og p-type), hvor der omkring pn-overgangen dannes en zone uden frie ladningsbærere, kaldet "depletion layer" eller "depletion region". Denne zone adskiller ladninger på hver side af overgangen og motiverer overvejelsen for at en LED fungerer, approksimativt, som en kondensator. Dette udgår direkte fra datasheetet for LED'er, her står det ofte som "junction capacitance", denne junction, er pn-junction eller depletion regionen, denne værdi er ofte i ~10-100 pF skalaen.
+    En LED er opbygget af to modsat dopede halvledere, n-type og p-type, hvor der omkring pn-overgangen dannes et depletionsområde uden frie ladningsbærere. Området adskiller ladninger på hver side af overgangen, og LED'en kan derfor i praksis have en junction-kapacitans. Denne kapacitans angives ofte i databladet og ligger typisk i størrelsesordenen \SIrange{10}{100}{pF}.
     
-    Ergo, ved at overveje kondensatorens egenskab om opladning og afladning af dens plader, kan man drage en parallel til LED'en, og da denne egenskab er fysisk umulig at være øjeblikkelig, er det også umuligt for en LED at tænde og slukke øjeblikkeligt. Dette udtrykkes i et datasheet som "Rise-" og "Fall time". Egenskaben er oftest symmetrisk, så:
+    Kapacitansen betyder, at LED'en ikke kan tænde og slukke øjeblikkeligt, da ladning skal flyttes ind og ud af junctionen. Dette angives typisk i databladet som rise- og falltime. De to tider er ofte af samme størrelsesorden:
     $$
-    \text{Rise time} \approx \text{Fall time}    
+    t_{\mathrm{rise}} \approx t_{\mathrm{fall}}
     $$
     Typiske databladsværdier for LED-skiftetider ligger på en tidsskala, der er væsentligt kortere end de målevinduer, der anvendes i dette projekt. Skiftetiden bidrager derfor til en øvre grænse for, hvor hurtigt man kan multiplekse sine signaler, men er sandsynligvis ikke den begrænsende faktor i denne opstilling.
 \end{itemize}
 
-Højere kvalitets LED'er har også et eller flere lag mellem n-type og p-type, kaldet for "quantum wells" eller "multiple quantum wells" (MQW), disse forbedrer effektiviteten af en LED, og tillader for højere strømstyrke end gængse LEDer.
+Mere avancerede LED'er kan desuden have et eller flere kvantebrøndslag mellem n-type og p-type, kaldet quantum wells eller multiple quantum wells (MQW). Disse strukturer kan forbedre den interne effektivitet og gøre det muligt at opnå højere optisk output ved en given strøm.
 
 \section{Radiometri}
 Radiometri beskriver kvantificering af elektromagnetisk stråling i fysiske enheder. Centrale radiometriske størrelser omfatter radiant flux, irradians, radians og radiant exitans \cite[s.~423]{Pedrotti2017}. I dette projekt er særligt radiant flux, irradians og responsivitet relevante. Radiant flux $\Phi_e$ beskriver den samlede optiske effekt i watt. Irradians $E_e$ beskriver den optiske effekt per areal på en overflade:
@@ -603,11 +605,11 @@ Fotodiode
     \label{fig:PD_ingen_bias_TIA}
 \end{figure}
 
-Når lys rammer i eller nær depletion region i fotodioden, dannes elektron-hul par. Elektronerne drives mod n-siden (katoden), mens hullerne drives mod p-siden (anoden), dette svarer til en konventionel fotostrøm internt i fotodioden fra katode mod anode. I den anvendte TIA-konfiguration er fotodiodens anode forbundet til jord, mens katoden er forbundet til operationsforstærkerens inverterende indgang. Den lysgenererede strøm trækker derfor konventionel strøm fra summeknuden ved $−in$, gennem fotodioden og videre til GND.
+Når lys rammer i eller nær depletion region i fotodioden, dannes elektron-hul par. Elektronerne drives mod n-siden, katoden, mens hullerne drives mod p-siden, anoden. Det svarer til en konventionel fotostrøm internt i fotodioden fra katode mod anode. I den anvendte TIA-konfiguration er fotodiodens anode forbundet til jord, mens katoden er forbundet til operationsforstærkerens inverterende indgang. Den lysgenererede strøm trækker derfor konventionel strøm fra summeknuden ved den inverterende indgang, gennem fotodioden og videre til GND.
 
 Operationsforstærkeren regulerer sin udgangsspænding således, at spændingsforskellen mellem de to indgange bliver approksimativt nul, dvs. $V_- \approx V_+$. Da den ikke-inverterende indgang er jordet, holdes den inverterende indgang derfor også tæt på \SI{0}{V} (virtuel jord). Når fotodioden trækker strøm ud af summeknuden, øger operationsforstærkeren $V_{out}$, så der sendes en tilsvarende kompenserende strøm gennem feedback-modstanden $R_f$ ind i summeknuden. Herved opretholdes $V_- \approx0$, samtidig med at fotostrømmen omsættes til en udgangsspænding. 
 
-Den fysiske fotostrøm betegnes her $I_{\text{ph}}$ og løber internt i fotodioden fra katode mod anode. I den anvendte orientering betyder det, at strøm trækkes ud af summeknuden ved op-ampens inverterende indgang. Hvis inputstrømmen til TIA'en defineres som positiv ind i summeknuden, fås derfor $I_{\mathrm{in}}=-I_{\mathrm{ph}}$. TIA'ens standardrelation er:
+Fotostrømmen betegnes her $I_{\mathrm{ph}}$ og defineres som konventionel strøm fra katode mod anode. I den anvendte orientering betyder det, at strøm trækkes ud af summeknuden ved op-ampens inverterende indgang. Hvis inputstrømmen til TIA'en defineres som positiv ind i summeknuden, fås derfor $I_{\mathrm{in}}=-I_{\mathrm{ph}}$. TIA'ens standardrelation er:
 \begin{equation}
     V_{out}=-I_{\mathrm{in}}R_f
 \end{equation}
@@ -626,11 +628,11 @@ Herunder er en række relevante parametre:
 
 Det effektive fotosensitive areal er det totale brugbare areal, som en fotodiode kan opfange fotoner på. Dette område betegnes ofte som fotodiodens optiske vindue \cite[s.~388]{Pedrotti2017}. Den relevante optiske parameter for det indkommende lys er irradians:
 \begin{equation}
-    E_e \left[\frac{W}{\text{m}^2}\right]= \frac{P_{opt}}{A} 
+    E_e \left[\frac{W}{\text{m}^2}\right]= \frac{\Phi_{\mathrm{opt}}}{A} 
 \end{equation}
 og med effekten isoleret:
 \begin{equation}
-    \Phi_{PD} \approx E_e A_{PD}
+    \Phi_{\mathrm{PD}} \approx E_e A_{\mathrm{PD}}
 \end{equation}
 
     \item Responsivitet
@@ -638,7 +640,7 @@ og med effekten isoleret:
 Responsiviteten $R_{\lambda}$ angiver forholdet mellem fotostrøm og indfaldende optisk effekt ved en given bølgelængde. Den hænger sammen med fotodiodens kvanteeffektivitet, dvs. hvor stor en andel af de indfaldende fotoner der giver anledning til opsamlede ladningsbærere \cite[s.~390]{Pedrotti2017}.
 
 \begin{equation}
-    I_{PD} = R_{\lambda}\Phi_{\text{PD}}
+    I_{\mathrm{PD}} = R_{\lambda}\Phi_{\mathrm{PD}}
 \end{equation}
 Materialerne som fotodioderne er opbygget af, har direkte effekt på responsiviteten af fotodioderne. I tabel \ref{tab:spektralrespons} ses nogle eksempler på grundstoffer og sammensatte grundstoffer som udgør størstedelen af konstruktion i fotodioder og deres typiske spektrale detektionsområde. 
 
@@ -717,7 +719,13 @@ For at digitalisere et analogt signal kræves en analog-til-digital konvertering
 
 Overtrædes dette, opstår aliasing, hvor høje frekvenser fejlaflæses som lave frekvenser og forurener det rekonstruerede signal.
 
-Det pulsatile PPG-signal følger hjertets frekvens, typisk \SIrange{0.5}{2}{Hz} svarende til 30 til 120 slag per minut \cite{Allen2007,Ruberry2025}. Systemet anvender tidsmultipleksing med tre tilstande (\SI{660}{nm}, \SI{940}{nm} og mørke), kørt med en samplingfrekvens, sat på baggrund af det brugte udstyr, f.eks. \SI{20}{kHz}. Hver kanal samples dermed med $\frac{20000}{3} \approx 6666 \ \text{Hz}$, hvilket er langt over Nyquist-grænsen for PPG-signalet og giver god tidsopløsning af pulsformen.
+Det pulsatile PPG-signal følger hjertets frekvens, typisk \SIrange{0.5}{2}{Hz} svarende til 30 til 120 slag per minut \cite{Allen2007,Ruberry2025}. I dette system skal der skelnes mellem ADC'ens rå samplingfrekvens og den effektive målefrekvens efter tidsdemultipleksering. AD3'en sampler den analoge spænding kontinuerligt med \SI{20}{kHz}, hvilket giver mange rå samples inden for hvert \SI{40}{ms}-målevindue. Disse samples midles derefter til en enkelt værdi for den aktuelle fase.
+
+Efter demultipleksering fås en separat tidsserie for hver måletype, hvor samme måling kun optræder en gang per komplet målecyklus. Da en cyklus består af tre faser og varer \SI{135}{ms}, bliver den effektive samplingfrekvens for hver demultiplekset tidsserie
+\begin{equation}
+    f_{\mathrm{serie}} = \frac{1}{\SI{135}{ms}} \approx \SI{7.41}{Hz}.
+\end{equation}
+Det er denne målefrekvens, ikke $\SI{20}{kHz}/3$, der er relevant for Nyquist-vurderingen af det rekonstruerede PPG-signal. Nyquist-frekvensen bliver derfor cirka \SI{3.7}{Hz}, hvilket ligger over det forventede pulsinterval i dette projekt.
 
 \subsection{Filtrering}
 \label{sec:filtrering}
@@ -737,10 +745,10 @@ I det digitale domæne kan signalet behandles yderligere med software-filtrering
 
 Støj i en fotodetektionskæde stammer fra flere uafhængige bidrag, som tilsammen begrænser den minimalt detekterbare effekt.
 
-\paragraph{Fotonstøj (shot noise).} Den lysgenererede fotostrøm $I_{pd}$ består af diskrete ladningsbærere og er derfor forbundet med statistiske fluktuationer. 
+\paragraph{Fotonstøj (shot noise).} Den lysgenererede fotostrøm $I_{\mathrm{PD}}$ består af diskrete ladningsbærere og er derfor forbundet med statistiske fluktuationer. 
 Den RMS-støjstrøm er:
 \begin{equation}
-    i_{shot} = \sqrt{2 e I_{pd} B}
+    i_{\mathrm{shot}} = \sqrt{2 e I_{\mathrm{PD}} B}
     \label{eq:shot_noise}
 \end{equation}
 hvor $e$ er elementarladningen og $B$ er båndbredden. Shot noise er i princippet uundgåeligt og sætter en fundamental grænse for renheden af ens signal.
@@ -748,7 +756,7 @@ hvor $e$ er elementarladningen og $B$ er båndbredden. Shot noise er i princippe
 \paragraph{Termisk støj (Johnson-Nyquist).} Feedback-modstanden $R_f$ i TIA'en 
 genererer termisk støj med en spektral støjspænding:
 \begin{equation}
-    v_{Johnson} = \sqrt{4 k_B T R_f B}
+    v_{\mathrm{Johnson}} = \sqrt{4 k_B T R_f B}
     \label{eq:johnson_noise}
 \end{equation}
 hvor $k_B$ er Boltzmanns konstant og $T$ er temperaturen i kelvin. En høj $R_f$ giver stort gain men øger også den termiske støj.

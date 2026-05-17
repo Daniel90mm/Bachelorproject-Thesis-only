@@ -40,7 +40,7 @@ Dataopsamling & Analog Discovery 3 & Styring og signalopsamling \\
 \subsection{Måleprotokol} 
 Målingerne blev udført siddende, loftbelysning slukket og så stille som muligt, hurtige eller dybe vejrtrækninger blev undgået. Målingen blev udført over et minut, med en indledende start-up-forsinkelse på \SI{15}{s}, så forsøgspersonen kunne nå at placere fingeren stabilt i hylsteret før dataopsamlingen begyndte.
 
-Derefter blev systemet kørt i \SI{10}{s} før dataopsamling for at lade LED-driver, analogkæde og softwaresekvens stabilisere sig. Til sidst blev der udført en minutlang måling med en multipleksingsfrekvens på \SI{7.41}{Hz}.
+Derefter blev systemet kørt i \SI{10}{s} før dataopsamling for at lade LED-driver, analogkæde og softwaresekvens stabilisere sig. Til sidst blev der udført en minutlang måling med en effektiv målefrekvens på \SI{7.41}{Hz}.
 
 \paragraph{Frekvensvalg.} For at midle en ren \SI{50}{Hz}-komponent mod nul uafhængigt af fase skal målevinduet dække et helt antal netperioder. Ved \SI{50}{Hz} er perioden \SI{20}{ms}, og et vindue på \SI{40}{ms} svarer derfor til to hele perioder.
 
@@ -48,9 +48,9 @@ Hver målecyklus bestod af tre faser: \SI{660}{nm}-LED tændt, \SI{940}{nm}-LED 
 \begin{equation}
     T_{\mathrm{cyklus}} = 3 \cdot (\SI{5}{ms}+\SI{40}{ms}) = \SI{135}{ms},
 \end{equation}
-svarende til en kanalrate på
+svarende til en effektiv målefrekvens på
 \begin{equation}
-    f_{\mathrm{kanal}} = \frac{1}{T_{\mathrm{cyklus}}} \approx \SI{7.41}{Hz}
+    f_{\mathrm{serie}} = \frac{1}{T_{\mathrm{cyklus}}} \approx \SI{7.41}{Hz}
 \end{equation}
 
 Nyquist-kriteriet skal også overholdes, og da:
@@ -65,7 +65,7 @@ dækkes \SI{2}{Hz} komfortabelt.
 
 Frekvensen var desuden valgt ud fra antagelsen om, at en ren sinusformet \SI{50}{Hz}-komponent får nul middelværdi, når middelværdien tages over et helt antal perioder. Dette gælder ikke generelt for \SI{10}{ms} eller \SI{5}{ms}, da disse vinduer kun dækker henholdsvis en halv og en kvart periode og derfor stadig afhænger af den ukendte fase.
 
-Denne kanalrate er markant lavere end i mange kommercielle pulsoximetre, hvor LED-skift ofte ligger i størrelsesordenen flere hundrede hertz \cite[s.~61]{Webster1997}. I dette projekt blev den lavere frekvens valgt som et bevidst prototypekompromis. De lange \SI{40}{ms}-målevinduer gav midling over et heltalligt antal \SI{50}{Hz}-perioder og dermed robust undertrykkelse af netstøj, men reducerede samtidig den tidslige opløsning og gjorde målingen mere følsom over for bevægelse eller fysiologiske ændringer mellem kanalerne.
+Denne målefrekvens er markant lavere end i mange kommercielle pulsoximetre, hvor LED-skift ofte ligger i størrelsesordenen flere hundrede hertz \cite[s.~61]{Webster1997}. I dette projekt blev den lavere frekvens valgt som et bevidst prototypekompromis. De lange \SI{40}{ms}-målevinduer gav midling over et heltalligt antal \SI{50}{Hz}-perioder og dermed robust undertrykkelse af netstøj, men reducerede samtidig den tidslige opløsning og gjorde målingen mere følsom over for bevægelse eller fysiologiske ændringer mellem de to LED-målinger.
 
 Løsningen for attenuering af \SI{50}{Hz} støjen bygger som sagt på antagelsen om, at støjen kan modelleres som en sinusformet forstyrrelse med ukendt fase $\varphi$. Middelværdien over et tidsvindue $T$ er:
 
@@ -99,10 +99,10 @@ MOSFET'en fungerer som en low-side switch, så spændingsfaldet over den er rela
 \[V_{F,940} = \SI{1.35}{V} \qquad V_{F,660} = \SI{2}{V}\]
 Med disse komponentværdier drives de to LED'er ved:
 \begin{equation}
-    I_{660} = \frac{\SI{9}{V}-\SI{2}{V}}{\SI{470}{\ohm}} = \SI{14.9}{mA}
+    I_{\mathrm{LED},660} = \frac{\SI{9}{V}-\SI{2}{V}}{\SI{470}{\ohm}} = \SI{14.9}{mA}
 \end{equation}
 \begin{equation}
-    I_{940} = \frac{\SI{9}{V}-\SI{1.35}{V}}{\SI{470}{\ohm}} = \SI{16.3}{mA}
+    I_{\mathrm{LED},940} = \frac{\SI{9}{V}-\SI{1.35}{V}}{\SI{470}{\ohm}} = \SI{16.3}{mA}
 \end{equation}
 Det fulde LED-driverkredsløb kan ses i figur \ref{fig:led_driver_schematic} i appendiks.
 
@@ -127,11 +127,11 @@ Størrelsen af den tilsvarende inputstrøm kan estimeres fra TIA-relationen
 \]
 Med $R_f=\SI{2.21}{\mega\ohm}$ fås omtrent
 \[
-    |I_{940}|=\frac{\SI{0.9}{V}}{\SI{2.21}{\mega\ohm}}=\SI{0.41}{\micro\ampere},
+    |I_{\mathrm{PD},940}|=\frac{\SI{0.9}{V}}{\SI{2.21}{\mega\ohm}}=\SI{0.41}{\micro\ampere},
 \]
 og
 \[
-    |I_{660}|=\frac{\SI{0.5}{V}}{\SI{2.21}{\mega\ohm}}=\SI{0.23}{\micro\ampere}.
+    |I_{\mathrm{PD},660}|=\frac{\SI{0.5}{V}}{\SI{2.21}{\mega\ohm}}=\SI{0.23}{\micro\ampere}.
 \]
 Fotostrømmen i den analoge opstilling ligger dermed i størrelsesordenen \SIrange{0.2}{0.4}{\micro\ampere}.
 
@@ -202,10 +202,10 @@ Som producerer en gain på:
 Den ikke-inverterende forstærkning fungerede som det sidste stadie inden dataopsamling, og flyttede signalet ind i et område så ADC'ens dynamiske område blev udnyttet bedre.
 
 \subsection{Signalbehandling}
-Signalbehandlingen havde tre formål: demultipleksering af LED-kanalerne, estimering af puls og beregning af $\frac{AC}{DC}$-forhold til SpO$_2$-estimat.
+Signalbehandlingen havde tre formål: demultipleksering af LED-målingerne, estimering af puls og beregning af $\frac{AC}{DC}$-forhold til SpO$_2$-estimat.
 
 \paragraph{Tidsdemultipleksering.}
-Hver cyklus blev opdelt i tre faser: \SI{660}{nm}-LED tændt, \SI{940}{nm}-LED tændt og begge LED'er slukket. Hver fase bestod af \SI{5}{ms} settling efterfulgt af et \SI{40}{ms}-målevindue. Settlingperioden blev kasseret i analysen, mens prøverne i målevinduet blev midlet til en værdi for den pågældende fase. En komplet cyklus tog derfor \SI{135}{ms}, svarende til en effektiv kanalrate på \SI{7.41}{Hz}.
+Hver cyklus blev opdelt i tre faser: \SI{660}{nm}-LED tændt, \SI{940}{nm}-LED tændt og begge LED'er slukket. Hver fase bestod af \SI{5}{ms} settling efterfulgt af et \SI{40}{ms}-målevindue. Settlingperioden blev kasseret i analysen, mens prøverne i målevinduet blev midlet til en værdi for den pågældende fase. En komplet cyklus tog derfor \SI{135}{ms}, svarende til en effektiv målefrekvens på \SI{7.41}{Hz}.
 
 \paragraph{Pulsestimat.}
 I livevisningen blev pulsen estimeret med et glidende vindue på \SI{60}{s}. Da de analyserede optagelser varede \SI{60}{s}, svarer den endelige pulsværdi dog reelt til et estimat over hele målevinduet. Inden for vinduet fjernes en lineær trend (en ret linje fittes og trækkes fra), hvorved langsom drift i baseline ikke forstyrrer detektionen. Det trendfjernede signal glattes med et \SI{0.35}{s}-middelvindue, og \texttt{scipy.signal.find\_peaks} finder lokale toppe med en mindste afstand svarende til \SI{140}{BPM} og en prominens på 30\% af peak-to-peak. Prominensen er, hvor højt en top rager op over det laveste niveau før en endnu højere top, og forhindrer at små ripler tælles som selvstændige slag. Algoritmen kører på både toppe og dale, og det sæt med mindst spredning på interbeat-intervallerne (tiderne mellem efterfølgende slag) vælges. Pulsen rapporteres som $\frac{60}{\tilde{T}_{\text{IBI}}}$, og estimater med relativ spredning over 35\% eller uden for \SIrange{40}{140}{BPM} kasseres.
@@ -225,7 +225,7 @@ Python-koden til styring, visualisering og signalbehandling blev udviklet med st
 \subsection{Udledte parametre}
 Fra de demultipleksede og mørkekorrigerede signaler blev følgende parametre udledt:
 \begin{itemize}
-    \item $V_{660}(t)$ og $V_{940}(t)$: mørkekorrigerede tidsserier for de to LED-kanaler.
+    \item $V_{660}(t)$ og $V_{940}(t)$: mørkekorrigerede tidsserier for de to LED-målinger.
     \item $DC_{660}$ og $DC_{940}$: middelværdien af signalerne i analysevinduet.
     \item $AC_{660}$ og $AC_{940}$: pulsatile amplituder estimeret efter båndpasfiltrering.
     \item $R$: ratio-of-ratios beregnet som vist i ligning \ref{eq:ratio_of_ratios_signalbehandling}.
@@ -327,7 +327,7 @@ For hver bølgelængde blev der beregnet både median og gennemsnit af den mørk
     =
     \operatorname{median}_{ROI}
     \left[
-    I_{korr}(x,y,\lambda)
+    I_{\mathrm{korr}}(x,y,\lambda)
     \right]
 \end{equation}
 \begin{equation}
@@ -335,7 +335,7 @@ For hver bølgelængde blev der beregnet både median og gennemsnit af den mørk
     =
     \operatorname{mean}_{ROI}
     \left[
-    I_{korr}(x,y,\lambda)
+    I_{\mathrm{korr}}(x,y,\lambda)
     \right]
 \end{equation}
 
