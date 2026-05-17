@@ -86,7 +86,7 @@
     \small
     \begin{tabular}{@{}lrrrrr@{}}
         \toprule
-        LED & Nominel [nm] & Peak [nm] & Afvigelse [nm] & FWHM [nm] & Maks. int. [counts] \\
+        LED & Datablad [nm] & Peak [nm] & Afvigelse [nm] & FWHM [nm] & Maks. int. [counts] \\
         \midrule
         \SI{660}{nm} & 660 & 664.99 & 4.99 & 18.30 & 44.83 \\
         \SI{810}{nm} & 810 & 806.73 & -3.27 & 20.98 & 43.59 \\
@@ -115,19 +115,19 @@
 \begin{table}[!ht]
     \centering
     \scriptsize
-    \begin{tabular}{@{}lrrrrrrrr@{}}
+    \begin{tabular}{@{}lrrrrrrr@{}}
         \toprule
-        $\lambda$ & Stage [mm] & Output [counts/s] & Glo-bar [W/m$^2$] & L1 & L2 & L3 & LVF & QE \\
+        $\lambda$ & Stage [mm] & Glo-bar [W/m$^2$] & L1 & L2 & L3 & LVF & QE \\
         \midrule
-        \SI{800}{nm} & 5.880 & 1052.6 & 1.6630 & 0.9893 & 0.9885 & 0.9885 & 0.830 & 0.48 \\
-        \SI{810}{nm} & 5.284 & 1157.9 & 1.8314 & 0.9893 & 0.9873 & 0.9875 & 0.840 & 0.47 \\
-        \SI{820}{nm} & 4.688 & 1263.2 & 2.0042 & 0.9893 & 0.9865 & 0.9866 & 0.850 & 0.45 \\
-        \SI{930}{nm} & -1.871 & 2000.0 & 4.8737 & 0.9892 & 0.9730 & 0.9728 & 0.930 & 0.24 \\
-        \SI{940}{nm} & -2.467 & 1789.5 & 5.2153 & 0.9892 & 0.9715 & 0.9715 & 0.925 & 0.22 \\
-        \SI{950}{nm} & -3.063 & 1263.2 & 5.5886 & 0.9892 & 0.9700 & 0.9700 & 0.920 & 0.18 \\
+        \SI{800}{nm} & 5.880 & 1.6630 & 0.9893 & 0.9885 & 0.9885 & 0.830 & 0.48 \\
+        \SI{810}{nm} & 5.284 & 1.8314 & 0.9893 & 0.9873 & 0.9875 & 0.840 & 0.47 \\
+        \SI{820}{nm} & 4.688 & 2.0042 & 0.9893 & 0.9865 & 0.9866 & 0.850 & 0.45 \\
+        \SI{930}{nm} & -1.871 & 4.8737 & 0.9892 & 0.9730 & 0.9728 & 0.930 & 0.24 \\
+        \SI{940}{nm} & -2.467 & 5.2153 & 0.9892 & 0.9715 & 0.9715 & 0.925 & 0.22 \\
+        \SI{950}{nm} & -3.063 & 5.5886 & 0.9892 & 0.9700 & 0.9700 & 0.920 & 0.18 \\
         \bottomrule
     \end{tabular}
-    \caption{Spektrale korrektionsfaktorer anvendt til hyperspektral korrektion. L1--L3 betegner de tre linsetransmissioner, LVF betegner filtertransmissionen, og QE betegner kameraets kvanteeffektivitet.}
+    \caption{Stageposition og spektrale korrektionsled anvendt til hyperspektral korrektion. L1--L3 betegner de tre linsetransmissioner, LVF betegner filtertransmissionen, og QE betegner kameraets kvanteeffektivitet.}
     \label{tab:hyperspectral_correction}
 \end{table}
 
@@ -144,8 +144,6 @@
     \caption{LED driver skema}
     \label{fig:led_driver_schematic}
 \end{figure}
-
-
 
 
 

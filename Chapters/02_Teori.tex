@@ -4,10 +4,10 @@
 \section{Pulsoximetri}
 Pulsoximetri er en ikke-invasiv målemetode til bestemmelse af iltmætningen i arterielt blod. Metoden udnytter forskelle i lysabsorption mellem iltet hæmoglobin ($\text{HbO}_2$) og uiltet hæmoglobin ($\text{Hb}$) ved to forskellige bølgelængder af lys, typisk \SI{660}{nm} (rød) og \SI{940}{nm} (nær infrarød). Da målingen oftest foretages perifert, f.eks.\ på fingeren, betegnes resultatet $\text{SpO}_2$, og repræsenterer ikke nødvendigvis iltmætningen i hele kredsløbet. Det er derfor nødvendigt at skelne mellem flere kliniske parametre af ilt \cite{Webster1997,Nitzan2014}.
 
-Hæmoglobin er det iltbærende protein i de røde blodlegemer. Hvert hæmoglobinmolekyle indeholder fire hæmgrupper, som hver kan binde ét iltmolekyle reversibelt. Når ilt er bundet, betegnes molekylet oxyhæmoglobin ($\text{HbO}_2$), mens hæmoglobin uden bundet ilt betegnes deoxyhæmoglobin eller uiltet hæmoglobin ($\text{Hb}$). Det er forskellen i disse to formers optiske absorption, der gør pulsoximetri mulig \cite{Webster1997,Nitzan2014}.
+Hæmoglobin er det iltbærende protein i de røde blodlegemer. Hvert hæmoglobinmolekyle indeholder fire hæmgrupper, som hver kan binde et iltmolekyle reversibelt. Når ilt er bundet, betegnes molekylet oxyhæmoglobin ($\text{HbO}_2$), mens hæmoglobin uden bundet ilt betegnes deoxyhæmoglobin eller uiltet hæmoglobin ($\text{Hb}$). Det er forskellen i disse to formers optiske absorption, der gør pulsoximetri mulig \cite{Webster1997,Nitzan2014}.
 
 \subsection{Kliniske ilt-parametre}
-Herunder er en oversigt over de vigtigste kliniske iltparametre \cite{Pltz1998,Nitzan2014, Webster1997, Mesquida2013}:
+Herunder er en oversigt over de vigtigste kliniske iltparametre \cite{Pltz1998,Nitzan2014,Webster1997,YossefHay2018}:
 
 \begin{description}
     \item[$\text{PaO}_2$ - Partialtryk af ilt i arterielt blod] \hfill
@@ -21,14 +21,14 @@ Herunder er en oversigt over de vigtigste kliniske iltparametre \cite{Pltz1998,N
     Beskriver andelen af hæmoglobin bundet til ilt i arterielt blod. \\
     Måles med blodgasanalyse.  \\
     Enhed: \%.  \\
-    Normal: $>$\,95\%.
+    Normal: ca.\ 94--98\,\% for raske voksne ved havniveau.
 
     \item[$\text{CaO}_2$ - Arterielt iltindhold] \hfill
     \\
     Det totale iltindhold i arterielt blod. \\
     Enhed: $\frac{\text{mL\,O}_2}{\text{dL\,blod}}$. \\
     Normal: ca.\ \SI{20}{mL\,O_2/dL}. \\
-    Beregnes ud fra:
+    Beregnes ud fra \cite[s.~2]{Pltz1998}:
     \begin{equation}
         \text{CaO}_2 = 1.36 \cdot [\text{Hb}] \cdot \text{SaO}_2 + 0.0031 \cdot \text{PaO}_2
         \label{eq:cao2}
@@ -49,7 +49,7 @@ Herunder er en oversigt over de vigtigste kliniske iltparametre \cite{Pltz1998,N
 \end{description}
 
 Blandt disse parametre betragtes $\text{SaO}_2$ som guldstandarden, idet den bestemmes præcist via blodgasanalyse. Blodgasanalyser kræver imidlertid en arteriel blodprøve med en kanyle ind i en arterie og er derfor invasive. \\ 
-$\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader kontinuerlig måling og er tilgængeligt til en lav pris i flere forbruger- og kliniske produkter. Den reducerede præcision opvejes af de praktiske fordele ved metoden, dog har begge produkter hver deres plads under udredning og overvågning af sundhed hos mennesker i hjem og hospital.
+$\text{SpO}_2$ er et ikke-invasivt estimat af $\text{SaO}_2$, som tillader kontinuerlig måling og er tilgængeligt til en lav pris i flere forbruger- og kliniske produkter. Hos kritisk syge voksne patienter kan forskellen mellem $\text{SpO}_2$ og $\text{SaO}_2$ dog være flere procentpoint, hvilket understreger at pulsoximetri ikke er identisk med blodgasbestemt arteriel iltmætning \cite[s.~2]{YossefHay2018}. Den reducerede præcision opvejes af de praktiske fordele ved metoden, dog har begge produkter hver deres plads under udredning og overvågning af sundhed hos mennesker i hjem og hospital.
 
 \subsection{Det fotoplethysmografiske signal}
 
@@ -157,6 +157,8 @@ absorption fra hæmoglobin og melanin, hvilket begrænser
 penetrationsdybden, mens absorption fra vand dominerer ved 
 bølgelængder over \SI{1000}{nm} \cite[Fig.~(10.3)]{Tuchin2015}.
 
+Ved overgangen mellem luft og væv opstår der desuden Fresnel-refleksion, fordi brydningsindekset ændrer sig ved grænsefladen \cite[s.~3]{Tuchin2015}. Dette bidrager til det samlede optiske tab og er en del af grunden til, at den målte transmission afhænger af både væv og målegeometri.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{Pictures/Graphs/extinction_spectra.pdf}
@@ -190,14 +192,14 @@ end NIR-lys ved \SI{940}{nm} fra rene Rayleigh-spredere. Dette forhold er et ide
 
 \paragraph{Mie-spredning} dominerer når partikelstørrelsen er sammenlignelig med eller større end bølgelængden, dette er relevant for celleorganeller, røde blodlegemer ($\sim$\SI{7}{\micro\meter}) og kollagenfibre \cite{DiezSilva2010} \cite[s.~4-6]{Tuchin2015}. Mie-spredning har en svagere bølgelængdeafhængighed end Rayleigh og er desuden overvejende fremadrettet, i modsætning til den tilnærmelsesvist symmetriske Rayleigh-spredning \cite[s. 13]{Tuchin2015}.
 
-\paragraph{Anisotropi.} Da de dominerende spredere i biologisk væv (celleorganeller, røde blodlegemer og kollagenfibre) alle falder i Mie-regimet, er vævsspredning som helhed ikke isotrop. Anisotropien kvantificeres med faktoren \cite{Jacques2013}:
+\paragraph{Anisotropi.} Da de dominerende spredere i biologisk væv (celleorganeller, røde blodlegemer og kollagenfibre) alle falder i Mie-regimet, er vævsspredning som helhed ikke isotrop. Anisotropien kvantificeres med faktoren \cite[s.~13]{Tuchin2015}:
 \begin{equation}
     g = \langle \cos \theta \rangle
     \label{eq:anisotropy}
 \end{equation}
 hvor $\langle \cdot \rangle$ betegner forventningsværdien over 
 alle spredningshændelser, og $\theta$ er spredningsvinklen 
-i forhold til indfaldsretningen. Værdien $g = 0$ svarer til isotropisk spredning, $g = 1$ til fuld fremadspredning og $g = -1$ til fuld tilbagespredning. Dette kan visualiseres i figur \ref{fig:anisotropi}:
+i forhold til indfaldsretningen. Værdien $g = 0$ svarer til isotropisk spredning, $g = 1$ til fuld fremadspredning og $g = -1$ til fuld tilbagespredning \cite[s.~13]{Tuchin2015}. Dette kan visualiseres i figur \ref{fig:anisotropi}:
 
 \begin{figure}[htbp]
     \centering
@@ -325,7 +327,7 @@ Ligning \ref{eq:ln_ratio_simplified} skrives for begge bølgelængder (\SI{660}{
 Tilnærmelsen $\ln(I_S/I_D) \approx AC/DC$ gælder da AC komponentens amplitude er lille i forhold til DC niveauet. I en idealiseret model er $R$ primært bestemt af de relative absorptionsforskelle mellem de to bølgelængder. I praksis påvirkes $R$ også af bølgelængdeafhængig spredning, forskellige effektive optiske vejlængder og sensorens geometri.
 
 \subsection{Empirisk kalibrering}
-Teoretisk kan $\text{SpO}_2$ udledes analytisk fra $R$ ved hjælp af kendte absorptionskoefficienter. I praksis er de forenklende antagelser (bl.a.\ $G_D \approx G_S$, samt neglekt af spredningens bølgelængdeafhængighed) ikke fuldstændigt opfyldt. Derfor kalibreres forholdet mellem $R$ og $\text{SpO}_2$ empirisk ved at sammenligne pulsoximetriske målinger med samtidige blodgasanalyser ($\text{SaO}_2$) på frivillige forsøgspersoner. Den resulterende kalibreringskurve tilnærmes typisk med et lineært udtryk \cite[s. (15)]{Kyriacou2005}:
+Teoretisk kan $\text{SpO}_2$ udledes analytisk fra $R$ ved hjælp af kendte absorptionskoefficienter. I praksis er de forenklende antagelser (bl.a.\ $G_D \approx G_S$, samt neglekt af spredningens bølgelængdeafhængighed) ikke fuldstændigt opfyldt. Derfor kalibreres forholdet mellem $R$ og $\text{SpO}_2$ empirisk ved at sammenligne pulsoximetriske målinger med samtidige blodgasanalyser ($\text{SaO}_2$) på frivillige forsøgspersoner. Den resulterende kalibreringskurve kan i en simpel model tilnærmes med et lineært udtryk \cite{Webster1997}:
 \begin{equation}
     \text{SpO}_2 = a - b \cdot R
     \label{eq:spo2_calibration}
@@ -558,7 +560,7 @@ Ved at læse et datasheet for en LED, kan man få nyttig information som peak-b�
 Højere kvalitets LED'er har også et eller flere lag mellem n-type og p-type, kaldet for "quantum wells" eller "multiple quantum wells" (MQW), disse forbedrer effektiviteten af en LED, og tillader for højere strømstyrke end gængse LEDer.
 
 \section{Radiometri}
-Radiometri beskriver kvantificering af elektromagnetisk stråling i fysiske enheder. I dette projekt er særligt radiant flux, irradians og responsivitet relevante. Radiant flux $\Phi_e$ beskriver den samlede optiske effekt i watt. Irradians $E_e$ beskriver den optiske effekt per areal på en overflade:
+Radiometri beskriver kvantificering af elektromagnetisk stråling i fysiske enheder. Centrale radiometriske størrelser omfatter radiant flux, irradiance, radiance og radiant exitance \cite[s.~423]{Pedrotti2017}. I dette projekt er særligt radiant flux, irradians og responsivitet relevante. Radiant flux $\Phi_e$ beskriver den samlede optiske effekt i watt. Irradians $E_e$ beskriver den optiske effekt per areal på en overflade:
 \begin{equation}
     E_e=\frac{\Phi_e}{A}.
 \end{equation}
@@ -628,7 +630,7 @@ Herunder er en række relevante parametre:
 \begin{itemize}
     \item Effektive fotosensitive areal
 
-Det effektive fotosensitive areal, er det totale brugbare areal som en fotodiode kan opfange fotoner på.  Den relevante optiske parameter for det indkommende lys er irradians:
+Det effektive fotosensitive areal er det totale brugbare areal, som en fotodiode kan opfange fotoner på. Dette område betegnes ofte som fotodiodens optiske vindue \cite[s.~388]{Pedrotti2017}. Den relevante optiske parameter for det indkommende lys er irradians:
 \begin{equation}
     E_e \left[\frac{W}{\text{m}^2}\right]= \frac{P_{opt}}{A} 
 \end{equation}
@@ -639,7 +641,7 @@ og med effekten isoleret:
 
     \item Responsivitet
 
-Responsiviteten $R_{\lambda}$ angiver forholdet mellem fotostrøm og indfaldende optisk effekt ved en given bølgelængde. 
+Responsiviteten $R_{\lambda}$ angiver forholdet mellem fotostrøm og indfaldende optisk effekt ved en given bølgelængde. Den hænger sammen med fotodiodens kvanteeffektivitet, dvs. hvor stor en andel af de indfaldende fotoner der giver anledning til opsamlede ladningsbærere \cite[s.~390]{Pedrotti2017}.
 
 \begin{equation}
     I_{PD} = R_{\lambda}\Phi_{\text{PD}}
@@ -680,6 +682,8 @@ Mørkestrøm er den strøm, der løber i fotodioden uden belysning. Den bidrager
     \item Terminal kapacitans
 
 Terminalkapacitansen påvirker TIA’ens stabilitet og båndbredde. En større kapacitans ved den inverterende indgang kan reducere fase-margenen og kræver ofte en feedback kondensator $C_f$ parallelt med $R_f$.
+
+P-i-n-fotodioder anvender et intrinsic område mellem p- og n-regionen, hvilket kan give lavere kapacitans og hurtigere respons end en simpel pn-fotodiode \cite[s.~389]{Pedrotti2017}.
 
 \end{itemize}
 

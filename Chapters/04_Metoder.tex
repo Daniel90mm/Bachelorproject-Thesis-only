@@ -140,27 +140,33 @@ Lavpasfilteret er et andenordens Sallen-Key filter med følgende komponentværdi
 \begin{itemize}
     \item To modstande på \SI{1}{\mega\ohm}
     \item To kondensatorer på \SI{1}{\nano\farad}
-    \item $f_{\text{knæk}} = \dfrac{1}{2\pi RC} \approx \SI{159}{Hz}$
+    \item Beregnet \SI{-3}{dB}-knækfrekvens $f_{\text{knæk}} \approx \SI{102}{Hz}$
 \end{itemize}
 
-Knækfrekvensen på \SI{159}{Hz} er bevidst placeret over PPG-signalets nyttige
+Knækfrekvensen omkring \SI{100}{Hz} er bevidst placeret over PPG-signalets nyttige
 båndbredde, men lavt nok til at begrænse den samlede støjbåndbredde i signalkæden inden sampling. Filteret har to primære funktioner:
 
 \begin{enumerate}
     \item Anti-aliasering for AD3'ens sampling. AD3'en sampler kontinuerligt under hver \SI{40}{ms}-LED-fase ved \SI{20}{kHz}, og prøverne midles efterfølgende til en værdi per fase. LPF'en bidrager til at dæmpe højfrekvent indhold over Nyquist-frekvensen på \SI{10}{kHz} inden digitalisering.
 
-Med en knækfrekvens på \SI{159}{Hz} og en hældning på \SI{-40}{dB/dekade} er dæmpningen ved \SI{10}{kHz} på størrelsesordenen $10^{-4}$, hvilket reducerer risikoen for aliasering af højfrekvent støj.
+Med en knækfrekvens omkring \SI{100}{Hz} og en hældning på \SI{-40}{dB/dekade} er dæmpningen ved \SI{10}{kHz} på størrelsesordenen $10^{-4}$, hvilket reducerer risikoen for aliasering af højfrekvent støj.
 
     \item Dæmpning af bredspektret højfrekvent støj. Elektromagnetisk støj fra omkringliggende udstyr (skærme, strømforsyninger, switching-elektronik) kan koble ind på JST-XH-kablingen og fotodiodens ledninger. Disse bidrag dæmpes effektivt af filteret.
 \end{enumerate}
 
 Den efterfølgende midling af samples inden for hver \SI{40}{ms}-LED-fase udgør et lavpasfilter. Det første nul ligger ved $\frac{1}{T_{\text{fase}}} = \SI{25}{Hz}$, og \SI{50}{Hz} falder nær det andet nul. Midlingen undertrykker derfor \SI{50}{Hz}-støj fra elnettet markant, hvilket forklarer hvorfor analog \SI{50}{Hz}-filtrering ikke er nødvendig i signalkæden.
 
-Filteret er et andenordens Sallen-Key lavpasfilter i unity-gain-konfiguration ($K=1$) med $R_1=R_2=R$ og $C_1=C_2=C$. Knækfrekvensen er givet ved $f_c = 1/(2\pi R C) \approx \SI{159}{Hz}$, og kvalitetsfaktoren bliver $Q = 1/(3-K) = 0.5$ \parencite{Karki2002}. Filteret er dermed overdæmpet i forhold til en Butterworth-respons ($Q = 1/\sqrt{2} \approx 0.707$), hvilket giver et blødere knæk og en \SI{-3}{dB}-frekvens lavere end $f_c$.
+Filteret er et andenordens Sallen-Key lavpasfilter i unity-gain-konfiguration ($K=1$) med $R_1=R_2=R$ og $C_1=C_2=C$. For denne konfiguration bliver kvalitetsfaktoren $Q = 1/(3-K) = 0.5$ \parencite{Karki2002}. Filteret er dermed overdæmpet i forhold til en Butterworth-respons ($Q = 1/\sqrt{2} \approx 0.707$), hvilket giver et blødere knæk. Når knækfrekvensen defineres som \SI{-3}{dB}-punktet, fås:
+\begin{equation}
+    f_{\text{knæk}} =
+    \frac{\sqrt{\sqrt{2}-1}}{2\pi R C}
+    \approx \SI{102}{Hz}.
+\end{equation}
 
 Magnituden ved en given frekvens kan beregnes som:
 \begin{equation}
-    |H(f)| = \frac{K}{\sqrt{\left[1 - (f/f_c)^2\right]^2 + \left[(3-K)(f/f_c)\right]^2}}
+    |H(f)| =
+    \frac{1}{\sqrt{\left[1 - (2\pi f R C)^2\right]^2 + \left[2(2\pi f R C)\right]^2}}
 \end{equation}
 
 Ved \SI{50}{Hz} fås $|H(\SI{50}{Hz})| \approx 0.91$, dvs.\ en dæmpning på ca.\ \SI{0.8}{dB}. Lavpasfilteret undertrykker derfor kun \SI{50}{Hz}-støj marginalt. Den dominerende attenuering kommer fra software-midlingen over heltallige perioder af nettet, jf.\ ligning \ref{eq:midling_50Hz_integral} til \ref{eq:midling_50Hz_cos}.
@@ -402,7 +408,7 @@ Den hyperspektrale opstilling havde flere metodiske begrænsninger:
 
     \item LVF'et dækkede ikke \SI{660}{nm}. Den røde pulsoximetrikanal kunne derfor ikke undersøges med denne opstilling. Den hyperspektrale opstilling blev primært anvendt til at sammenligne nærliggende NIR-bølgelængder omkring \SI{810}{nm} og \SI{940}{nm}.
 
-    \item Billederne blev behandlet som 8-bit data med pixelværdier fra 0 til 255. Denne kvantisering begrænser evnen til at opløse små relative intensitetsændringer, især hvis signalet ligger lavt i dynamikområdet. Et pulsatilt PPG-bidrag på \SIrange{1}{5}{\percent} kan eksempelvis være mindre end ét count ved lave pixelværdier og dermed blive skjult af afrunding eller støj. En højere bitdybde, eksempelvis 10-bit med 0--1023 counts, ville give finere intensitetsopløsning og kunne være relevant, hvis den hyperspektrale opstilling skulle bruges til tidsopløst AC-analyse. I dette projekt blev opstillingen dog anvendt til relativ spektral sammenligning og ikke til puls-synkroniseret PPG-måling.
+    \item Billederne blev behandlet som 8-bit data med pixelværdier fra 0 til 255. Denne kvantisering begrænser evnen til at opløse små relative intensitetsændringer, især hvis signalet ligger lavt i dynamikområdet. Et pulsatilt PPG-bidrag på \SIrange{1}{5}{\percent} kan eksempelvis være mindre end et count ved lave pixelværdier og dermed blive skjult af afrunding eller støj. En højere bitdybde, eksempelvis 10-bit med 0--1023 counts, ville give finere intensitetsopløsning og kunne være relevant, hvis den hyperspektrale opstilling skulle bruges til tidsopløst AC-analyse. I dette projekt blev opstillingen dog anvendt til relativ spektral sammenligning og ikke til puls-synkroniseret PPG-måling.
 
     \item Vignettering, små ændringer i fingerplacering og ufuldstændig reproducerbarhed af ROI-positionen kan påvirke de målte intensiteter. Disse effekter blev reduceret ved at anvende en fast central ROI, mørkekorrektion og normalisering til \SI{940}{nm}.
 \end{itemize}

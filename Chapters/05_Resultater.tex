@@ -109,12 +109,12 @@ Figur \ref{fig:gain_output} viser signalet efter det afsluttende gain-trin. Sign
 \end{figure}
 
 \paragraph{Frekvensrespons for filtertrin.}
-Figur \ref{fig:lpf_bode} viser den målte frekvensrespons for lavpasfilteret. Den målte \SI{-3}{dB}-frekvens lå tæt på den beregnede værdi, hvilket bekræfter at filtertrinnet havde den forventede båndbegrænsende funktion i signalkæden.
+Figur \ref{fig:lpf_bode} viser den målte frekvensrespons for lavpasfilteret. Den målte \SI{-3}{dB}-knækfrekvens lå omkring \SI{100}{Hz}, hvilket ligger tæt på den beregnede værdi på \SI{102}{Hz}. Dette bekræfter, at filtertrinnet havde den forventede båndbegrænsende funktion i signalkæden.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{Pictures/Graphs/lpf_bode_scope.pdf}
-    \caption{Karakterisering af lavpasfilter, knækfrekvens ses ved \SI{159}{Hz}.}
+    \caption{Karakterisering af lavpasfilter, hvor knækfrekvensen ses omkring \SI{100}{Hz}.}
     \label{fig:lpf_bode}
 \end{figure}
 Højpasfilteret blev ligeledes karakteriseret, men da DC-komponenten var nødvendig for beregning af AC/DC, blev HPF-trinnet ikke anvendt i den endelige SpO$_2$-analyse. Bode-plottet er derfor placeret i appendiks som dokumentation for det producerede filtertrin.
